@@ -10,8 +10,15 @@
   <ItemGroup>
     <Folder Include="Recources\" />
     <Folder Include="Services\" />
-    <Folder Include="ViewModels\" />
     <Folder Include="Views\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TechStore.BL\TechStore.BL.csproj" />
   </ItemGroup>
 
 </Project>
