@@ -1,17 +1,33 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Windows;
 
-namespace TechStore.UI
+namespace TechStore.UI;
+
+public partial class App : Application
 {
-    /// <summary>
-    /// Interaction logic for App.xaml
-    /// </summary>
-    public partial class App : Application
+    private IServiceProvider _serviceProvider;
+
+    public App()
     {
+        var serviceCollection = CreateServiceCollection();
+
+        _serviceProvider = serviceCollection.BuildServiceProvider();
+        _serviceProvider.GetRequiredService<MainView>().ShowDialog();
+    }
+
+    private ServiceCollection CreateServiceCollection()
+    {
+        var serviceCollection = new ServiceCollection();
+
+        serviceCollection.SetupViews();
+        serviceCollection.SetupPages();
+
+        return serviceCollection;
+    }
+
+    protected override void OnStartup(StartupEventArgs e)
+    {
+        base.OnStartup(e);
     }
 }
