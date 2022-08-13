@@ -5,7 +5,6 @@ using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using TechStore.UI.ViewModels;
-using TechStore.UI.ViewModels.PageViewModels;
 
 namespace TechStore.UI;
 
@@ -25,7 +24,7 @@ internal static class IocExtensions
     {
         var viewModels = Assembly.GetExecutingAssembly()
             .GetTypes()
-            .Where(type => IsPageViewModel(type) || IsPage(type))
+            .Where(type => IsPage(type))
             .ToList();
 
         viewModels.ForEach(vm => services.AddTransient(vm));
@@ -36,9 +35,6 @@ internal static class IocExtensions
 
     private static bool IsView(Type objectType)
         => objectType.IsSubclassOf(typeof(Window));
-
-    private static bool IsPageViewModel(Type objectType)
-        => objectType.IsSubclassOf(typeof(BasePageViewModel));
 
     private static bool IsPage(Type objectType)
         => objectType.IsSubclassOf(typeof(Page));

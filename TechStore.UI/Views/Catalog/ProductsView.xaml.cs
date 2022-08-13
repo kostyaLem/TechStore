@@ -10,17 +10,16 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace TechStore.UI
+namespace TechStore.UI.Views.Catalog
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for ProductsView.xaml
     /// </summary>
-    public partial class MainView : Window
+    public partial class ProductsView : Window
     {
-        public MainView()
+        public ProductsView()
         {
             InitializeComponent();
         }
