@@ -5,6 +5,7 @@ public class Product
     public Product()
     {
         Images = new HashSet<StoredImage>();
+        OrderProducts = new HashSet<OrderProduct>();
     }
 
     public int Id { get; set; }
@@ -15,4 +16,5 @@ public class Product
 
     public virtual Category Category { get; set; }
     public virtual ICollection<StoredImage> Images { get; set; }
+    public virtual ICollection<OrderProduct> OrderProducts { get; set; }
 }
