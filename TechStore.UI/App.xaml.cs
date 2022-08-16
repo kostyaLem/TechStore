@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Windows;
+using TechStore.UI.Views;
 
 namespace TechStore.UI;
 
