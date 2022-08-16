@@ -3,6 +3,6 @@
 public class StoredImage
 {
     public int Id { get; set; }
-    public int Title { get; set; }
+    public string Title { get; set; }
     public byte[] Image { get; set; }
 }
