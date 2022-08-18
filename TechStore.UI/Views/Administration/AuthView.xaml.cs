@@ -1,27 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+﻿using HandyControl.Controls;
+using TechStore.UI.ViewModels;
 
 namespace TechStore.UI.Views.Administration
 {
     /// <summary>
     /// Interaction logic for AuthView.xaml
     /// </summary>
-    public partial class AuthView : Window
+    public partial class AuthView : GlowWindow
     {
-        public AuthView()
+        public AuthView(AuthViewModel authViewModel)
         {
             InitializeComponent();
+            DataContext = authViewModel;
         }
     }
 }

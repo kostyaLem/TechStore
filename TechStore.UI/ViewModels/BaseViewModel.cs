@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace TechStore.UI.ViewModels;
 
-namespace TechStore.UI.ViewModels
+public abstract class BaseViewModel
 {
-    public class BaseViewModel
-    {
-
-    }
+    public virtual string Title { get; }
 }

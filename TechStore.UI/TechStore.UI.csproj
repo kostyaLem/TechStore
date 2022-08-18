@@ -19,11 +19,20 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Images\Logo.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="HandyControls" Version="3.4.1" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\TechStore.BL\TechStore.BL.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Images\Logo.png" />
   </ItemGroup>
 
 </Project>

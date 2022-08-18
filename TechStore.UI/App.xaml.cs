@@ -2,18 +2,17 @@
 using System;
 using System.Windows;
 using TechStore.BL;
-using TechStore.UI.Views;
+using TechStore.UI.Views.Administration;
 
 namespace TechStore.UI;
 
 public partial class App : Application
 {
-    private IServiceProvider _serviceProvider;
+    private readonly IServiceProvider _serviceProvider;
 
     public App()
     {
         _serviceProvider = CreateServiceCollection();
-        _serviceProvider.GetRequiredService<MainView>().ShowDialog();
     }
 
     private IServiceProvider CreateServiceCollection()
@@ -31,5 +30,6 @@ public partial class App : Application
     protected override void OnStartup(StartupEventArgs e)
     {
         base.OnStartup(e);
+        _serviceProvider.GetRequiredService<AuthView>().ShowDialog();
     }
 }
