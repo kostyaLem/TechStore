@@ -145,12 +145,12 @@ namespace TechStore.DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "User",
+                name: "Users",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Login = table.Column<int>(type: "int", nullable: false),
+                    Login = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Type = table.Column<int>(type: "int", nullable: false),
                     CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -160,9 +160,9 @@ namespace TechStore.DAL.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_User", x => x.Id);
+                    table.PrimaryKey("PK_Users", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_User_Employees_EmployeeId",
+                        name: "FK_Users_Employees_EmployeeId",
                         column: x => x.EmployeeId,
                         principalTable: "Employees",
                         principalColumn: "Id");
@@ -270,8 +270,8 @@ namespace TechStore.DAL.Migrations
                 column: "CreatedByEmployeeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_User_EmployeeId",
-                table: "User",
+                name: "IX_Users_EmployeeId",
+                table: "Users",
                 column: "EmployeeId",
                 unique: true,
                 filter: "[EmployeeId] IS NOT NULL");
@@ -289,7 +289,7 @@ namespace TechStore.DAL.Migrations
                 name: "PromoCodes");
 
             migrationBuilder.DropTable(
-                name: "User");
+                name: "Users");
 
             migrationBuilder.DropTable(
                 name: "Orders");

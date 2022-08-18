@@ -12,7 +12,7 @@ using TechStore.DAL.Context;
 namespace TechStore.DAL.Migrations
 {
     [DbContext(typeof(TechStoreContext))]
-    [Migration("20220816185840_Init")]
+    [Migration("20220818204627_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -280,8 +280,9 @@ namespace TechStore.DAL.Migrations
                     b.Property<DateTime>("LastActivity")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("Login")
-                        .HasColumnType("int");
+                    b.Property<string>("Login")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PasswordHash")
                         .IsRequired()
@@ -299,7 +300,7 @@ namespace TechStore.DAL.Migrations
                         .IsUnique()
                         .HasFilter("[EmployeeId] IS NOT NULL");
 
-                    b.ToTable("User");
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("ProductStoredImage", b =>

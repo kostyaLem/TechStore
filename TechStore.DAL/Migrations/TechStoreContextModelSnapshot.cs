@@ -278,8 +278,9 @@ namespace TechStore.DAL.Migrations
                     b.Property<DateTime>("LastActivity")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("Login")
-                        .HasColumnType("int");
+                    b.Property<string>("Login")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PasswordHash")
                         .IsRequired()
@@ -297,7 +298,7 @@ namespace TechStore.DAL.Migrations
                         .IsUnique()
                         .HasFilter("[EmployeeId] IS NOT NULL");
 
-                    b.ToTable("User");
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("ProductStoredImage", b =>

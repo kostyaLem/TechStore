@@ -8,8 +8,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Recources\" />
-    <Folder Include="Services\" />
+    <Compile Remove="Recources\**" />
+    <Compile Remove="Services\**" />
+    <EmbeddedResource Remove="Recources\**" />
+    <EmbeddedResource Remove="Services\**" />
+    <None Remove="Recources\**" />
+    <None Remove="Services\**" />
+    <Page Remove="Recources\**" />
+    <Page Remove="Services\**" />
   </ItemGroup>
 
   <ItemGroup>
