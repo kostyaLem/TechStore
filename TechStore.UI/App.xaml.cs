@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Windows;
+using TechStore.BL;
 using TechStore.UI.Views;
 
 namespace TechStore.UI;
@@ -11,20 +12,20 @@ public partial class App : Application
 
     public App()
     {
-        var serviceCollection = CreateServiceCollection();
-
-        _serviceProvider = serviceCollection.BuildServiceProvider();
+        _serviceProvider = CreateServiceCollection();
         _serviceProvider.GetRequiredService<MainView>().ShowDialog();
     }
 
-    private ServiceCollection CreateServiceCollection()
+    private IServiceProvider CreateServiceCollection()
     {
         var serviceCollection = new ServiceCollection();
+
+        serviceCollection.AddServices();
 
         serviceCollection.SetupViews();
         serviceCollection.SetupPages();
 
-        return serviceCollection;
+        return serviceCollection.BuildServiceProvider();
     }
 
     protected override void OnStartup(StartupEventArgs e)
