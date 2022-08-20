@@ -1,5 +1,7 @@
-﻿using TechStore.BL.Mapping;
+﻿using TechStore.BL.Exceptions;
+using TechStore.BL.Mapping;
 using TechStore.BL.Models;
+using TechStore.DAL.Exceptions;
 using TechStore.DAL.Repositories;
 
 namespace TechStore.BL.Auth;
@@ -18,8 +20,19 @@ public class AuthorizationService
         _ = password ?? throw new ArgumentNullException(nameof(password));
 
         var passwordHash = PasswordGenerator.Generate(password);
-        var user = await _authRepository.Login(login, passwordHash);
 
-        return new(user.Login, UserTypeMapper.Map(user.UserType));
+        try
+        {
+            var user = await _authRepository.Login(login, passwordHash);
+            return new(user.Login, UserTypeMapper.Map(user.UserType));
+        }
+        catch (UserNotFoundException e)
+        {
+            throw new AuthorizeException();
+        }
+        catch (Exception)
+        {
+            throw;
+        }
     }
 }

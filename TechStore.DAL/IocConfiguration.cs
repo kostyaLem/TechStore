@@ -8,7 +8,12 @@ public static class IocConfiguration
 {
     public static void AddRepositories(this IServiceCollection serviceCollection)
     {
-        serviceCollection.AddDbContextFactory<TechStoreContext, TechStoreContextFactory>();
+        serviceCollection.AddTransient<TechStoreContextFactory>();
+        serviceCollection.AddTransient<TechStoreContext>(x =>
+        {
+            var factory = x.GetRequiredService<TechStoreContextFactory>();
+            return factory.CreateDbContext();
+        });
 
         serviceCollection.AddTransient<AuthorizationRepository>();
     }

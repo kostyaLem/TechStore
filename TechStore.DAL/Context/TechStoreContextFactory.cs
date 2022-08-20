@@ -3,8 +3,10 @@ using Microsoft.EntityFrameworkCore.Design;
 
 namespace TechStore.DAL.Context;
 
-internal class TechStoreContextFactory : IDbContextFactory<TechStoreContext>, IDesignTimeDbContextFactory<TechStoreContext>
+internal class TechStoreContextFactory : IDesignTimeDbContextFactory<TechStoreContext>
 {
+    public TechStoreContext CreateDbContext() => CreateDbContext(Array.Empty<string>());
+
     public TechStoreContext CreateDbContext(string[] args)
     {
         var optionsBuilder = new DbContextOptionsBuilder<TechStoreContext>();
@@ -12,7 +14,4 @@ internal class TechStoreContextFactory : IDbContextFactory<TechStoreContext>, ID
 
         return new TechStoreContext(optionsBuilder.Options);
     }
-
-    public TechStoreContext CreateDbContext()
-        => CreateDbContext(Array.Empty<string>());
 }

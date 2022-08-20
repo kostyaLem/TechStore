@@ -1,6 +1,8 @@
-﻿namespace TechStore.UI.ViewModels;
+﻿using DevExpress.Mvvm;
 
-public abstract class BaseViewModel
+namespace TechStore.UI.ViewModels;
+
+public abstract class BaseViewModel : ViewModelBase
 {
     public virtual string Title { get; }
 }

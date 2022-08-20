@@ -12,11 +12,39 @@
     ResizeMode="NoResize"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
+    <hc:GlowWindow.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVisability" />
+    </hc:GlowWindow.Resources>
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
             <ColumnDefinition Width="auto" />
         </Grid.ColumnDefinitions>
+
+        <Border
+            Grid.ColumnSpan="2"
+            Panel.ZIndex="10"
+            d:Visibility="Hidden"
+            Background="#33000000"
+            CornerRadius="10"
+            Visibility="{Binding Path=IsUploading, Converter={StaticResource BoolToVisability}}">
+            <hc:LoadingCircle Style="{StaticResource LoadingCircleLight}" />
+        </Border>
+
+        <Image Panel.ZIndex="0" Stretch="Uniform"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Bottom"
+            Source="{StaticResource BackLogoImage}" RenderTransformOrigin="0.5,0.5" Margin="-25,0,0,-29" Height="188" Width="189" >
+            <Image.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="-34.992"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Image.RenderTransform>
+        </Image>
 
         <Grid Grid.Column="0" Margin="30,20">
             <Grid.RowDefinitions>
@@ -35,7 +63,10 @@
                     Content="Логин"
                     FontSize="14"
                     FontWeight="DemiBold" />
-                <hc:TextBox hc:InfoElement.ShowClearButton="True" FontSize="12" />
+                <hc:TextBox
+                    hc:InfoElement.ShowClearButton="True"
+                    FontSize="12"
+                    Text="{Binding Login, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                 <Label
                     HorizontalAlignment="Left"
                     Background="Transparent"
@@ -44,6 +75,7 @@
                     FontSize="14"
                     FontWeight="DemiBold" />
                 <hc:PasswordBox
+                    x:Name="PswrdBox"
                     FontSize="12"
                     ShowClearButton="True"
                     ShowEyeButton="True" />
@@ -53,23 +85,11 @@
                 Grid.Row="2"
                 Width="110"
                 HorizontalAlignment="Right"
-                hc:BorderElement.CornerRadius="5"
+                Command="{Binding LoginCommand}"
+                CommandParameter="{Binding ElementName=PswrdBox}"
                 Content="Войти"
                 FontWeight="DemiBold"
-                Style="{StaticResource ButtonInfo}">
-                <Button.BorderBrush>
-                    <LinearGradientBrush EndPoint="1,0">
-                        <GradientStop Color="#FF00BCD4" />
-                        <GradientStop Offset="1" Color="#FF02466A" />
-                    </LinearGradientBrush>
-                </Button.BorderBrush>
-                <Button.Background>
-                    <LinearGradientBrush EndPoint="1,0">
-                        <GradientStop Color="#FF00BCD4" />
-                        <GradientStop Offset="1" Color="#FF02466A" />
-                    </LinearGradientBrush>
-                </Button.Background>
-            </Button>
+                Style="{StaticResource ButtonInfo}" />
         </Grid>
 
         <Image
