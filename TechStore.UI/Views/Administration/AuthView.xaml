@@ -8,7 +8,7 @@
     Title="{Binding Title}"
     Width="400"
     Height="250"
-    d:Title="TechStore | Авторизация"
+    d:Title="Авторизация"
     ResizeMode="NoResize"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
@@ -18,9 +18,25 @@
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition />
+            <ColumnDefinition Width="*" />
             <ColumnDefinition Width="auto" />
         </Grid.ColumnDefinitions>
+
+        <TextBlock
+            Grid.ColumnSpan="2"
+            Margin="-100,15,15,15"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Top"
+            FontFamily="Segoe Script"
+            FontSize="32"
+            FontWeight="Bold"
+            Foreground="White"
+            Text="Tech Store">
+            <TextBlock.Effect>
+                <DropShadowEffect Color="Black" />
+            </TextBlock.Effect>
+        </TextBlock>
+
 
         <Border
             Grid.ColumnSpan="2"
@@ -32,68 +48,66 @@
             <hc:LoadingCircle Style="{StaticResource LoadingCircleLight}" />
         </Border>
 
-        <Image Panel.ZIndex="0" Stretch="Uniform"
+        <Image
+            Width="183"
+            Height="328"
+            Margin="14,0,0,-28"
             HorizontalAlignment="Left"
             VerticalAlignment="Bottom"
-            Source="{StaticResource BackLogoImage}" RenderTransformOrigin="0.5,0.5" Margin="-25,0,0,-29" Height="188" Width="189" >
+            Panel.ZIndex="0"
+            RenderTransformOrigin="0.5,0.5"
+            Source="{StaticResource BackLogoImage}"
+            Stretch="Uniform">
             <Image.RenderTransform>
                 <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform/>
-                    <RotateTransform Angle="-34.992"/>
-                    <TranslateTransform/>
+                    <ScaleTransform />
+                    <SkewTransform />
+                    <RotateTransform Angle="-70.646" />
+                    <TranslateTransform />
                 </TransformGroup>
             </Image.RenderTransform>
         </Image>
 
-        <Grid Grid.Column="0" Margin="30,20">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="auto" />
-                <RowDefinition Height="80" />
-            </Grid.RowDefinitions>
+        <Grid Grid.Column="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="auto" />
+            </Grid.ColumnDefinitions>
 
-            <StackPanel
-                Grid.Row="0"
-                Width="190"
-                VerticalAlignment="Center">
-                <Label
-                    HorizontalAlignment="Left"
-                    Background="Transparent"
-                    BorderThickness="0"
-                    Content="Логин"
-                    FontSize="14"
-                    FontWeight="DemiBold" />
+            <StackPanel Grid.Column="0" VerticalAlignment="Center">
                 <hc:TextBox
+                    hc:BorderElement.CornerRadius="0,13,0,0"
+                    hc:InfoElement.Placeholder="Login"
                     hc:InfoElement.ShowClearButton="True"
+                    BorderThickness="0,1,1,1"
                     FontSize="12"
                     Text="{Binding Login, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                <Label
-                    HorizontalAlignment="Left"
-                    Background="Transparent"
-                    BorderThickness="0"
-                    Content="Пароль"
-                    FontSize="14"
-                    FontWeight="DemiBold" />
                 <hc:PasswordBox
                     x:Name="PswrdBox"
+                    hc:BorderElement.CornerRadius="0,0,13,0"
+                    hc:InfoElement.Placeholder="Password"
+                    BorderThickness="0,0,1,1"
                     FontSize="12"
                     ShowClearButton="True"
                     ShowEyeButton="True" />
             </StackPanel>
 
             <Button
-                Grid.Row="2"
-                Width="110"
-                HorizontalAlignment="Right"
+                Grid.Column="1"
+                BorderThickness="2"
+                Height="60"
+                Margin="5"
+                hc:BorderElement.CornerRadius="0,15,15,0"
+                hc:IconElement.Geometry="{DynamicResource RightGeometry}"
+                hc:IconElement.Height="15"
+                hc:IconElement.Width="15"
                 Command="{Binding LoginCommand}"
                 CommandParameter="{Binding ElementName=PswrdBox}"
-                Content="Войти"
-                FontWeight="DemiBold"
-                Style="{StaticResource ButtonInfo}" />
+                FontWeight="DemiBold" />
         </Grid>
 
         <Image
-            Grid.Column="1"
+            Grid.Column="2"
             Width="100"
             HorizontalAlignment="Right"
             Source="{StaticResource LogoImage}"

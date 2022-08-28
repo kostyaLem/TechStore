@@ -13,7 +13,7 @@ public class AuthViewModel : BaseViewModel
 {
     private readonly AuthorizationService _authService;
 
-    public override string Title => "TechStore | Авторизация";
+    public override string Title => "Авторизация";
 
     public string Login
     {
