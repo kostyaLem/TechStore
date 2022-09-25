@@ -10,6 +10,6 @@ public static class UserTypeMapper
         {
             DomainUserType.Admin => UserType.Admin,
             DomainUserType.Employee => UserType.Employee,
-            _ => throw new Exception("Unsupported user type.")
+            _ => throw new Exception($"Unsupported user type {userType}.")
         };
 }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using TechStore.DAL.Context;
 using TechStore.DAL.Repositories;
+using TechStore.DAL.Repositories.Interfaces;
 
 namespace TechStore.DAL;
 
@@ -15,6 +16,7 @@ public static class IocConfiguration
             return factory.CreateDbContext();
         });
 
-        serviceCollection.AddTransient<AuthorizationRepository>();
+        serviceCollection.AddTransient<IAuthorizationRepository, AuthorizationRepository>();
+        serviceCollection.AddTransient<ICustomerRepository, CustomerRepository>();
     }
 }

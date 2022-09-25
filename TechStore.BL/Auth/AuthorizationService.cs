@@ -2,14 +2,15 @@
 using TechStore.BL.Mapping;
 using TechStore.BL.Models;
 using TechStore.DAL.Exceptions;
-using TechStore.DAL.Repositories;
+using TechStore.DAL.Repositories.Interfaces;
 
 namespace TechStore.BL.Auth;
-public class AuthorizationService
-{
-    private readonly AuthorizationRepository _authRepository;
 
-    public AuthorizationService(AuthorizationRepository authRepository)
+internal class AuthorizationService
+{
+    private readonly IAuthorizationRepository _authRepository;
+
+    public AuthorizationService(IAuthorizationRepository authRepository)
     {
         _authRepository = authRepository;
     }

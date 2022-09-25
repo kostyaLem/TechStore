@@ -1,11 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TechStore.DAL.Context;
 using TechStore.DAL.Exceptions;
+using TechStore.DAL.Repositories.Interfaces;
 using TechStore.DAL.Repositories.Models;
 
 namespace TechStore.DAL.Repositories;
 
-public class AuthorizationRepository
+internal class AuthorizationRepository : IAuthorizationRepository
 {
     private readonly TechStoreContext _context;
 
@@ -20,7 +21,9 @@ public class AuthorizationRepository
             .FirstOrDefaultAsync(x => x.Login == login && x.PasswordHash == passwordHash);
 
         if (user is null)
+        {
             throw new UserNotFoundException();
+        }
 
         return new(user.Login, user.Type);
     }

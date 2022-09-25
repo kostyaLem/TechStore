@@ -30,6 +30,6 @@ public partial class App : Application
     protected override void OnStartup(StartupEventArgs e)
     {
         base.OnStartup(e);
-        _serviceProvider.GetRequiredService<CustomersView>().ShowDialog();
+        _serviceProvider.GetRequiredService<AuthView>().ShowDialog();
     }
 }
