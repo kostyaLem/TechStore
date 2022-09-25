@@ -6,7 +6,7 @@ using TechStore.DAL.Repositories.Interfaces;
 
 namespace TechStore.BL.Auth;
 
-internal class AuthorizationService
+internal class AuthorizationService : IAuthorizationService
 {
     private readonly IAuthorizationRepository _authRepository;
 

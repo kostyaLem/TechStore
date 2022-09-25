@@ -11,7 +11,7 @@ namespace TechStore.UI.ViewModels;
 
 public class AuthViewModel : BaseViewModel
 {
-    private readonly AuthorizationService _authService;
+    private readonly IAuthorizationService _authService;
 
     public override string Title => "Авторизация";
 
@@ -29,7 +29,7 @@ public class AuthViewModel : BaseViewModel
 
     public ICommand LoginCommand { get; }
 
-    public AuthViewModel(AuthorizationService authService)
+    public AuthViewModel(IAuthorizationService authService)
     {
         _authService = authService;
 
@@ -39,17 +39,17 @@ public class AuthViewModel : BaseViewModel
     public async Task TryToLogin(object passwordControl)
     {
         IsUploading = true;
-        await Task.Delay(500);
 
-        var pswrdBox = (PasswordBox)passwordControl;
+        await Task.Delay(200);
 
         try
         {
+            var pswrdBox = (PasswordBox)passwordControl;
             var user = await _authService.Login(Login, pswrdBox.Password);
         }
         catch (AuthorizeException)
         {
-            MessageBox.Error("Неверный логин или пароль", "Ошибка авторизации");
+            MessageBox.Error("Неверный логин или пароль.", "Ошибка авторизации");
         }
         catch (Exception e)
         {

@@ -12,7 +12,7 @@ public static class IocConfiguration
     {
         serviceCollection.AddRepositories();
 
-        serviceCollection.AddTransient<AuthorizationService>();
+        serviceCollection.AddTransient<IAuthorizationService, AuthorizationService>();
         serviceCollection.AddTransient<ICustomerService, CustomerService>();
     }
 }
