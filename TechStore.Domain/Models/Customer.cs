@@ -13,6 +13,8 @@ public class Customer
     public DateTime Birthday { get; set; }
     public string Email { get; set; }
     public string Phone { get; set; }
+    public DateTime UpdateOn { get; set; }
+    public bool IsActive { get; set; }
 
     public virtual ICollection<Order> Orders { get; set; }
 }
