@@ -51,6 +51,10 @@ public class AuthViewModel : BaseViewModel
         {
             MessageBox.Error("Неверный логин или пароль.", "Ошибка авторизации");
         }
+        catch (UserNotFoundAuthorizeException)
+        {
+            MessageBox.Error("Пользователь с таким логином и паролем не существует.", "Ошибка авторизации");
+        }
         catch (Exception e)
         {
             MessageBox.Error(e.Message, "Внутренняя ошибка");

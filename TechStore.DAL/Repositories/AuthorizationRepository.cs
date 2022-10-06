@@ -25,6 +25,11 @@ internal class AuthorizationRepository : IAuthorizationRepository
             throw new UserNotFoundException();
         }
 
+        if (user.PasswordHash != passwordHash)
+        {
+            throw new CredentionalExcetpion();
+        }
+
         return new(user.Login, user.Type);
     }
 }

@@ -29,6 +29,10 @@ internal class AuthorizationService : IAuthorizationService
         }
         catch (UserNotFoundException e)
         {
+            throw new UserNotFoundAuthorizeException();
+        }
+        catch (CredentionalExcetpion)
+        {
             throw new AuthorizeException();
         }
         catch (Exception)
