@@ -7,7 +7,7 @@ using TechStore.BL.Auth;
 using TechStore.BL.Exceptions;
 using MessageBox = HandyControl.Controls.MessageBox;
 
-namespace TechStore.UI.ViewModels;
+namespace TechStore.UI.ViewModels.Administration;
 
 public class AuthViewModel : BaseViewModel
 {

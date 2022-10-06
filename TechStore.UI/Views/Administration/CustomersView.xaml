@@ -31,7 +31,7 @@
             hc:DataGridAttach.ShowRowNumber="True"
             CanUserResizeColumns="False"
             HeadersVisibility="All"
-            ItemsSource="{Binding DataList}"
+            ItemsSource="{Binding CustomersSource, Mode=OneWay}"
             RowHeaderWidth="60">
             <DataGrid.RowHeaderTemplate>
                 <DataTemplate>
@@ -93,8 +93,8 @@
             </StackPanel>
 
             <hc:ButtonGroup Grid.Column="1" HorizontalAlignment="Center">
-                <Button Content="Деактивировать" />
-                <Button Content="Активировать" />
+                <Button Content="Деактивировать" Command="{Binding SetCustomersStatusCommand}" CommandParameter="false"/>
+                <Button Content="Активировать" Command="{Binding SetCustomersStatusCommand}" CommandParameter="true"/>
             </hc:ButtonGroup>
 
             <StackPanel
