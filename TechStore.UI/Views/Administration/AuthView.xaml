@@ -37,7 +37,6 @@
             </TextBlock.Effect>
         </TextBlock>
 
-
         <Border
             Grid.ColumnSpan="2"
             Panel.ZIndex="10"
