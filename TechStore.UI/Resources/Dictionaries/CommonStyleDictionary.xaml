@@ -1,8 +1,11 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <Style x:Key="DataGridTextCenterColumnStyle" TargetType="DataGridCell">
-        <Setter Property="HorizontalContentAlignment" Value="Center" />
+    <Style
+        x:Key="DataGridTextCenterColumnStyle"
+        BasedOn="{StaticResource {x:Type DataGridCell}}"
+        TargetType="DataGridCell">
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
         <Setter Property="HorizontalAlignment" Value="Center" />
         <Setter Property="VerticalAlignment" Value="Center" />
-        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Stretch" />
     </Style>
 </ResourceDictionary>

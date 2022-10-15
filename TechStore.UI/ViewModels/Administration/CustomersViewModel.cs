@@ -1,7 +1,7 @@
 ﻿using DevExpress.Mvvm;
 using HandyControl.Tools.Extension;
-using Microsoft.IdentityModel.Tokens;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -18,9 +18,15 @@ public class CustomersViewModel : BaseViewModel
 {
     private readonly ICustomerService _customerService;
 
-    private ObservableCollection<Customer> _customersSource { get; }
+    private ObservableCollection<Customer> _customersSource;
 
     public ICollectionView CustomersView { get; }
+
+    public Customer SelectedCustomer
+    {
+        get => GetValue<Customer>(nameof(SelectedCustomer));
+        set => SetValue(value, nameof(SelectedCustomer));
+    }
 
     public string SearchText
     {
@@ -34,20 +40,26 @@ public class CustomersViewModel : BaseViewModel
         set => SetValue(value, nameof(IsUploading));
     }
 
-    public ICommand LoadViewDataCommand { get; }
-    public ICommand SetCustomersStatusCommand { get; }
-    public ICommand CreateCustomerCommand { get; }
-    public ICommand EditCustomerCommand { get; }
-    public ICommand RemoveCustomerCommand { get; }
+    public AsyncCommand LoadViewDataCommand { get; }
+    public AsyncCommand SetCustomersStatusCommand { get; }
+    public AsyncCommand CreateCustomerCommand { get; }
+    public AsyncCommand EditCustomerCommand { get; }
+    public AsyncCommand<object> RemoveCustomerCommand { get; }
+
+
+    public AsyncCommand<IReadOnlyList<Customer>> ActivateCustomersCommand { get; }
+    public AsyncCommand<IReadOnlyList<Customer>> DisableCustomersCommand { get; }
+
 
     public CustomersViewModel(ICustomerService customerService)
     {
         _customerService = customerService;
 
-        SetCustomersStatusCommand = new AsyncCommand<bool>(SetCustomersStatus);
+        ActivateCustomersCommand = new(customers => SetCustomersStatus(customers, isActive: true));
+        DisableCustomersCommand = new(customers => SetCustomersStatus(customers, isActive: false));
 
-        RemoveCustomerCommand = new AsyncCommand<Customer>(RemoveCustomer, c => c is not null);
-        LoadViewDataCommand = new AsyncCommand(RefreshCustomersSource);
+        RemoveCustomerCommand = new(customers => RemoveCustomer(customers));
+        LoadViewDataCommand = new(RefreshCustomersSource);
 
         _customersSource = new ObservableCollection<Customer>();
         CustomersView = CollectionViewSource.GetDefaultView(_customersSource);
@@ -73,15 +85,23 @@ public class CustomersViewModel : BaseViewModel
         return true;
     }
 
-    public async Task SetCustomersStatus(bool isActive)
+    private async Task SetCustomersStatus(IReadOnlyList<Customer> customers, bool isActive)
     {
-        var customersIds = _customersSource.Select(x => x.Id).ToList();
-        await _customerService.UpdateActiveStatus(customersIds, isActive);
+        if (customers.Any())
+        {
+            var customerIds = customers.Select(x => x.Id).ToList();
+            await _customerService.UpdateActiveStatus(customerIds, isActive);
+            await RefreshCustomersSource();
+        }
     }
 
-    public async Task RemoveCustomer(Customer customer)
+    private async Task RemoveCustomer(object selectedItemCollection)
     {
-        await _customerService.Remove(customer.Id);
+        var customers = ((IList)selectedItemCollection).Cast<Customer>();
+        var customerIds = customers.Select(x => x.Id).ToList();
+        await _customerService.Remove(customerIds);
+
+        await RefreshCustomersSource();
     }
 
     private async Task RefreshCustomersSource()
@@ -96,9 +116,9 @@ public class CustomersViewModel : BaseViewModel
 
             IsUploading = false;
         }
-        catch (Exception e)
+        catch (Exception)
         {
-
+            throw;
         }
     }
 }

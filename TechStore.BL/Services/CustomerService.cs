@@ -44,9 +44,9 @@ internal class CustomerService : ICustomerService
         }).ToList();
     }
 
-    public async Task Remove(int customerId)
+    public async Task Remove(IReadOnlyList<int> customerIds)
     {
-        await _customerRepository.Remove(customerId);
+        await _customerRepository.Remove(customerIds);
     }
 
     public async Task Update(Customer customer)

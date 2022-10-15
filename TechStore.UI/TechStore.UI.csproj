@@ -38,4 +38,8 @@
     <Resource Include="Resources\Images\Logo.png" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Helpers\" />
+  </ItemGroup>
+
 </Project>

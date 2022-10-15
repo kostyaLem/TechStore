@@ -73,16 +73,13 @@ internal class CustomerRepository : ICustomerRepository
         await _context.SaveChangesAsync();
     }
 
-    public async Task Remove(int customerId)
+    public async Task Remove(IReadOnlyList<int> customerIds)
     {
-        var customer = await _context.Customers.FindAsync(customerId);
+        var customers = await _context.Customers
+            .Where(x => customerIds.Contains(x.Id))
+            .ToListAsync();
 
-        if (customer is null)
-        {
-            throw new Exception($"Customer with id {customerId} not found.");
-        }
-
-        _context.Remove(customer);
+        _context.RemoveRange(customers);
         await _context.SaveChangesAsync();
     }
 }
