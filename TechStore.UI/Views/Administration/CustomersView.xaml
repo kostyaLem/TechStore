@@ -133,11 +133,13 @@
                     <Button
                         Command="{Binding DisableCustomersCommand}"
                         CommandParameter="{Binding ElementName=CustomersGrid, Path=SelectedItems}"
-                        Content="Деактивировать" />
+                        Content="Деактивировать"
+                        IsEnabled="{Binding ElementName=CustomersGrid, Path=SelectedItems.Count, Converter={StaticResource NumericToBooleanConverter}}" />
                     <Button
                         Command="{Binding ActivateCustomersCommand}"
                         CommandParameter="{Binding ElementName=CustomersGrid, Path=SelectedItems}"
-                        Content="Активировать" />
+                        Content="Активировать"
+                        IsEnabled="{Binding ElementName=CustomersGrid, Path=SelectedItems.Count, Converter={StaticResource NumericToBooleanConverter}}" />
                 </hc:ButtonGroup>
 
                 <StackPanel

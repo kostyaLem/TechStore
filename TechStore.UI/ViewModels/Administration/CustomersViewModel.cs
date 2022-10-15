@@ -8,7 +8,6 @@ using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Data;
-using System.Windows.Input;
 using TechStore.BL.Models;
 using TechStore.BL.Services.Interfaces;
 
@@ -41,14 +40,11 @@ public class CustomersViewModel : BaseViewModel
     }
 
     public AsyncCommand LoadViewDataCommand { get; }
-    public AsyncCommand SetCustomersStatusCommand { get; }
     public AsyncCommand CreateCustomerCommand { get; }
     public AsyncCommand EditCustomerCommand { get; }
     public AsyncCommand<object> RemoveCustomerCommand { get; }
-
-
-    public AsyncCommand<IReadOnlyList<Customer>> ActivateCustomersCommand { get; }
-    public AsyncCommand<IReadOnlyList<Customer>> DisableCustomersCommand { get; }
+    public AsyncCommand<object> ActivateCustomersCommand { get; }
+    public AsyncCommand<object> DisableCustomersCommand { get; }
 
 
     public CustomersViewModel(ICustomerService customerService)
@@ -75,6 +71,8 @@ public class CustomersViewModel : BaseViewModel
                 customer.Email,
                 customer.FirstName,
                 customer.LastName,
+                customer.Birthday.ToString(),
+                customer.UpdatedOn.ToString(),
                 $"{customer.FirstName} {customer.LastName}",
                 customer.Phone
             };
@@ -85,8 +83,10 @@ public class CustomersViewModel : BaseViewModel
         return true;
     }
 
-    private async Task SetCustomersStatus(IReadOnlyList<Customer> customers, bool isActive)
+    private async Task SetCustomersStatus(object selectedItemCollection, bool isActive)
     {
+        var customers = ((IList)selectedItemCollection).Cast<Customer>();
+
         if (customers.Any())
         {
             var customerIds = customers.Select(x => x.Id).ToList();
