@@ -2,6 +2,7 @@
 using System;
 using System.Windows;
 using TechStore.BL;
+using TechStore.BL.Models;
 using TechStore.UI.Views.Administration;
 
 namespace TechStore.UI;
@@ -9,6 +10,10 @@ namespace TechStore.UI;
 public partial class App : Application
 {
     private readonly IServiceProvider _serviceProvider;
+
+    // Текущий авторизированный пользователя в системе
+    public static CurrentUser CurrentUser { get; set; }
+    public static bool IsAdmin => CurrentUser.UserType == UserType.Admin;
 
     public App()
     {

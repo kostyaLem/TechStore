@@ -1,69 +1,52 @@
 ﻿using DevExpress.Mvvm;
-using HandyControl.Controls;
 using HandyControl.Tools.Extension;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows.Data;
+using System.Windows.Input;
+using TechStore.BL.Mapping;
 using TechStore.BL.Models;
 using TechStore.BL.Services.Interfaces;
-using TechStore.UI.Services.Interfaces;
+using TechStore.UI.Services;
+using TechStore.UI.Views.EditViews;
 
 namespace TechStore.UI.ViewModels.Administration;
 
-public class CustomersViewModel : BaseViewModel
+public class CustomersViewModel : BaseItemsViewModel<Customer>
 {
     private readonly ICustomerService _customerService;
-    private readonly ICustomerDialogView _customerDialog;
-    private ObservableCollection<Customer> _customersSource;
+    // Серивс для работы с диалоговыси окнами
+    private readonly IWindowDialogService _dialogService;
 
-    public ICollectionView CustomersView { get; }
+    public ICommand LoadViewDataCommand { get; }
+    public ICommand CreateCustomerCommand { get; }
+    public ICommand EditCustomerCommand { get; }
+    public ICommand RemoveCustomerCommand { get; }
+    public ICommand<object> ActivateCustomersCommand { get; }
+    public ICommand<object> DisableCustomersCommand { get; }
 
-    public Customer SelectedCustomer
-    {
-        get => GetValue<Customer>(nameof(SelectedCustomer));
-        set => SetValue(value, nameof(SelectedCustomer));
-    }
-
-    public string SearchText
-    {
-        get => GetValue<string>(nameof(SearchText));
-        set => SetValue(value, () => CustomersView.Refresh(), nameof(SearchText));
-    }
-
-    public bool IsUploading
-    {
-        get => GetValue<bool>(nameof(IsUploading));
-        set => SetValue(value, nameof(IsUploading));
-    }
-
-    public AsyncCommand LoadViewDataCommand { get; }
-    public AsyncCommand CreateCustomerCommand { get; }
-    public AsyncCommand EditCustomerCommand { get; }
-    public AsyncCommand<object> RemoveCustomerCommand { get; }
-    public AsyncCommand<object> ActivateCustomersCommand { get; }
-    public AsyncCommand<object> DisableCustomersCommand { get; }
-
-
-    public CustomersViewModel(ICustomerService customerService, ICustomerDialogView customerDialog)
+    public CustomersViewModel(ICustomerService customerService, IWindowDialogService dialogService)
     {
         _customerService = customerService;
-        _customerDialog = customerDialog;
+        _dialogService = dialogService;
 
-        ActivateCustomersCommand = new(customers => SetCustomersStatus(customers, isActive: true));
-        DisableCustomersCommand = new(customers => SetCustomersStatus(customers, isActive: false));
+        LoadViewDataCommand = new AsyncCommand(LoadCustomers);
+        CreateCustomerCommand = new AsyncCommand(CreateCustomer, () => App.IsAdmin);
+        EditCustomerCommand = new AsyncCommand(EditCustomer, () => App.IsAdmin);
+        RemoveCustomerCommand = new AsyncCommand(RemoveCustomer, () => App.IsAdmin);
 
-        EditCustomerCommand = new(UpdateCustomer, () => SelectedCustomer is not null);
-        RemoveCustomerCommand = new(customers => RemoveCustomer(customers));
-        LoadViewDataCommand = new(RefreshCustomersSource);
+        ItemsView.Filter += CanFilterCustomer;
+    }
 
-        _customersSource = new ObservableCollection<Customer>();
-        CustomersView = CollectionViewSource.GetDefaultView(_customersSource);
-        CustomersView.Filter += CanFilterCustomer;
+    private async Task LoadCustomers()
+    {
+        await Execute(async () =>
+        {
+            _items.Clear();
+            var customers = await _customerService.GetCustomers();
+            _items.AddRange(customers);
+        });
     }
 
     private bool CanFilterCustomer(object obj)
@@ -87,51 +70,49 @@ public class CustomersViewModel : BaseViewModel
         return true;
     }
 
-    private async Task SetCustomersStatus(object selectedItemCollection, bool isActive)
+    private async Task CreateCustomer()
     {
-        var customers = ((IList)selectedItemCollection).Cast<Customer>();
-
-        if (customers.Any())
+        await Execute(async () =>
         {
-            var customerIds = customers.Select(x => x.Id).ToList();
-            await _customerService.UpdateActiveStatus(customerIds, isActive);
-            await RefreshCustomersSource();
-        }
+            var vm = new EditViewModel<Customer>();
+
+            var result = _dialogService.ShowDialog(typeof(EditCustomerPage), vm);
+
+            if (result == DialogResult.OK)
+            {
+                var customer = vm.Item.MapToRequest();
+                await _customerService.Create(customer);
+                await LoadCustomers();
+            }
+        });
     }
 
-    private async Task UpdateCustomer()
+    private async Task EditCustomer()
     {
-        await _customerService.Update(SelectedCustomer);
+        await Execute(async () =>
+        {
+            var customer = await _customerService.GetById(SelectedItem.Id);
+            var vm = new EditViewModel<Customer>(customer);
+
+            var result = _dialogService.ShowDialog(typeof(EditCustomerPage), vm);
+
+            if (result == DialogResult.OK)
+            {
+                // Вызвать обновление пользователя, если есть подтверждение
+                await _customerService.Update(vm.Item);
+
+                // Обновить коллекцию на интерфейсе
+                await LoadCustomers();
+            }
+        });
     }
 
-    private async Task RemoveCustomer(object selectedItemCollection)
+    private async Task RemoveCustomer()
     {
-        var customers = ((IList)selectedItemCollection).Cast<Customer>();
-        var customerIds = customers.Select(x => x.Id).ToList();
-
-        if (_customerDialog.ShowRemoveCustomerView(customerIds))
+        await Execute(async () =>
         {
-            await _customerService.Remove(customerIds);
-
-            await RefreshCustomersSource();
-        }
-    }
-
-    private async Task RefreshCustomersSource()
-    {
-        try
-        {
-            IsUploading = true;
-
-            var customers = await _customerService.GetCustomers();
-            _customersSource.Clear();
-            _customersSource.AddRange(customers);
-
-            IsUploading = false;
-        }
-        catch (Exception)
-        {
-            throw;
-        }
+            await _customerService.Remove(SelectedItem.Id);
+            await LoadCustomers();
+        });
     }
 }

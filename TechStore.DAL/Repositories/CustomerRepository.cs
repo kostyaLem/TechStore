@@ -22,7 +22,7 @@ internal class CustomerRepository : ICustomerRepository
         return customers.Select(Mapper.MapToBL).ToList();
     }
 
-    public async Task Create(CreateCustomerRequest request)
+    public async Task Create(CreateCustomer request)
     {
         var newCustomer = new Domain.Models.Customer
         {
@@ -30,7 +30,7 @@ internal class CustomerRepository : ICustomerRepository
             LastName = request.LastName,
             Birthday = request.Birthday,
             Email = request.Email,
-            Phone = request.Phone,
+            Phone = request.PhoneNumber,
             UpdatedOn = DateTime.Now,
             IsActive = true
         };
@@ -47,7 +47,7 @@ internal class CustomerRepository : ICustomerRepository
         customer.Email = request.Email;
         customer.FirstName = request.FirstName;
         customer.LastName = request.LastName;
-        customer.Phone = request.Phone;
+        customer.Phone = request.PhoneNumber;
         customer.Birthday = request.Birthday;
         customer.IsActive = request.IsActive;
         customer.UpdatedOn = DateTime.Now;

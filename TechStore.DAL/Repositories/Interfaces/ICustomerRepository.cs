@@ -4,7 +4,7 @@ namespace TechStore.DAL.Repositories.Interfaces;
 
 public interface ICustomerRepository
 {
-    Task Create(CreateCustomerRequest customer);
+    Task Create(CreateCustomer customer);
     Task<IReadOnlyList<RequestedCustomer>> GetCustomers();
     Task<RequestedCustomer> GetCustomer(int customerId);
     Task Remove(IReadOnlyList<int> customerIds);

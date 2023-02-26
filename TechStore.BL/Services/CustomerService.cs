@@ -1,4 +1,5 @@
 ﻿using TechStore.BL.Models;
+using TechStore.BL.Models.CustomerModels;
 using TechStore.BL.Services.Interfaces;
 using TechStore.DAL.Repositories.Interfaces;
 using TechStore.DAL.Repositories.Models.Customers;
@@ -14,15 +15,15 @@ internal class CustomerService : ICustomerService
         _customerRepository = customerRepository;
     }
 
-    public async Task Create(Customer customer)
+    public async Task Create(CreateCustomerRequest createRequest)
     {
-        var mappedCustomer = new CreateCustomerRequest
+        var mappedCustomer = new CreateCustomer
         {
-            FirstName = customer.FirstName,
-            LastName = customer.LastName,
-            Birthday = customer.Birthday,
-            Email = customer.Email,
-            Phone = customer.Phone
+            FirstName = createRequest.FirstName,
+            LastName = createRequest.LastName,
+            Birthday = createRequest.Birthday,
+            Email = createRequest.Email,
+            PhoneNumber = createRequest.PhoneNumber
         };
 
         await _customerRepository.Create(mappedCustomer);
@@ -57,7 +58,7 @@ internal class CustomerService : ICustomerService
             Email = customer.Email,
             FirstName = customer.FirstName,
             LastName = customer.LastName,
-            Phone = customer.Phone,
+            PhoneNumber = customer.Phone,
             Birthday = customer.Birthday,
             IsActive = customer.IsActive
         });

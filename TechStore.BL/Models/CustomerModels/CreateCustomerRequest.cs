@@ -1,6 +1,6 @@
-﻿namespace TechStore.DAL.Repositories.Models.Customers;
+﻿namespace TechStore.BL.Models.CustomerModels;
 
-public class CreateCustomer
+public class CreateCustomerRequest
 {
     public string FirstName { get; init; }
     public string LastName { get; init; }

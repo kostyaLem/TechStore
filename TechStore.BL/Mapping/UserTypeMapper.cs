@@ -1,5 +1,4 @@
-﻿using TechStore.DAL.Repositories.Models.Customers;
-using TechStore.Domain.Models;
+﻿using TechStore.Domain.Models;
 using DomainUserType = TechStore.Domain.Models.UserType;
 
 namespace TechStore.BL.Mapping;

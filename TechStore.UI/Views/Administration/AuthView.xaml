@@ -92,13 +92,13 @@
 
             <Button
                 Grid.Column="1"
-                BorderThickness="2"
                 Height="60"
                 Margin="5"
                 hc:BorderElement.CornerRadius="0,8,8,0"
                 hc:IconElement.Geometry="{DynamicResource RightGeometry}"
                 hc:IconElement.Height="15"
                 hc:IconElement.Width="15"
+                BorderThickness="2"
                 Command="{Binding LoginCommand}"
                 CommandParameter="{Binding ElementName=PswrdBox}"
                 FontWeight="DemiBold" />
