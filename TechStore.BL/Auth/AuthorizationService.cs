@@ -25,7 +25,7 @@ internal class AuthorizationService : IAuthorizationService
         try
         {
             var user = await _authRepository.Login(login, passwordHash);
-            return new(user.Login, UserTypeMapper.Map(user.UserType));
+            return new(user.Login, TechStore.BL.Models.UserType.Employee);
         }
         catch (UserNotFoundException e)
         {

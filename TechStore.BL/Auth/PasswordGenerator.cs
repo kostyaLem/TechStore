@@ -2,6 +2,7 @@
 using System.Text;
 
 namespace TechStore.BL.Auth;
+
 internal static class PasswordGenerator
 {
     public static string Generate(string value)

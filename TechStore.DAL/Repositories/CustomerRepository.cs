@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TechStore.DAL.Context;
+using TechStore.DAL.Mapping;
 using TechStore.DAL.Repositories.Interfaces;
 using TechStore.DAL.Repositories.Models.Customers;
 
@@ -18,17 +19,7 @@ internal class CustomerRepository : ICustomerRepository
     {
         var customers = await _context.Customers.AsNoTracking().ToListAsync();
 
-        return customers.Select(x => new RequestedCustomer()
-        {
-            Id = x.Id,
-            Email = x.Email,
-            FirstName = x.FirstName,
-            LastName = x.LastName,
-            Phone = x.Phone,
-            Birthday = x.Birthday,
-            UpdateOn = x.UpdatedOn,
-            IsActive = x.IsActive
-        }).ToList();
+        return customers.Select(Mapper.MapToBL).ToList();
     }
 
     public async Task Create(CreateCustomerRequest request)
@@ -81,5 +72,12 @@ internal class CustomerRepository : ICustomerRepository
 
         _context.RemoveRange(customers);
         await _context.SaveChangesAsync();
+    }
+
+    public async Task<RequestedCustomer> GetCustomer(int customerId)
+    {
+        var customer = await _context.Customers.FindAsync(customerId);
+
+        return customer!.MapToBL();
     }
 }

@@ -68,3 +68,19 @@ internal class CustomerService : ICustomerService
         await _customerRepository.SetActiveStatus(customerIds, isActive);
     }
 }
+
+internal class CustomerStatisticService : ICustomerStatisticService
+{
+    private readonly ICustomerRepository _customerRepository;
+
+    public CustomerStatisticService(ICustomerRepository customerRepository)
+    {
+        _customerRepository = customerRepository;
+    }
+
+    public async Task<CustomerStatistic> GetCustomerStatistic(int customerId)
+    {
+        var customer = await _customerRepository.GetCustomer(customerId);
+        return null;
+    }
+}

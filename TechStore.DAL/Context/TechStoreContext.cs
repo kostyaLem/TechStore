@@ -3,6 +3,7 @@ using System.Reflection;
 using TechStore.Domain.Models;
 
 namespace TechStore.DAL.Context;
+
 internal class TechStoreContext : DbContext
 {
     public DbSet<Customer> Customers { get; set; }

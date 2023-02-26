@@ -27,9 +27,8 @@
             Margin="-100,15,15,15"
             HorizontalAlignment="Center"
             VerticalAlignment="Top"
-            FontFamily="Segoe Script"
-            FontSize="32"
-            FontWeight="Bold"
+            FontFamily="Bahnschrift SemiBold Condensed"
+            FontSize="48"
             Foreground="White"
             Text="Tech Store">
             <TextBlock.Effect>
@@ -75,7 +74,7 @@
 
             <StackPanel Grid.Column="0" VerticalAlignment="Center">
                 <hc:TextBox
-                    hc:BorderElement.CornerRadius="0,13,0,0"
+                    hc:BorderElement.CornerRadius="0,8,0,0"
                     hc:InfoElement.Placeholder="Login"
                     hc:InfoElement.ShowClearButton="True"
                     BorderThickness="0,1,1,1"
@@ -83,7 +82,7 @@
                     Text="{Binding Login, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                 <hc:PasswordBox
                     x:Name="PswrdBox"
-                    hc:BorderElement.CornerRadius="0,0,13,0"
+                    hc:BorderElement.CornerRadius="0,0,8,0"
                     hc:InfoElement.Placeholder="Password"
                     BorderThickness="0,0,1,1"
                     FontSize="12"
@@ -96,7 +95,7 @@
                 BorderThickness="2"
                 Height="60"
                 Margin="5"
-                hc:BorderElement.CornerRadius="0,15,15,0"
+                hc:BorderElement.CornerRadius="0,8,8,0"
                 hc:IconElement.Geometry="{DynamicResource RightGeometry}"
                 hc:IconElement.Height="15"
                 hc:IconElement.Width="15"

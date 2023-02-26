@@ -8,6 +8,8 @@ public interface ICustomerService
 
     Task Create(Customer customer);
 
+    Task Update(Customer customer);
+
     Task UpdateActiveStatus(IReadOnlyList<int> customerIds, bool isActive);
 
     Task Remove(IReadOnlyList<int> customerIds);

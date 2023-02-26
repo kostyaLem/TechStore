@@ -10,4 +10,11 @@ public class RequestedCustomer
     public DateTime Birthday { get; init; }
     public DateTime UpdateOn { get; init; }
     public bool IsActive { get; set; }
+
+    public IReadOnlyList<OrderDetails> Orders { get; init; }
+}
+
+public class OrderDetails
+{
+    public int OrderId { get; init; }
 }

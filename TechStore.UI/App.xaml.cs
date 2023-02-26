@@ -19,7 +19,8 @@ public partial class App : Application
     {
         var serviceCollection = new ServiceCollection();
 
-        serviceCollection.AddServices();
+        serviceCollection.AddBusinessLogicServices();
+        serviceCollection.AddViewHelpers();
 
         serviceCollection.SetupViews();
         serviceCollection.SetupPages();

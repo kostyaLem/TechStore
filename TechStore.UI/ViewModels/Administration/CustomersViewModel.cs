@@ -1,4 +1,5 @@
 ﻿using DevExpress.Mvvm;
+using HandyControl.Controls;
 using HandyControl.Tools.Extension;
 using System;
 using System.Collections;
@@ -10,13 +11,14 @@ using System.Threading.Tasks;
 using System.Windows.Data;
 using TechStore.BL.Models;
 using TechStore.BL.Services.Interfaces;
+using TechStore.UI.Services.Interfaces;
 
 namespace TechStore.UI.ViewModels.Administration;
 
 public class CustomersViewModel : BaseViewModel
 {
     private readonly ICustomerService _customerService;
-
+    private readonly ICustomerDialogView _customerDialog;
     private ObservableCollection<Customer> _customersSource;
 
     public ICollectionView CustomersView { get; }
@@ -47,13 +49,15 @@ public class CustomersViewModel : BaseViewModel
     public AsyncCommand<object> DisableCustomersCommand { get; }
 
 
-    public CustomersViewModel(ICustomerService customerService)
+    public CustomersViewModel(ICustomerService customerService, ICustomerDialogView customerDialog)
     {
         _customerService = customerService;
+        _customerDialog = customerDialog;
 
         ActivateCustomersCommand = new(customers => SetCustomersStatus(customers, isActive: true));
         DisableCustomersCommand = new(customers => SetCustomersStatus(customers, isActive: false));
 
+        EditCustomerCommand = new(UpdateCustomer, () => SelectedCustomer is not null);
         RemoveCustomerCommand = new(customers => RemoveCustomer(customers));
         LoadViewDataCommand = new(RefreshCustomersSource);
 
@@ -95,13 +99,22 @@ public class CustomersViewModel : BaseViewModel
         }
     }
 
+    private async Task UpdateCustomer()
+    {
+        await _customerService.Update(SelectedCustomer);
+    }
+
     private async Task RemoveCustomer(object selectedItemCollection)
     {
         var customers = ((IList)selectedItemCollection).Cast<Customer>();
         var customerIds = customers.Select(x => x.Id).ToList();
-        await _customerService.Remove(customerIds);
 
-        await RefreshCustomersSource();
+        if (_customerDialog.ShowRemoveCustomerView(customerIds))
+        {
+            await _customerService.Remove(customerIds);
+
+            await RefreshCustomersSource();
+        }
     }
 
     private async Task RefreshCustomersSource()

@@ -48,68 +48,95 @@
                 Style="{StaticResource SearchBarExtend}"
                 Text="{Binding SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
-            <DataGrid
-                x:Name="CustomersGrid"
-                Grid.Row="1"
-                hc:DataGridAttach.ShowRowNumber="True"
-                AutoGenerateColumns="False"
-                CanUserResizeColumns="False"
-                ItemsSource="{Binding CustomersView, Mode=OneWay}"
-                RowHeaderWidth="60"
-                SelectedItem="{Binding SelectedCustomer, Mode=TwoWay}">
-                <DataGrid.Resources>
-                    <Style TargetType="TextBlock">
-                        <Setter Property="HorizontalAlignment" Value="Right" />
-                    </Style>
-                </DataGrid.Resources>
+            <hc:SimplePanel Grid.Row="1">
+                <DataGrid
+                    x:Name="CustomersGrid"
+                    Grid.Row="1"
+                    hc:DataGridAttach.ShowRowNumber="True"
+                    AutoGenerateColumns="False"
+                    CanUserResizeColumns="False"
+                    ItemsSource="{Binding CustomersView, Mode=OneWay}"
+                    RowHeaderWidth="60"
+                    SelectedItem="{Binding SelectedCustomer, Mode=OneWayToSource}">
+                    <DataGrid.Resources>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="HorizontalAlignment" Value="Right" />
+                        </Style>
+                    </DataGrid.Resources>
 
-                <DataGrid.RowHeaderTemplate>
-                    <DataTemplate>
-                        <CheckBox IsChecked="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=DataGridRow}}" />
-                    </DataTemplate>
-                </DataGrid.RowHeaderTemplate>
+                    <DataGrid.RowHeaderTemplate>
+                        <DataTemplate>
+                            <CheckBox IsChecked="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=DataGridRow}}" />
+                        </DataTemplate>
+                    </DataGrid.RowHeaderTemplate>
 
-                <DataGrid.Columns>
-                    <DataGridTemplateColumn
-                        Width="*"
-                        Header="ФИО"
-                        IsReadOnly="True">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock>
-                                    <Run Text="{Binding FirstName}" />
-                                    <Run Text="{Binding LastName}" />
-                                </TextBlock>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                    <DataGridTextColumn
-                        Width="120"
-                        Binding="{Binding Birthday, StringFormat=dd.MM.yyyy}"
-                        Header="Дата рождения"
-                        IsReadOnly="True" />
-                    <DataGridTextColumn
-                        Width="*"
-                        Binding="{Binding Email}"
-                        Header="Email"
-                        IsReadOnly="True" />
-                    <DataGridTextColumn
-                        Width="120"
-                        Binding="{Binding Phone}"
-                        Header="Телефон"
-                        IsReadOnly="True" />
-                    <DataGridTextColumn
-                        Width="120"
-                        Binding="{Binding UpdatedOn, StringFormat=dd.MM.yyyy}"
-                        Header="Дата обновления"
-                        IsReadOnly="True" />
-                    <DataGridCheckBoxColumn
-                        Width="100"
-                        Binding="{Binding IsActive}"
-                        Header="Активный"
-                        IsReadOnly="True" />
-                </DataGrid.Columns>
-            </DataGrid>
+                    <DataGrid.Columns>
+                        <DataGridTemplateColumn
+                            Width="*"
+                            Header="ФИО"
+                            IsReadOnly="True">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock>
+                                        <Run Text="{Binding FirstName}" />
+                                        <Run Text="{Binding LastName}" />
+                                    </TextBlock>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTextColumn
+                            Width="120"
+                            Binding="{Binding Birthday, StringFormat=dd.MM.yyyy}"
+                            Header="Дата рождения"
+                            IsReadOnly="True" />
+                        <DataGridTextColumn
+                            Width="*"
+                            Binding="{Binding Email}"
+                            Header="Email"
+                            IsReadOnly="True" />
+                        <DataGridTextColumn
+                            Width="120"
+                            Binding="{Binding Phone}"
+                            Header="Телефон"
+                            IsReadOnly="True" />
+                        <DataGridTextColumn
+                            Width="120"
+                            Binding="{Binding UpdatedOn, StringFormat=dd.MM.yyyy}"
+                            Header="Дата обновления"
+                            IsReadOnly="True" />
+                        <DataGridCheckBoxColumn
+                            Width="100"
+                            Binding="{Binding IsActive}"
+                            Header="Активный"
+                            IsReadOnly="True" />
+                    </DataGrid.Columns>
+                </DataGrid>
+
+                <hc:Drawer
+                    Name="EditPart"
+                    Dock="Right"
+                    ShowMode="Cover">
+                    <Border
+                        Width="300"
+                        Background="{DynamicResource RegionBrush}"
+                        BorderThickness="0,1,0,0">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <TextBox Margin="10,0,0,0" Text="{Binding SelectedCustomer.FirstName}" />
+                            <Button
+                                Grid.Row="0"
+                                HorizontalAlignment="Right"
+                                hc:IconElement.Geometry="{StaticResource DeleteFillCircleGeometry}"
+                                Command="hc:ControlCommands.Close"
+                                Foreground="{DynamicResource PrimaryTextBrush}"
+                                Style="{StaticResource ButtonIcon}" />
+                        </Grid>
+                    </Border>
+                </hc:Drawer>
+            </hc:SimplePanel>
 
             <Grid
                 Grid.Row="2"
@@ -153,14 +180,16 @@
                         Content="Удалить"
                         IsEnabled="{Binding ElementName=CustomersGrid, Path=SelectedItems.Count, Converter={StaticResource NumericToBooleanConverter}}"
                         Style="{StaticResource ButtonDanger}" />
-                    <Button
+                    <ToggleButton
                         hc:BorderElement.CornerRadius="0"
                         Content="Редактировать"
-                        Style="{StaticResource ButtonWarning}" />
-                    <Button
+                        IsChecked="{Binding IsOpen, ElementName=EditPart}"
+                        Style="{StaticResource ToggleButtonWarning}" />
+                    <ToggleButton
                         hc:BorderElement.CornerRadius="0,10,10,0"
                         Content="Добавить"
-                        Style="{StaticResource ButtonSuccess}" />
+                        IsChecked="{Binding IsOpen, ElementName=EditPart}"
+                        Style="{StaticResource ToggleButtonSuccess}" />
                 </StackPanel>
             </Grid>
         </Grid>
