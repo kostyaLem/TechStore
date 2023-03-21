@@ -29,6 +29,11 @@ internal class CustomerService : ICustomerService
         await _customerRepository.Create(mappedCustomer);
     }
 
+    public Task<Customer> GetById(int id)
+    {
+        throw new NotImplementedException();
+    }
+
     public async Task<IReadOnlyList<Customer>> GetCustomers()
     {
         var customeres = await _customerRepository.GetCustomers();
@@ -48,6 +53,11 @@ internal class CustomerService : ICustomerService
     public async Task Remove(IReadOnlyList<int> customerIds)
     {
         await _customerRepository.Remove(customerIds);
+    }
+
+    public Task Remove(int id)
+    {
+        throw new NotImplementedException();
     }
 
     public async Task Update(Customer customer)

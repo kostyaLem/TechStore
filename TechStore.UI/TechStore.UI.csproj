@@ -8,9 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Helpers\**" />
     <Compile Remove="Recources\**" />
+    <EmbeddedResource Remove="Helpers\**" />
     <EmbeddedResource Remove="Recources\**" />
+    <None Remove="Helpers\**" />
     <None Remove="Recources\**" />
+    <Page Remove="Helpers\**" />
     <Page Remove="Recources\**" />
   </ItemGroup>
 
@@ -32,10 +36,6 @@
   <ItemGroup>
     <Resource Include="Resources\Images\BackLogo.png" />
     <Resource Include="Resources\Images\Logo.png" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Helpers\" />
   </ItemGroup>
 
 </Project>

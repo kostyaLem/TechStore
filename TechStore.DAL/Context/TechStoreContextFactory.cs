@@ -10,7 +10,7 @@ internal class TechStoreContextFactory : IDesignTimeDbContextFactory<TechStoreCo
     public TechStoreContext CreateDbContext(string[] args)
     {
         var optionsBuilder = new DbContextOptionsBuilder<TechStoreContext>();
-        optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=TechStoreDb;Trusted_Connection=True;");
+        optionsBuilder.UseSqlServer("Data Source=.\\SQLEXPRESS;Database=TechStoreDb;Trusted_Connection=True;");
 
         return new TechStoreContext(optionsBuilder.Options);
     }
