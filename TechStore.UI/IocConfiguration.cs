@@ -1,12 +1,11 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using TechStore.UI.Services;
 
 namespace TechStore.UI;
 internal static class IocConfiguration
 {
     public static void AddViewHelpers(this IServiceCollection serviceCollection)
     {
-        //serviceCollection.AddTransient<IDialogView, DialogView>();
-
-        //serviceCollection.AddTransient<ICustomerDialogView, CustomerDialogView>();
+        serviceCollection.AddSingleton<IWindowDialogService, WindowDialogService>();
     }
 }

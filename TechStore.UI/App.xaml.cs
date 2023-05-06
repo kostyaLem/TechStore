@@ -3,6 +3,7 @@ using System;
 using System.Windows;
 using TechStore.BL;
 using TechStore.BL.Models;
+using TechStore.UI.ViewModels.Administration;
 using TechStore.UI.Views.Administration;
 
 namespace TechStore.UI;
@@ -13,7 +14,7 @@ public partial class App : Application
 
     // Текущий авторизированный пользователя в системе
     public static CurrentUser CurrentUser { get; set; }
-    public static bool IsAdmin => CurrentUser.UserType == UserType.Admin;
+    public static bool IsAdmin => true; //CurrentUser.UserType == UserType.Admin;
 
     public App()
     {
@@ -27,8 +28,7 @@ public partial class App : Application
         serviceCollection.AddBusinessLogicServices();
         serviceCollection.AddViewHelpers();
 
-        serviceCollection.SetupViews();
-        serviceCollection.SetupPages();
+        serviceCollection.AddViews();
 
         return serviceCollection.BuildServiceProvider();
     }
@@ -37,5 +37,16 @@ public partial class App : Application
     {
         base.OnStartup(e);
         _serviceProvider.GetRequiredService<CustomersView>().ShowDialog();
+    }
+}
+
+internal static class Configuration
+{
+    public static ServiceCollection AddViews(this ServiceCollection services)
+    {
+        services.AddTransient<CustomersView>();
+        services.AddTransient<CustomersViewModel>();
+
+        return services;
     }
 }

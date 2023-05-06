@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using TechStore.DAL.Context;
 using TechStore.DAL.Repositories;
 using TechStore.DAL.Repositories.Interfaces;
@@ -13,7 +14,10 @@ public static class IocConfiguration
         serviceCollection.AddTransient<TechStoreContext>(x =>
         {
             var factory = x.GetRequiredService<TechStoreContextFactory>();
-            return factory.CreateDbContext();
+            var context = factory.CreateDbContext();
+            context.Database.Migrate();
+
+            return context;
         });
 
         serviceCollection.AddTransient<IAuthorizationRepository, AuthorizationRepository>();
