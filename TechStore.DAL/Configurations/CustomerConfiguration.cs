@@ -9,10 +9,12 @@ internal class CustomerConfiguration : IEntityTypeConfiguration<Customer>
     public void Configure(EntityTypeBuilder<Customer> builder)
     {
         builder.HasKey(x => x.Id);
-        builder.Property(x => x.FirstName)
-            .IsRequired();
-        builder.Property(x => x.Birthday)
-            .IsRequired();
+        builder.Property(x => x.FirstName).IsRequired();
+        builder.Property(x => x.Login).IsRequired();
+        builder.Property(x => x.PasswordHash).IsRequired();
+        builder.Property(x => x.Birthday).IsRequired();
+
+        builder.HasIndex(x => new { x.Login });
         builder.HasIndex(x => new { x.FirstName, x.LastName, x.Phone });
     }
 }

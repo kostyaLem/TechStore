@@ -18,6 +18,7 @@ public static partial class Mapper
         var result = new RequestedCustomer
         {
             Id = customer.Id,
+            Login = customer.Login,
             Email = customer.Email,
             FirstName = customer.FirstName,
             LastName = customer.LastName,

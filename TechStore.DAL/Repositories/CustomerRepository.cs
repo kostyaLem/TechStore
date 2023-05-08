@@ -26,6 +26,8 @@ internal class CustomerRepository : ICustomerRepository
     {
         var newCustomer = new Domain.Models.Customer
         {
+            Login = request.Login,
+            PasswordHash = request.Password,
             FirstName = request.FirstName,
             LastName = request.LastName,
             Birthday = request.Birthday,
@@ -43,7 +45,7 @@ internal class CustomerRepository : ICustomerRepository
     {
         var customer = await _context.Customers.FindAsync(request.Id);
 
-        customer!.Id = request.Id;
+        customer.Id = request.Id;
         customer.Email = request.Email;
         customer.FirstName = request.FirstName;
         customer.LastName = request.LastName;
@@ -51,6 +53,9 @@ internal class CustomerRepository : ICustomerRepository
         customer.Birthday = request.Birthday;
         customer.IsActive = request.IsActive;
         customer.UpdatedOn = DateTime.Now;
+
+        if (!string.IsNullOrWhiteSpace(request.PasswordHash))
+            customer.PasswordHash = request.PasswordHash;
 
         await _context.SaveChangesAsync();
     }

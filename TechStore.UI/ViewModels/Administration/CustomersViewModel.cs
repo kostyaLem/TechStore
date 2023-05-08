@@ -16,7 +16,7 @@ namespace TechStore.UI.ViewModels.Administration;
 public class CustomersViewModel : BaseItemsViewModel<Customer>
 {
     private readonly ICustomerService _customerService;
-    // Серивс для работы с диалоговыси окнами
+    // Сервис для работы с диалоговыми окнами
     private readonly IWindowDialogService _dialogService;
 
     public ICommand LoadViewDataCommand { get; }
@@ -56,6 +56,7 @@ public class CustomersViewModel : BaseItemsViewModel<Customer>
             var predicates = new List<string>
             {
                 customer.Email,
+                customer.Login,
                 customer.FirstName,
                 customer.LastName,
                 customer.Birthday.ToString(),
@@ -80,7 +81,7 @@ public class CustomersViewModel : BaseItemsViewModel<Customer>
 
             if (result == DialogResult.OK)
             {
-                var customer = vm.Item.MapToRequest();
+                var customer = vm.Item.MapToRequest((string)vm.Args);
                 await _customerService.Create(customer);
                 await LoadCustomers();
             }
@@ -99,7 +100,7 @@ public class CustomersViewModel : BaseItemsViewModel<Customer>
             if (result == DialogResult.OK)
             {
                 // Вызвать обновление пользователя, если есть подтверждение
-                await _customerService.Update(vm.Item);
+                await _customerService.Update(vm.Item, vm.Args);
 
                 // Обновить коллекцию на интерфейсе
                 await LoadCustomers();

@@ -6,11 +6,13 @@
     xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
     xmlns:hc="https://handyorg.github.io/handycontrol"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="clr-namespace:TechStore.UI.ViewModels.Administration"
     Title="Клиенты"
     Width="900"
     Height="450"
     MinWidth="700"
     MinHeight="380"
+    d:DataContext="{d:DesignInstance Type=vm:CustomersViewModel}"
     mc:Ignorable="d">
 
     <hc:Interaction.Triggers>
@@ -43,7 +45,7 @@
 
             <hc:SearchBar
                 Grid.Row="0"
-                hc:InfoElement.Placeholder="ФИО / Дата рождения / Email / Телефон"
+                hc:InfoElement.Placeholder="Логин / ФИО / Дата рождения / Email / Телефон"
                 hc:InfoElement.TitlePlacement="Left"
                 Style="{StaticResource SearchBarExtend}"
                 Text="{Binding SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
@@ -55,9 +57,9 @@
                     hc:DataGridAttach.ShowRowNumber="True"
                     AutoGenerateColumns="False"
                     CanUserResizeColumns="False"
-                    ItemsSource="{Binding CustomersView, Mode=OneWay}"
+                    ItemsSource="{Binding ItemsView, Mode=OneWay}"
                     RowHeaderWidth="60"
-                    SelectedItem="{Binding SelectedCustomer, Mode=OneWayToSource}">
+                    SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}">
                     <DataGrid.Resources>
                         <Style TargetType="TextBlock">
                             <Setter Property="HorizontalAlignment" Value="Right" />
@@ -71,6 +73,11 @@
                     </DataGrid.RowHeaderTemplate>
 
                     <DataGrid.Columns>
+                        <DataGridTextColumn
+                            Width="*"
+                            Binding="{Binding Login}"
+                            Header="Логин"
+                            IsReadOnly="True" />
                         <DataGridTemplateColumn
                             Width="*"
                             Header="ФИО"
@@ -112,7 +119,7 @@
                     </DataGrid.Columns>
                 </DataGrid>
 
-                <hc:Drawer
+                <!--<hc:Drawer
                     Name="EditPart"
                     Dock="Right"
                     ShowMode="Cover">
@@ -135,7 +142,7 @@
                                 Style="{StaticResource ButtonIcon}" />
                         </Grid>
                     </Border>
-                </hc:Drawer>
+                </hc:Drawer>-->
             </hc:SimplePanel>
 
             <Grid
@@ -182,13 +189,14 @@
                         Style="{StaticResource ButtonDanger}" />
                     <ToggleButton
                         hc:BorderElement.CornerRadius="0"
+                        Command="{Binding EditCustomerCommand}"
+                        CommandParameter="{Binding ElementName=CustomersGrid, Path=SelectedItems}"
                         Content="Редактировать"
-                        IsChecked="{Binding IsOpen, ElementName=EditPart}"
                         Style="{StaticResource ToggleButtonWarning}" />
                     <ToggleButton
                         hc:BorderElement.CornerRadius="0,10,10,0"
+                        Command="{Binding CreateCustomerCommand}"
                         Content="Добавить"
-                        IsChecked="{Binding IsOpen, ElementName=EditPart}"
                         Style="{StaticResource ToggleButtonSuccess}" />
                 </StackPanel>
             </Grid>

@@ -1,4 +1,5 @@
-﻿using TechStore.BL.Models;
+﻿using TechStore.BL.Auth;
+using TechStore.BL.Models;
 using TechStore.BL.Models.CustomerModels;
 using TechStore.BL.Services.Interfaces;
 using TechStore.DAL.Repositories.Interfaces;
@@ -19,6 +20,8 @@ internal class CustomerService : ICustomerService
     {
         var mappedCustomer = new CreateCustomer
         {
+            Login = createRequest.Login,
+            Password = HashService.Compute(createRequest.Password),
             FirstName = createRequest.FirstName,
             LastName = createRequest.LastName,
             Birthday = createRequest.Birthday,
@@ -29,25 +32,17 @@ internal class CustomerService : ICustomerService
         await _customerRepository.Create(mappedCustomer);
     }
 
-    public Task<Customer> GetById(int id)
+    public async Task<Customer> GetById(int id)
     {
-        throw new NotImplementedException();
+        var requestedCustomer = await _customerRepository.GetCustomer(id);
+
+        return MapToUI(requestedCustomer);
     }
 
     public async Task<IReadOnlyList<Customer>> GetCustomers()
     {
         var customeres = await _customerRepository.GetCustomers();
-        return customeres.Select(x => new Customer
-        {
-            Id = x.Id,
-            Birthday = x.Birthday,
-            FirstName = x.FirstName,
-            LastName = x.LastName,
-            Email = x.Email,
-            IsActive = x.IsActive,
-            Phone = x.Phone,
-            UpdatedOn = x.UpdateOn
-        }).ToList();
+        return customeres.Select(MapToUI).ToList();
     }
 
     public async Task Remove(IReadOnlyList<int> customerIds)
@@ -60,11 +55,12 @@ internal class CustomerService : ICustomerService
         throw new NotImplementedException();
     }
 
-    public async Task Update(Customer customer)
+    public async Task Update(Customer customer, string password)
     {
         await _customerRepository.Update(new UpdateCustomerRequest
         {
             Id = customer.Id,
+            PasswordHash = HashService.Compute(password),
             Email = customer.Email,
             FirstName = customer.FirstName,
             LastName = customer.LastName,
@@ -78,20 +74,20 @@ internal class CustomerService : ICustomerService
     {
         await _customerRepository.SetActiveStatus(customerIds, isActive);
     }
-}
 
-internal class CustomerStatisticService : ICustomerStatisticService
-{
-    private readonly ICustomerRepository _customerRepository;
-
-    public CustomerStatisticService(ICustomerRepository customerRepository)
+    private static Customer MapToUI(RequestedCustomer rCustomer)
     {
-        _customerRepository = customerRepository;
-    }
-
-    public async Task<CustomerStatistic> GetCustomerStatistic(int customerId)
-    {
-        var customer = await _customerRepository.GetCustomer(customerId);
-        return null;
+        return new Customer
+        {
+            Id = rCustomer.Id,
+            Login = rCustomer.Login,
+            Birthday = rCustomer.Birthday,
+            FirstName = rCustomer.FirstName,
+            LastName = rCustomer.LastName,
+            Email = rCustomer.Email,
+            IsActive = rCustomer.IsActive,
+            Phone = rCustomer.Phone,
+            UpdatedOn = rCustomer.UpdateOn
+        };
     }
 }

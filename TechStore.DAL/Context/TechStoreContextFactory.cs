@@ -5,7 +5,7 @@ namespace TechStore.DAL.Context;
 
 internal class TechStoreContextFactory : IDesignTimeDbContextFactory<TechStoreContext>
 {
-    private const string ConnectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=master;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+    private const string ConnectionString = "Server=(localdb)\\mssqllocaldb;Database=TechStoreDb;Trusted_Connection=True;";
 
     public TechStoreContext CreateDbContext() => CreateDbContext(Array.Empty<string>());
 

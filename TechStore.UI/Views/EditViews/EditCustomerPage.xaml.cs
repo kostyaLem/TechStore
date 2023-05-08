@@ -1,13 +1,16 @@
 ﻿using System.Windows.Controls;
+using TechStore.BL.Models;
+using TechStore.UI.ViewModels;
 
 namespace TechStore.UI.Views.EditViews;
 /// <summary>
 /// Логика взаимодействия для EditCustomerView.xaml
 /// </summary>
-public partial class EditCustomerPage : Page
+public partial class EditCustomerPage : UserControl
 {
-    public EditCustomerPage()
+    public EditCustomerPage(EditViewModel<Customer> context)
     {
         InitializeComponent();
+        DataContext = context;
     }
 }
