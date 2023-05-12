@@ -47,7 +47,7 @@ public class CustomersViewModel : BaseItemsViewModel<Customer>
             var customers = await _customerService.GetCustomers();
             _items.AddRange(customers);
         });
-    }
+    }    
 
     private bool CanFilterCustomer(object obj)
     {
@@ -65,6 +65,7 @@ public class CustomersViewModel : BaseItemsViewModel<Customer>
                 customer.Phone
             };
 
+            //
             return predicates.Any(x => x.Contains(SearchText, StringComparison.OrdinalIgnoreCase));
         }
 
@@ -82,7 +83,9 @@ public class CustomersViewModel : BaseItemsViewModel<Customer>
             if (result == DialogResult.OK)
             {
                 var customer = vm.Item.MapToRequest((string)vm.Args);
+                //
                 await _customerService.Create(customer);
+                //
                 await LoadCustomers();
             }
         });
@@ -92,7 +95,7 @@ public class CustomersViewModel : BaseItemsViewModel<Customer>
     {
         await Execute(async () =>
         {
-            var customer = await _customerService.GetById(SelectedItem.Id);
+            Customer customer = await _customerService.GetById(SelectedItem.Id);
             var vm = new EditViewModel<Customer>(customer);
 
             var result = _dialogService.ShowDialog(typeof(EditCustomerPage), vm);
@@ -100,8 +103,9 @@ public class CustomersViewModel : BaseItemsViewModel<Customer>
             if (result == DialogResult.OK)
             {
                 // Вызвать обновление пользователя, если есть подтверждение
-                await _customerService.Update(vm.Item, vm.Args);
-
+                Customer updated = await _customerService.Update(vm.Item, vm.Args);
+                //
+                await ReplaceItem(customer, updated);
                 // Обновить коллекцию на интерфейсе
                 await LoadCustomers();
             }
@@ -112,7 +116,9 @@ public class CustomersViewModel : BaseItemsViewModel<Customer>
     {
         await Execute(async () =>
         {
+            //
             await _customerService.Remove(SelectedItem.Id);
+            //
             await LoadCustomers();
         });
     }

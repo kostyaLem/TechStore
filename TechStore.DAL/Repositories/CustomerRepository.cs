@@ -17,7 +17,11 @@ internal class CustomerRepository : ICustomerRepository
 
     public async Task<IReadOnlyList<RequestedCustomer>> GetCustomers()
     {
-        var customers = await _context.Customers.AsNoTracking().ToListAsync();
+        var customers = await _context.Customers
+            .Include(x => x.Orders)
+            .Include(x => x.User)
+            .AsNoTracking()
+            .ToListAsync();
 
         return customers.Select(Mapper.MapToBL).ToList();
     }
@@ -26,24 +30,30 @@ internal class CustomerRepository : ICustomerRepository
     {
         var newCustomer = new Domain.Models.Customer
         {
-            Login = request.Login,
-            PasswordHash = request.Password,
             FirstName = request.FirstName,
             LastName = request.LastName,
             Birthday = request.Birthday,
             Email = request.Email,
             Phone = request.PhoneNumber,
-            UpdatedOn = DateTime.Now,
-            IsActive = true
+            IsActive = true,
+            User = new Domain.Models.User()
+            {
+                Login = request.Login,
+                PasswordHash = request.Password,
+                UpdatedOn = DateTime.Now
+            }
         };
 
         await _context.Customers.AddAsync(newCustomer);
         await _context.SaveChangesAsync();
     }
 
-    public async Task Update(UpdateCustomerRequest request)
+    public async Task<RequestedCustomer> Update(UpdateCustomerRequest request)
     {
-        var customer = await _context.Customers.FindAsync(request.Id);
+        var customer = await _context.Customers
+            .Include(x => x.User)
+            .AsNoTracking()
+            .FirstAsync(x => x.Id == request.Id);
 
         customer.Id = request.Id;
         customer.Email = request.Email;
@@ -52,17 +62,21 @@ internal class CustomerRepository : ICustomerRepository
         customer.Phone = request.PhoneNumber;
         customer.Birthday = request.Birthday;
         customer.IsActive = request.IsActive;
-        customer.UpdatedOn = DateTime.Now;
+
+        customer.User.Login = request.Login;
 
         if (!string.IsNullOrWhiteSpace(request.PasswordHash))
-            customer.PasswordHash = request.PasswordHash;
+            customer.User.PasswordHash = request.PasswordHash;
 
         await _context.SaveChangesAsync();
+
+        return customer.MapToBL();
     }
 
     public async Task SetActiveStatus(IReadOnlyList<int> customerIds, bool isActive)
     {
-        var customers = await _context.Customers.Where(x => customerIds.Contains(x.Id))
+        var customers = await _context.Customers
+            .Where(x => customerIds.Contains(x.Id))
             .ToListAsync();
 
         customers.ForEach(x => x.IsActive = isActive);
@@ -81,7 +95,10 @@ internal class CustomerRepository : ICustomerRepository
 
     public async Task<RequestedCustomer> GetCustomer(int customerId)
     {
-        var customer = await _context.Customers.FindAsync(customerId);
+        var customer = await _context.Customers
+            .Include(x => x.User)
+            .AsNoTracking()
+            .FirstAsync(x => x.Id == customerId);
 
         return customer!.MapToBL();
     }

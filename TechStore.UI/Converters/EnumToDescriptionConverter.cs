@@ -1,7 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Globalization;
-using System.Reflection;
 using System.Windows.Data;
 using System.Windows.Markup;
 
@@ -14,9 +13,9 @@ public class EnumToDescriptionConverter : MarkupExtension, IValueConverter
 {
     private string GetEnumDescription(Enum enumObj)
     {
-        FieldInfo fieldInfo = enumObj.GetType().GetField(enumObj.ToString());
+        var fieldInfo = enumObj.GetType().GetField(enumObj.ToString());
 
-        object[] attribArray = fieldInfo.GetCustomAttributes(false);
+        var attribArray = fieldInfo.GetCustomAttributes(false);
 
         if (attribArray.Length == 0)
         {
@@ -24,7 +23,7 @@ public class EnumToDescriptionConverter : MarkupExtension, IValueConverter
         }
         else
         {
-            DescriptionAttribute attrib = attribArray[0] as DescriptionAttribute;
+            var attrib = attribArray[0] as DescriptionAttribute;
             return attrib.Description;
         }
     }

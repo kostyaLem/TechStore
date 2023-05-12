@@ -55,9 +55,9 @@ internal class CustomerService : ICustomerService
         throw new NotImplementedException();
     }
 
-    public async Task Update(Customer customer, string password)
+    public async Task<Customer> Update(Customer customer, string password)
     {
-        await _customerRepository.Update(new UpdateCustomerRequest
+        var updatedCustomer = await _customerRepository.Update(new UpdateCustomerRequest
         {
             Id = customer.Id,
             PasswordHash = HashService.Compute(password),
@@ -68,6 +68,8 @@ internal class CustomerService : ICustomerService
             Birthday = customer.Birthday,
             IsActive = customer.IsActive
         });
+
+        return MapToUI(updatedCustomer);
     }
 
     public async Task UpdateActiveStatus(IReadOnlyList<int> customerIds, bool isActive)

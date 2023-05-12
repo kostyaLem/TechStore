@@ -9,5 +9,5 @@ public interface ICustomerRepository
     Task<RequestedCustomer> GetCustomer(int customerId);
     Task Remove(IReadOnlyList<int> customerIds);
     Task SetActiveStatus(IReadOnlyList<int> customerIds, bool isActive);
-    Task Update(UpdateCustomerRequest request);
+    Task<RequestedCustomer> Update(UpdateCustomerRequest request);
 }

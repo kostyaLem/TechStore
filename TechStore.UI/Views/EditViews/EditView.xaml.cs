@@ -7,7 +7,8 @@ namespace TechStore.UI.Views.EditViews;
 public partial class EditView : Window, IDialogWindow
 {
     private bool _isAccept;
-    public DialogResult DialogResult { get; private set; }
+
+    public new DialogResult DialogResult { get; private set; }
     public ContentControl ContextItem { get; }
 
     public EditView(string title, ContentControl page)

@@ -16,8 +16,8 @@ internal class AuthorizationService : IAuthorizationService
 
     public async Task<CurrentUser> Login(string login, string password)
     {
-        _ = login ?? throw new ArgumentNullException(nameof(login));
-        _ = password ?? throw new ArgumentNullException(nameof(password));
+        ArgumentNullException.ThrowIfNull(nameof(login));
+        ArgumentNullException.ThrowIfNull(nameof(password));
 
         var passwordHash = HashService.Compute(password);
 
@@ -26,7 +26,7 @@ internal class AuthorizationService : IAuthorizationService
             var user = await _authRepository.Login(login, passwordHash);
             return new(user.Login, UserType.Employee);
         }
-        catch (UserNotFoundException e)
+        catch (UserNotFoundException)
         {
             throw new UserNotFoundAuthorizeException();
         }

@@ -11,7 +11,7 @@ public interface ICustomerService
 
     Task Create(CreateCustomerRequest createRequest);
 
-    Task Update(Customer customer, string password);
+    Task<Customer> Update(Customer customer, string password);
 
     Task UpdateActiveStatus(IReadOnlyList<int> customerIds, bool isActive);
 

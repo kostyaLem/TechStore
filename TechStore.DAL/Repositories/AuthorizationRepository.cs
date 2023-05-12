@@ -17,7 +17,8 @@ internal class AuthorizationRepository : IAuthorizationRepository
 
     public async Task<UserInfo> Login(string login, string passwordHash)
     {
-        var user = await _context.Users.AsNoTracking()
+        var user = await _context.Users
+            .AsNoTracking()
             .FirstOrDefaultAsync(x => x.Login == login && x.PasswordHash == passwordHash);
 
         if (user is null)

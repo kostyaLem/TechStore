@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Threading.Tasks;
 using System.Windows.Data;
 
 namespace TechStore.UI.ViewModels;
@@ -31,6 +32,20 @@ public abstract class BaseItemsViewModel<T> : BaseViewModel
     {
         _items = new ObservableCollection<T>();
         ItemsView = CollectionViewSource.GetDefaultView(_items);
+    }
+
+    public async Task ReplaceItem(T targetItem, T newItem)
+    {
+        await Execute(async () =>
+        {
+            var index = _items.IndexOf(targetItem);
+
+            if (index >= 0)
+            {
+                _items.Remove(targetItem);
+                _items.Insert(index, newItem);
+            }
+        });
     }
 }
 

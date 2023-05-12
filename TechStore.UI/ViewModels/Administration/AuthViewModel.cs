@@ -21,12 +21,6 @@ public class AuthViewModel : BaseViewModel
         set => SetValue(value, nameof(Login));
     }
 
-    public bool IsUploading
-    {
-        get => GetValue<bool>(nameof(IsUploading));
-        set => SetValue(value, nameof(IsUploading));
-    }
-
     public ICommand LoginCommand { get; }
 
     public AuthViewModel(IAuthorizationService authService)
@@ -38,28 +32,27 @@ public class AuthViewModel : BaseViewModel
 
     public async Task TryToLogin(object passwordControl)
     {
-        IsUploading = true;
+        await Execute(async () =>
+        {
+            await Task.Delay(200);
 
-        await Task.Delay(200);
-
-        try
-        {
-            var pswrdBox = (PasswordBox)passwordControl;
-            var user = await _authService.Login(Login, pswrdBox.Password);
-        }
-        catch (AuthorizeException)
-        {
-            MessageBox.Error("Неверный логин или пароль.", "Ошибка авторизации");
-        }
-        catch (UserNotFoundAuthorizeException)
-        {
-            MessageBox.Error("Пользователь с таким логином и паролем не существует.", "Ошибка авторизации");
-        }
-        catch (Exception e)
-        {
-            MessageBox.Error(e.Message, "Внутренняя ошибка");
-        }
-
-        IsUploading = false;
+            try
+            {
+                var pswrdBox = (PasswordBox)passwordControl;
+                var user = await _authService.Login(Login, pswrdBox.Password);
+            }
+            catch (AuthorizeException)
+            {
+                MessageBox.Error("Неверный логин или пароль.", "Ошибка авторизации");
+            }
+            catch (UserNotFoundAuthorizeException)
+            {
+                MessageBox.Error("Пользователь с таким логином и паролем не существует.", "Ошибка авторизации");
+            }
+            catch (Exception e)
+            {
+                MessageBox.Error(e.Message, "Внутренняя ошибка");
+            }
+        });
     }
 }
