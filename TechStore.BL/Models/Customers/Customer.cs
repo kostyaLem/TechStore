@@ -1,6 +1,6 @@
 ﻿using DevExpress.Mvvm;
 
-namespace TechStore.BL.Models;
+namespace TechStore.BL.Models.Customers;
 
 public class Customer : BindableBase
 {

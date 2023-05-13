@@ -1,5 +1,5 @@
 ﻿using TechStore.BL.Models;
-using TechStore.BL.Models.CustomerModels;
+using TechStore.BL.Models.Customers;
 
 namespace TechStore.BL.Mapping;
 

@@ -1,4 +1,4 @@
-﻿namespace TechStore.BL.Models.CustomerModels;
+﻿namespace TechStore.BL.Models.Customers;
 
 public class CreateCustomerRequest
 {

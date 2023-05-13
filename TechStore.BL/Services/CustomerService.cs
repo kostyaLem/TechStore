@@ -1,6 +1,6 @@
 ﻿using TechStore.BL.Auth;
 using TechStore.BL.Models;
-using TechStore.BL.Models.CustomerModels;
+using TechStore.BL.Models.Customers;
 using TechStore.BL.Services.Interfaces;
 using TechStore.DAL.Repositories.Interfaces;
 using TechStore.DAL.Repositories.Models.Customers;

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using TechStore.BL.Models;
+using TechStore.BL.Models.Customers;
 
 namespace TechStore.UI.Services;
 

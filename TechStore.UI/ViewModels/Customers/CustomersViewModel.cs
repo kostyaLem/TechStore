@@ -7,7 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using TechStore.BL.Mapping;
-using TechStore.BL.Models;
+using TechStore.BL.Models.Customers;
 using TechStore.BL.Services.Interfaces;
 using TechStore.UI.Services;
 using TechStore.UI.Views.EditViews;

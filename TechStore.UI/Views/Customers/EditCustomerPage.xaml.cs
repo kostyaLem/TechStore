@@ -1,5 +1,5 @@
 ﻿using System.Windows.Controls;
-using TechStore.BL.Models;
+using TechStore.BL.Models.Customers;
 using TechStore.UI.ViewModels;
 
 namespace TechStore.UI.Views.EditViews;
