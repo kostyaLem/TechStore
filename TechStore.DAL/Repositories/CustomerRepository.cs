@@ -23,7 +23,7 @@ internal class CustomerRepository : ICustomerRepository
             .AsNoTracking()
             .ToListAsync();
 
-        return customers.Select(Mapper.MapToBL).ToList();
+        return customers.Select(CustomerMapper.MapToBL).ToList();
     }
 
     public async Task Create(CustomerDefenition customer, Credentials credentials)

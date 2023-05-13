@@ -2,16 +2,20 @@
 using HandyControl.Controls;
 using System;
 using System.Threading.Tasks;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace TechStore.UI.ViewModels;
 
 /// <summary>
-/// Базоовая ViewModel для всех дочерних
+/// Базовая ViewModel для всех дочерних
 /// </summary>
 public abstract class BaseViewModel : ViewModelBase
 {
     // Название View (окна)
     public virtual string Title { get; protected set; }
+
+    public virtual ImageSource IconImage => new BitmapImage(new("/TechStore.UI;component/Resources/Images/Logo.png"));
 
     // Флаг для отображения индикатора загрузки при выполнении асинхронных действий
     public bool IsUploading

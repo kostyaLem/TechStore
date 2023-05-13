@@ -22,8 +22,13 @@
     </hc:Interaction.Triggers>
 
     <hc:GlowWindow.Resources>
-        <BooleanToVisibilityConverter x:Key="BoolToVisability" />
-        <dxmvvm:NumericToBooleanConverter x:Key="NumericToBooleanConverter" />
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/TechStore.UI;component/Resources/Dictionaries/CommonStyleDictionary.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <BooleanToVisibilityConverter x:Key="BoolToVisability" />
+            <dxmvvm:NumericToBooleanConverter x:Key="NumericToBooleanConverter" />
+        </ResourceDictionary>
     </hc:GlowWindow.Resources>
 
     <Grid>

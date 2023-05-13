@@ -24,14 +24,10 @@ public class Container
     {
         var serviceCollection = new ServiceCollection();
 
-        //CreateResource("CommonStyleDictionary");
-        //CreateResource("HandyControlStylesDictionary");
-        //CreateResource("ImagesDictionary");
-
-        serviceCollection.AddBusinessLogicServices();
-        serviceCollection.AddViewHelpers();
-
-        serviceCollection.AddViews();
+        serviceCollection
+            .AddBusinessLogicServices()
+            .AddViewHelpers()
+            .AddViews();
 
         return serviceCollection.BuildServiceProvider();
     }
@@ -40,16 +36,9 @@ public class Container
         => userType switch
         {
             UserType.Admin or UserType.Employee =>
-             _serviceProvider.GetRequiredService<AuthView>(),
+             _serviceProvider.GetRequiredService<CustomersView>(),
             UserType.Customer =>
              _serviceProvider.GetRequiredService<AuthView>(),
             _ => throw new ArgumentException("Тип пользователя не поддерживается.")
         };
-
-    public void CreateResource(string resourceName)
-    {
-        var resourceDictionary = new ResourceDictionary();
-        resourceDictionary.Source = new Uri($"/TechStore.UI;component/Resources/Dictionaries/{resourceName}.xaml", UriKind.RelativeOrAbsolute);
-        Application.Current.Resources.MergedDictionaries.Add(resourceDictionary);
-    }
 }

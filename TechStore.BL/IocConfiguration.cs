@@ -8,11 +8,13 @@ namespace TechStore.BL;
 
 public static class IocConfiguration
 {
-    public static void AddBusinessLogicServices(this IServiceCollection serviceCollection)
+    public static IServiceCollection AddBusinessLogicServices(this IServiceCollection services)
     {
-        serviceCollection.AddRepositories();
+        services.AddRepositories();
 
-        serviceCollection.AddTransient<IAuthorizationService, AuthorizationService>();
-        serviceCollection.AddTransient<ICustomerService, CustomerService>();
+        services.AddTransient<IAuthorizationService, AuthorizationService>();
+        services.AddTransient<ICustomerService, CustomerService>();
+
+        return services;
     }
 }

@@ -9,16 +9,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TechStore.DAL", "TechStore.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TechStore.Domain", "TechStore.Domain\TechStore.Domain.csproj", "{D93FB221-3DE3-43AA-AB0A-A678F95A8B21}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E575CF40-64F8-428A-856E-40EC95A4220B}"
-	ProjectSection(SolutionItems) = preProject
-		.editorconfig = .editorconfig
-	EndProjectSection
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TechStore.UI.Terminal", "TechStore.UI.Terminal\TechStore.UI.Terminal.csproj", "{5EEA62D7-B247-4C62-87B2-B32375295F1E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechStore.UI.Terminal", "TechStore.UI.Terminal\TechStore.UI.Terminal.csproj", "{5EEA62D7-B247-4C62-87B2-B32375295F1E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TechStore.UI.Client", "TechStore.UI.Client\TechStore.UI.Client.csproj", "{CBEBBC18-9612-4F20-B048-B734A852A96E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechStore.UI.Client", "TechStore.UI.Client\TechStore.UI.Client.csproj", "{CBEBBC18-9612-4F20-B048-B734A852A96E}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechStore.UI", "TechStore.UI\TechStore.UI.csproj", "{6119632F-D9E4-494B-B83C-B23E394F8283}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TechStore.UI", "TechStore.UI\TechStore.UI.csproj", "{6119632F-D9E4-494B-B83C-B23E394F8283}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

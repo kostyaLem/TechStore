@@ -79,7 +79,7 @@ public class CustomersViewModel : BaseItemsViewModel<Customer>
     {
         await Execute(async () =>
         {
-            var vm = new EditViewModel<Customer>();
+            var vm = new EditViewModel<Customer>(x => x.IsActive = true);
 
             var result = _dialogService.ShowDialog(typeof(EditCustomerPage), vm);
 
@@ -140,7 +140,7 @@ public class CustomersViewModel : BaseItemsViewModel<Customer>
 
         await Execute(async () =>
         {
-            await _customerService.UpdateActiveStatus(items.Select(x=>x.Id).ToList(), false);
+            await _customerService.UpdateActiveStatus(items.Select(x => x.Id).ToList(), false);
             items.ForEach(x => x.IsActive = false);
         });
     }

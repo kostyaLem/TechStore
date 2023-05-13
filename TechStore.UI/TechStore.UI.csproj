@@ -8,8 +8,6 @@
 
 	<ItemGroup>
 		<Resource Include="Resources\Dictionaries\CommonStyleDictionary.xaml" />
-		<Resource Include="Resources\Dictionaries\HandyControlStylesDictionary.xaml" />
-		<Resource Include="Resources\Dictionaries\ImagesDictionary.xaml" />
 	</ItemGroup>
 
 	<ItemGroup>

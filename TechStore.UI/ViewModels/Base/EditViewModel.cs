@@ -1,4 +1,5 @@
-﻿using TechStore.UI.Services;
+﻿using System;
+using TechStore.UI.Services;
 
 namespace TechStore.UI.ViewModels;
 
@@ -17,10 +18,12 @@ public sealed class EditViewModel<T> : BaseViewModel where T : class, new()
         Args = args;
     }
 
-    public EditViewModel(dynamic? args = null)
+    public EditViewModel(Action<T> preUpdate = null, dynamic? args = null)
     {
         Item = new T();
         Title = $"Создание {_viewModelName}";
         Args = args;
+
+        preUpdate?.Invoke(Item);
     }
 }

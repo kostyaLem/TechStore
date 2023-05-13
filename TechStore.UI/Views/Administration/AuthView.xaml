@@ -16,13 +16,10 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/TechStore.UI;component/Resources/Dictionaries/CommonStyleDictionary.xaml" />
-                <ResourceDictionary Source="/TechStore.UI;component/Resources/Dictionaries/HandyControlStylesDictionary.xaml" />
-                <ResourceDictionary Source="/TechStore.UI;component/Resources/Dictionaries/ImagesDictionary.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <BooleanToVisibilityConverter x:Key="BoolToVisability" />
         </ResourceDictionary>
-
     </hc:GlowWindow.Resources>
 
     <Grid>
@@ -66,16 +63,18 @@
             Grid.ColumnSpan="2"
             Width="295"
             Height="552"
+            Margin="130,0,0,-24"
             HorizontalAlignment="Left"
             VerticalAlignment="Bottom"
+            RenderTransformOrigin="0.5,0.5"
             Source="{StaticResource BackLogoImage}"
-            Stretch="Uniform" Margin="130,0,0,-24" RenderTransformOrigin="0.5,0.5">
+            Stretch="Uniform">
             <Image.RenderTransform>
                 <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform/>
-                    <RotateTransform Angle="-150.404"/>
-                    <TranslateTransform/>
+                    <ScaleTransform />
+                    <SkewTransform />
+                    <RotateTransform Angle="-150.404" />
+                    <TranslateTransform />
                 </TransformGroup>
             </Image.RenderTransform>
         </Image>
