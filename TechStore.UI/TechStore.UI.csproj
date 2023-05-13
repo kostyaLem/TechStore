@@ -1,41 +1,30 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <OutputType>WinExe</OutputType>
-    <TargetFramework>net6.0-windows</TargetFramework>
-    <Nullable>enable</Nullable>
-    <UseWPF>true</UseWPF>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net6.0-windows</TargetFramework>
+		<Nullable>enable</Nullable>
+		<UseWPF>true</UseWPF>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <Compile Remove="Helpers\**" />
-    <Compile Remove="Recources\**" />
-    <EmbeddedResource Remove="Helpers\**" />
-    <EmbeddedResource Remove="Recources\**" />
-    <None Remove="Helpers\**" />
-    <None Remove="Recources\**" />
-    <Page Remove="Helpers\**" />
-    <Page Remove="Recources\**" />
-  </ItemGroup>
+	<ItemGroup>
+		<Resource Include="Resources\Dictionaries\CommonStyleDictionary.xaml" />
+		<Resource Include="Resources\Dictionaries\HandyControlStylesDictionary.xaml" />
+		<Resource Include="Resources\Dictionaries\ImagesDictionary.xaml" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <None Remove="Resources\Images\BackLogo.png" />
-    <None Remove="Resources\Images\Logo.png" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="DevExpressMvvm" Version="22.1.3" />
+		<PackageReference Include="HandyControls" Version="3.4.1" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="DevExpressMvvm" Version="22.1.3" />
-    <PackageReference Include="HandyControls" Version="3.4.1" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\TechStore.BL\TechStore.BL.csproj" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\TechStore.BL\TechStore.BL.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Resource Include="Resources\Images\BackLogo.png" />
-    <Resource Include="Resources\Images\Logo.png" />
-  </ItemGroup>
+	<ItemGroup>
+		<Resource Include="Resources\Images\BackLogo.png" />
+		<Resource Include="Resources\Images\Logo.png" />
+	</ItemGroup>
 
 </Project>

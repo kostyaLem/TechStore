@@ -33,12 +33,12 @@ public class CustomersViewModel : BaseItemsViewModel<Customer>
         _dialogService = dialogService;
 
         LoadViewDataCommand = new AsyncCommand(LoadCustomers);
-        CreateCustomerCommand = new AsyncCommand(CreateCustomer, () => App.IsAdmin);
-        EditCustomerCommand = new AsyncCommand(EditCustomer, () => App.IsAdmin && SelectedItem != null);
-        RemoveCustomerCommand = new AsyncCommand<object>(RemoveCustomer, _ => App.IsAdmin && SelectedItem != null);
+        CreateCustomerCommand = new AsyncCommand(CreateCustomer, () => Container.IsAdmin);
+        EditCustomerCommand = new AsyncCommand(EditCustomer, () => Container.IsAdmin && SelectedItem != null);
+        RemoveCustomerCommand = new AsyncCommand<object>(RemoveCustomer, _ => Container.IsAdmin && SelectedItem != null);
 
-        ActivateCustomersCommand = new AsyncCommand<object>(ActivateCustomers, _ => App.IsAdmin && SelectedItem != null);
-        DisableCustomersCommand = new AsyncCommand<object>(DisableCustomers, _ => App.IsAdmin && SelectedItem != null);
+        ActivateCustomersCommand = new AsyncCommand<object>(ActivateCustomers, _ => Container.IsAdmin && SelectedItem != null);
+        DisableCustomersCommand = new AsyncCommand<object>(DisableCustomers, _ => Container.IsAdmin && SelectedItem != null);
 
         ItemsView.Filter += CanFilterCustomer;
     }
