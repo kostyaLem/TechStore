@@ -1,6 +1,7 @@
 ﻿using DevExpress.Mvvm;
 using HandyControl.Tools.Extension;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -22,7 +23,7 @@ public class CustomersViewModel : BaseItemsViewModel<Customer>
     public ICommand LoadViewDataCommand { get; }
     public ICommand CreateCustomerCommand { get; }
     public ICommand EditCustomerCommand { get; }
-    public ICommand RemoveCustomerCommand { get; }
+    public ICommand<object> RemoveCustomerCommand { get; }
     public ICommand<object> ActivateCustomersCommand { get; }
     public ICommand<object> DisableCustomersCommand { get; }
 
@@ -33,8 +34,11 @@ public class CustomersViewModel : BaseItemsViewModel<Customer>
 
         LoadViewDataCommand = new AsyncCommand(LoadCustomers);
         CreateCustomerCommand = new AsyncCommand(CreateCustomer, () => App.IsAdmin);
-        EditCustomerCommand = new AsyncCommand(EditCustomer, () => App.IsAdmin);
-        RemoveCustomerCommand = new AsyncCommand(RemoveCustomer, () => App.IsAdmin);
+        EditCustomerCommand = new AsyncCommand(EditCustomer, () => App.IsAdmin && SelectedItem != null);
+        RemoveCustomerCommand = new AsyncCommand<object>(RemoveCustomer, _ => App.IsAdmin && SelectedItem != null);
+
+        ActivateCustomersCommand = new AsyncCommand<object>(ActivateCustomers, _ => App.IsAdmin && SelectedItem != null);
+        DisableCustomersCommand = new AsyncCommand<object>(DisableCustomers, _ => App.IsAdmin && SelectedItem != null);
 
         ItemsView.Filter += CanFilterCustomer;
     }
@@ -47,7 +51,7 @@ public class CustomersViewModel : BaseItemsViewModel<Customer>
             var customers = await _customerService.GetCustomers();
             _items.AddRange(customers);
         });
-    }    
+    }
 
     private bool CanFilterCustomer(object obj)
     {
@@ -65,7 +69,6 @@ public class CustomersViewModel : BaseItemsViewModel<Customer>
                 customer.Phone
             };
 
-            //
             return predicates.Any(x => x.Contains(SearchText, StringComparison.OrdinalIgnoreCase));
         }
 
@@ -83,9 +86,7 @@ public class CustomersViewModel : BaseItemsViewModel<Customer>
             if (result == DialogResult.OK)
             {
                 var customer = vm.Item.MapToRequest((string)vm.Args);
-                //
                 await _customerService.Create(customer);
-                //
                 await LoadCustomers();
             }
         });
@@ -95,31 +96,52 @@ public class CustomersViewModel : BaseItemsViewModel<Customer>
     {
         await Execute(async () =>
         {
-            Customer customer = await _customerService.GetById(SelectedItem.Id);
+            var customer = await _customerService.GetById(SelectedItem.Id);
             var vm = new EditViewModel<Customer>(customer);
 
             var result = _dialogService.ShowDialog(typeof(EditCustomerPage), vm);
 
             if (result == DialogResult.OK)
             {
-                // Вызвать обновление пользователя, если есть подтверждение
-                Customer updated = await _customerService.Update(vm.Item, vm.Args);
-                //
-                await ReplaceItem(customer, updated);
-                // Обновить коллекцию на интерфейсе
-                await LoadCustomers();
+                var updated = await _customerService.Update(customer, (string)vm.Args);
+                await ReplaceItem(x => x.Id == customer.Id, updated);
             }
         });
     }
 
-    private async Task RemoveCustomer()
+    private async Task RemoveCustomer(object obj)
     {
+        var items = (obj as IEnumerable)!
+            .Cast<Customer>()
+            .Select(x => x.Id)
+            .ToList();
+
         await Execute(async () =>
         {
-            //
-            await _customerService.Remove(SelectedItem.Id);
-            //
+            await _customerService.Remove(items);
             await LoadCustomers();
+        });
+    }
+
+    private async Task ActivateCustomers(object obj)
+    {
+        var items = (obj as IEnumerable)!.Cast<Customer>();
+
+        await Execute(async () =>
+        {
+            await _customerService.UpdateActiveStatus(items.Select(x => x.Id).ToList(), true);
+            items.ForEach(x => x.IsActive = true);
+        });
+    }
+
+    private async Task DisableCustomers(object obj)
+    {
+        var items = (obj as IEnumerable)!.Cast<Customer>();
+
+        await Execute(async () =>
+        {
+            await _customerService.UpdateActiveStatus(items.Select(x=>x.Id).ToList(), false);
+            items.ForEach(x => x.IsActive = false);
         });
     }
 }

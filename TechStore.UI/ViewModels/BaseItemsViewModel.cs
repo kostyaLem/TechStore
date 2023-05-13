@@ -1,4 +1,6 @@
-﻿using System.Collections.ObjectModel;
+﻿using DevExpress.Mvvm.Native;
+using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows.Data;
@@ -34,16 +36,29 @@ public abstract class BaseItemsViewModel<T> : BaseViewModel
         ItemsView = CollectionViewSource.GetDefaultView(_items);
     }
 
-    public async Task ReplaceItem(T targetItem, T newItem)
+    public async Task ReplaceItem(Predicate<T> predicate, T newItem)
     {
         await Execute(async () =>
         {
-            var index = _items.IndexOf(targetItem);
+            var index = _items.IndexOf(predicate);
 
             if (index >= 0)
             {
-                _items.Remove(targetItem);
+                _items.RemoveAt(index);
                 _items.Insert(index, newItem);
+            }
+        });
+    }
+
+    public async Task RemoveItem(Predicate<T> predicate)
+    {
+        await Execute(async () =>
+        {
+            var index = _items.IndexOf(predicate);
+
+            if (index >= 0)
+            {
+                _items.RemoveAt(index);
             }
         });
     }

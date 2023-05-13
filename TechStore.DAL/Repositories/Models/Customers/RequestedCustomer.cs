@@ -1,6 +1,6 @@
 ﻿namespace TechStore.DAL.Repositories.Models.Customers;
 
-public class RequestedCustomer
+public record RequestedCustomer
 {
     public int Id { get; init; }
     public string Login { get; init; }
@@ -13,9 +13,4 @@ public class RequestedCustomer
     public bool IsActive { get; set; }
 
     public IReadOnlyList<OrderDetails> Orders { get; init; }
-}
-
-public class OrderDetails
-{
-    public int OrderId { get; init; }
 }

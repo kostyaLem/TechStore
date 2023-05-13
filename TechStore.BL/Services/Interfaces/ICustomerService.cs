@@ -15,5 +15,5 @@ public interface ICustomerService
 
     Task UpdateActiveStatus(IReadOnlyList<int> customerIds, bool isActive);
 
-    Task Remove(int id);
+    Task Remove(IReadOnlyList<int> customerIds);
 }

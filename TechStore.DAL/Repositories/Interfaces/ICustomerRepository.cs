@@ -4,10 +4,10 @@ namespace TechStore.DAL.Repositories.Interfaces;
 
 public interface ICustomerRepository
 {
-    Task Create(CreateCustomer customer);
+    Task Create(CustomerDefenition customer, Credentials credentials);
     Task<IReadOnlyList<RequestedCustomer>> GetCustomers();
     Task<RequestedCustomer> GetCustomer(int customerId);
     Task Remove(IReadOnlyList<int> customerIds);
     Task SetActiveStatus(IReadOnlyList<int> customerIds, bool isActive);
-    Task<RequestedCustomer> Update(UpdateCustomerRequest request);
+    Task<RequestedCustomer> Update(int id, CustomerDefenition updated, Credentials credentials);
 }

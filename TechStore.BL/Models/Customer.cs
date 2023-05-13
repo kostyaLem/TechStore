@@ -1,6 +1,8 @@
-﻿namespace TechStore.BL.Models;
+﻿using DevExpress.Mvvm;
 
-public record Customer
+namespace TechStore.BL.Models;
+
+public class Customer : BindableBase
 {
     public int Id { get; init; }
     public string Login { get; init; }
@@ -10,5 +12,9 @@ public record Customer
     public string Phone { get; init; }
     public DateTime Birthday { get; init; }
     public DateTime UpdatedOn { get; init; }
-    public bool IsActive { get; init; }
+    public bool IsActive
+    {
+        get => GetValue<bool>(nameof(IsActive));
+        set => SetValue(value, nameof(IsActive));
+    }
 }

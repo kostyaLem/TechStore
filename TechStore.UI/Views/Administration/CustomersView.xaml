@@ -45,7 +45,7 @@
 
             <hc:SearchBar
                 Grid.Row="0"
-                hc:InfoElement.Placeholder="Логин / ФИО / Дата рождения / Email / Телефон"
+                hc:InfoElement.Placeholder="Логин / Имя / Дата рождения / Email / Телефон"
                 hc:InfoElement.TitlePlacement="Left"
                 Style="{StaticResource SearchBarExtend}"
                 Text="{Binding SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />

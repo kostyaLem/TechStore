@@ -26,20 +26,20 @@ internal class CustomerRepository : ICustomerRepository
         return customers.Select(Mapper.MapToBL).ToList();
     }
 
-    public async Task Create(CreateCustomer request)
+    public async Task Create(CustomerDefenition customer, Credentials credentials)
     {
         var newCustomer = new Domain.Models.Customer
         {
-            FirstName = request.FirstName,
-            LastName = request.LastName,
-            Birthday = request.Birthday,
-            Email = request.Email,
-            Phone = request.PhoneNumber,
+            FirstName = customer.FirstName,
+            LastName = customer.LastName,
+            Birthday = customer.Birthday,
+            Email = customer.Email,
+            Phone = customer.PhoneNumber,
             IsActive = true,
             User = new Domain.Models.User()
             {
-                Login = request.Login,
-                PasswordHash = request.Password,
+                Login = credentials.Login,
+                PasswordHash = credentials.PasswordHash,
                 UpdatedOn = DateTime.Now
             }
         };
@@ -48,25 +48,24 @@ internal class CustomerRepository : ICustomerRepository
         await _context.SaveChangesAsync();
     }
 
-    public async Task<RequestedCustomer> Update(UpdateCustomerRequest request)
+    public async Task<RequestedCustomer> Update(int id, CustomerDefenition updated, Credentials credentials)
     {
         var customer = await _context.Customers
             .Include(x => x.User)
-            .AsNoTracking()
-            .FirstAsync(x => x.Id == request.Id);
+            .FirstAsync(x => x.Id == id);
 
-        customer.Id = request.Id;
-        customer.Email = request.Email;
-        customer.FirstName = request.FirstName;
-        customer.LastName = request.LastName;
-        customer.Phone = request.PhoneNumber;
-        customer.Birthday = request.Birthday;
-        customer.IsActive = request.IsActive;
+        customer.Email = updated.Email;
+        customer.FirstName = updated.FirstName;
+        customer.LastName = updated.LastName;
+        customer.Phone = updated.PhoneNumber;
+        customer.Birthday = updated.Birthday;
+        customer.IsActive = updated.IsActive;
 
-        customer.User.Login = request.Login;
+        customer.User.Login = credentials.Login;
+        customer.User.UpdatedOn = DateTime.Now;
 
-        if (!string.IsNullOrWhiteSpace(request.PasswordHash))
-            customer.User.PasswordHash = request.PasswordHash;
+        if (!string.IsNullOrWhiteSpace(credentials.PasswordHash))
+            customer.User.PasswordHash = credentials.PasswordHash;
 
         await _context.SaveChangesAsync();
 

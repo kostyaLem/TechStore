@@ -18,10 +18,8 @@ internal class CustomerService : ICustomerService
 
     public async Task Create(CreateCustomerRequest createRequest)
     {
-        var mappedCustomer = new CreateCustomer
+        var mappedCustomer = new CustomerDefenition
         {
-            Login = createRequest.Login,
-            Password = HashService.Compute(createRequest.Password),
             FirstName = createRequest.FirstName,
             LastName = createRequest.LastName,
             Birthday = createRequest.Birthday,
@@ -29,7 +27,9 @@ internal class CustomerService : ICustomerService
             PhoneNumber = createRequest.PhoneNumber
         };
 
-        await _customerRepository.Create(mappedCustomer);
+        await _customerRepository.Create(
+            mappedCustomer,
+            new(createRequest.Login, HashService.Compute(createRequest.Password)));
     }
 
     public async Task<Customer> GetById(int id)
@@ -57,17 +57,17 @@ internal class CustomerService : ICustomerService
 
     public async Task<Customer> Update(Customer customer, string password)
     {
-        var updatedCustomer = await _customerRepository.Update(new UpdateCustomerRequest
-        {
-            Id = customer.Id,
-            PasswordHash = HashService.Compute(password),
-            Email = customer.Email,
-            FirstName = customer.FirstName,
-            LastName = customer.LastName,
-            PhoneNumber = customer.Phone,
-            Birthday = customer.Birthday,
-            IsActive = customer.IsActive
-        });
+        var updatedCustomer = await _customerRepository.Update(customer.Id,
+            new CustomerDefenition()
+            {
+                Email = customer.Email,
+                FirstName = customer.FirstName,
+                LastName = customer.LastName,
+                PhoneNumber = customer.Phone,
+                Birthday = customer.Birthday,
+                IsActive = customer.IsActive
+            },
+            new(customer.Login, HashService.Compute(password)));
 
         return MapToUI(updatedCustomer);
     }

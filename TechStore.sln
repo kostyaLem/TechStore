@@ -4,6 +4,10 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.2.32630.192
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TechStore.UI", "TechStore.UI\TechStore.UI.csproj", "{64A0B609-4AEE-4912-A44B-B43E312B7C57}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B98A959C-5020-4D76-9F3B-339F96D380C4} = {B98A959C-5020-4D76-9F3B-339F96D380C4}
+		{D93FB221-3DE3-43AA-AB0A-A678F95A8B21} = {D93FB221-3DE3-43AA-AB0A-A678F95A8B21}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TechStore.BL", "TechStore.BL\TechStore.BL.csproj", "{981B354B-8EA2-4D46-AE9C-5B42032D0C88}"
 EndProject
