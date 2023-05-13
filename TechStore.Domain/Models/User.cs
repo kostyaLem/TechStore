@@ -9,7 +9,4 @@ public class User
     public DateTime CreatedOn { get; set; }
     public DateTime UpdatedOn { get; set; }
     public DateTime LastActivity { get; set; }
-
-    public int? EmployeeId { get; set; }
-    public virtual Employee Employee { get; set; }
 }

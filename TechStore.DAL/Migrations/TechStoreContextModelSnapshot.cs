@@ -92,8 +92,6 @@ namespace TechStore.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
-
                     b.HasIndex("FirstName", "LastName", "Phone");
 
                     b.ToTable("Customers");
@@ -272,16 +270,10 @@ namespace TechStore.DAL.Migrations
             modelBuilder.Entity("TechStore.Domain.Models.User", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
-
-                    b.Property<int?>("EmployeeId")
-                        .HasColumnType("int");
 
                     b.Property<DateTime>("LastActivity")
                         .HasColumnType("datetime2");
@@ -302,10 +294,6 @@ namespace TechStore.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("EmployeeId")
-                        .IsUnique()
-                        .HasFilter("[EmployeeId] IS NOT NULL");
-
                     b.HasIndex("Login");
 
                     b.ToTable("Users");
@@ -324,17 +312,6 @@ namespace TechStore.DAL.Migrations
                         .HasForeignKey("ProductsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("TechStore.Domain.Models.Customer", b =>
-                {
-                    b.HasOne("TechStore.Domain.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("TechStore.Domain.Models.Order", b =>
@@ -399,11 +376,17 @@ namespace TechStore.DAL.Migrations
 
             modelBuilder.Entity("TechStore.Domain.Models.User", b =>
                 {
-                    b.HasOne("TechStore.Domain.Models.Employee", "Employee")
+                    b.HasOne("TechStore.Domain.Models.Customer", null)
                         .WithOne("User")
-                        .HasForeignKey("TechStore.Domain.Models.User", "EmployeeId");
+                        .HasForeignKey("TechStore.Domain.Models.User", "Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("Employee");
+                    b.HasOne("TechStore.Domain.Models.Employee", null)
+                        .WithOne("User")
+                        .HasForeignKey("TechStore.Domain.Models.User", "Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("TechStore.Domain.Models.Category", b =>
@@ -414,6 +397,9 @@ namespace TechStore.DAL.Migrations
             modelBuilder.Entity("TechStore.Domain.Models.Customer", b =>
                 {
                     b.Navigation("Orders");
+
+                    b.Navigation("User")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("TechStore.Domain.Models.Employee", b =>

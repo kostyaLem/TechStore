@@ -12,6 +12,16 @@ internal class UserConfiguration : IEntityTypeConfiguration<User>
         builder.Property(x => x.Login).IsRequired();
         builder.Property(x => x.PasswordHash).IsRequired();
 
+        builder
+            .HasOne<Employee>()
+            .WithOne(x => x.User)
+            .HasForeignKey<User>(x => x.Id);
+
+        builder
+            .HasOne<Customer>()
+            .WithOne(x => x.User)
+            .HasForeignKey<User>(x => x.Id);
+
         builder.HasIndex(x => x.Login);
     }
 }
