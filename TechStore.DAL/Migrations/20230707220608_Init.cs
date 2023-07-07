@@ -23,20 +23,6 @@ namespace TechStore.DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "StoredImages",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Image = table.Column<byte[]>(type: "varbinary(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_StoredImages", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
                 {
@@ -78,6 +64,26 @@ namespace TechStore.DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "StoredImages",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Image = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
+                    ProductId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_StoredImages", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_StoredImages_Products_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "Products",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Customers",
                 columns: table => new
                 {
@@ -89,11 +95,17 @@ namespace TechStore.DAL.Migrations
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Phone = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false)
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    ImageId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Customers", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Customers_StoredImages_ImageId",
+                        column: x => x.ImageId,
+                        principalTable: "StoredImages",
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Customers_Users_UserId",
                         column: x => x.UserId,
@@ -113,39 +125,21 @@ namespace TechStore.DAL.Migrations
                     Birthday = table.Column<DateTime>(type: "date", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Phone = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false)
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    ImageId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Employees", x => x.Id);
                     table.ForeignKey(
+                        name: "FK_Employees_StoredImages_ImageId",
+                        column: x => x.ImageId,
+                        principalTable: "StoredImages",
+                        principalColumn: "Id");
+                    table.ForeignKey(
                         name: "FK_Employees_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ProductStoredImage",
-                columns: table => new
-                {
-                    ImagesId = table.Column<int>(type: "int", nullable: false),
-                    ProductsId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ProductStoredImage", x => new { x.ImagesId, x.ProductsId });
-                    table.ForeignKey(
-                        name: "FK_ProductStoredImage_Products_ProductsId",
-                        column: x => x.ProductsId,
-                        principalTable: "Products",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_ProductStoredImage_StoredImages_ImagesId",
-                        column: x => x.ImagesId,
-                        principalTable: "StoredImages",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -238,6 +232,11 @@ namespace TechStore.DAL.Migrations
                 columns: new[] { "FirstName", "LastName", "Phone" });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Customers_ImageId",
+                table: "Customers",
+                column: "ImageId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Customers_UserId",
                 table: "Customers",
                 column: "UserId",
@@ -247,6 +246,11 @@ namespace TechStore.DAL.Migrations
                 name: "IX_Employees_FirstName_LastName_Phone",
                 table: "Employees",
                 columns: new[] { "FirstName", "LastName", "Phone" });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Employees_ImageId",
+                table: "Employees",
+                column: "ImageId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Employees_UserId",
@@ -280,14 +284,14 @@ namespace TechStore.DAL.Migrations
                 column: "CategoryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProductStoredImage_ProductsId",
-                table: "ProductStoredImage",
-                column: "ProductsId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_PromoCodes_CreatedByEmployeeId",
                 table: "PromoCodes",
                 column: "CreatedByEmployeeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StoredImages_ProductId",
+                table: "StoredImages",
+                column: "ProductId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Users_Login",
@@ -301,19 +305,10 @@ namespace TechStore.DAL.Migrations
                 name: "OrderProducts");
 
             migrationBuilder.DropTable(
-                name: "ProductStoredImage");
-
-            migrationBuilder.DropTable(
                 name: "PromoCodes");
 
             migrationBuilder.DropTable(
                 name: "Orders");
-
-            migrationBuilder.DropTable(
-                name: "Products");
-
-            migrationBuilder.DropTable(
-                name: "StoredImages");
 
             migrationBuilder.DropTable(
                 name: "Customers");
@@ -322,10 +317,16 @@ namespace TechStore.DAL.Migrations
                 name: "Employees");
 
             migrationBuilder.DropTable(
-                name: "Categories");
+                name: "StoredImages");
 
             migrationBuilder.DropTable(
                 name: "Users");
+
+            migrationBuilder.DropTable(
+                name: "Products");
+
+            migrationBuilder.DropTable(
+                name: "Categories");
         }
     }
 }

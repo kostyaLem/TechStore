@@ -12,7 +12,7 @@ using TechStore.DAL.Context;
 namespace TechStore.DAL.Migrations
 {
     [DbContext(typeof(TechStoreContext))]
-    [Migration("20230707202125_Init")]
+    [Migration("20230707220608_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -23,21 +23,6 @@ namespace TechStore.DAL.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
-
-            modelBuilder.Entity("ProductStoredImage", b =>
-                {
-                    b.Property<int>("ImagesId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProductsId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ImagesId", "ProductsId");
-
-                    b.HasIndex("ProductsId");
-
-                    b.ToTable("ProductStoredImage");
-                });
 
             modelBuilder.Entity("TechStore.Domain.Models.Category", b =>
                 {
@@ -78,6 +63,9 @@ namespace TechStore.DAL.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<int?>("ImageId")
+                        .HasColumnType("int");
+
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
@@ -93,6 +81,8 @@ namespace TechStore.DAL.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ImageId");
 
                     b.HasIndex("UserId")
                         .IsUnique();
@@ -121,6 +111,9 @@ namespace TechStore.DAL.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<int?>("ImageId")
+                        .HasColumnType("int");
+
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
@@ -133,6 +126,8 @@ namespace TechStore.DAL.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ImageId");
 
                     b.HasIndex("UserId")
                         .IsUnique();
@@ -272,11 +267,16 @@ namespace TechStore.DAL.Migrations
                         .IsRequired()
                         .HasColumnType("varbinary(max)");
 
+                    b.Property<int?>("ProductId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
 
                     b.ToTable("StoredImages");
                 });
@@ -316,39 +316,36 @@ namespace TechStore.DAL.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("ProductStoredImage", b =>
-                {
-                    b.HasOne("TechStore.Domain.Models.StoredImage", null)
-                        .WithMany()
-                        .HasForeignKey("ImagesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("TechStore.Domain.Models.Product", null)
-                        .WithMany()
-                        .HasForeignKey("ProductsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("TechStore.Domain.Models.Customer", b =>
                 {
+                    b.HasOne("TechStore.Domain.Models.StoredImage", "Image")
+                        .WithMany()
+                        .HasForeignKey("ImageId");
+
                     b.HasOne("TechStore.Domain.Models.User", "User")
                         .WithOne()
                         .HasForeignKey("TechStore.Domain.Models.Customer", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("Image");
+
                     b.Navigation("User");
                 });
 
             modelBuilder.Entity("TechStore.Domain.Models.Employee", b =>
                 {
+                    b.HasOne("TechStore.Domain.Models.StoredImage", "Image")
+                        .WithMany()
+                        .HasForeignKey("ImageId");
+
                     b.HasOne("TechStore.Domain.Models.User", "User")
                         .WithOne()
                         .HasForeignKey("TechStore.Domain.Models.Employee", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Image");
 
                     b.Navigation("User");
                 });
@@ -413,6 +410,13 @@ namespace TechStore.DAL.Migrations
                     b.Navigation("Employee");
                 });
 
+            modelBuilder.Entity("TechStore.Domain.Models.StoredImage", b =>
+                {
+                    b.HasOne("TechStore.Domain.Models.Product", null)
+                        .WithMany("Images")
+                        .HasForeignKey("ProductId");
+                });
+
             modelBuilder.Entity("TechStore.Domain.Models.Category", b =>
                 {
                     b.Navigation("Products");
@@ -437,6 +441,8 @@ namespace TechStore.DAL.Migrations
 
             modelBuilder.Entity("TechStore.Domain.Models.Product", b =>
                 {
+                    b.Navigation("Images");
+
                     b.Navigation("OrderProducts");
                 });
 #pragma warning restore 612, 618

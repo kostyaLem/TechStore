@@ -15,8 +15,9 @@ public class Customer
     public string Phone { get; set; }
     public bool IsActive { get; set; }
     public int UserId { get; set; }
+    public int? ImageId { get; set; }
 
     public virtual User User { get; set; }
+    public virtual StoredImage Image { get; set; }
     public virtual ICollection<Order> Orders { get; set; }
-
 }

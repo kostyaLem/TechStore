@@ -50,6 +50,7 @@
         </TextBlock>
 
         <Border
+            Grid.RowSpan="3"
             Grid.ColumnSpan="2"
             Panel.ZIndex="10"
             d:Visibility="Hidden"
