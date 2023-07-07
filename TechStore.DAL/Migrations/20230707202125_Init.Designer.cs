@@ -12,7 +12,7 @@ using TechStore.DAL.Context;
 namespace TechStore.DAL.Migrations
 {
     [DbContext(typeof(TechStoreContext))]
-    [Migration("20230513225945_Init")]
+    [Migration("20230707202125_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -68,7 +68,7 @@ namespace TechStore.DAL.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<DateTime>("Birthday")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("date");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -94,6 +94,9 @@ namespace TechStore.DAL.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
                     b.HasIndex("FirstName", "LastName", "Phone");
 
                     b.ToTable("Customers");
@@ -108,7 +111,7 @@ namespace TechStore.DAL.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<DateTime>("Birthday")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("date");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -130,6 +133,9 @@ namespace TechStore.DAL.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
 
                     b.HasIndex("FirstName", "LastName", "Phone");
 
@@ -202,6 +208,9 @@ namespace TechStore.DAL.Migrations
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -233,6 +242,9 @@ namespace TechStore.DAL.Migrations
 
                     b.Property<int>("CreatedByEmployeeId")
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
 
                     b.Property<double>("Discount")
                         .HasColumnType("float");
@@ -272,7 +284,10 @@ namespace TechStore.DAL.Migrations
             modelBuilder.Entity("TechStore.Domain.Models.User", b =>
                 {
                     b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
@@ -316,18 +331,40 @@ namespace TechStore.DAL.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("TechStore.Domain.Models.Customer", b =>
+                {
+                    b.HasOne("TechStore.Domain.Models.User", "User")
+                        .WithOne()
+                        .HasForeignKey("TechStore.Domain.Models.Customer", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("TechStore.Domain.Models.Employee", b =>
+                {
+                    b.HasOne("TechStore.Domain.Models.User", "User")
+                        .WithOne()
+                        .HasForeignKey("TechStore.Domain.Models.Employee", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("TechStore.Domain.Models.Order", b =>
                 {
                     b.HasOne("TechStore.Domain.Models.Customer", "Customer")
                         .WithMany("Orders")
                         .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("TechStore.Domain.Models.Employee", "Employee")
                         .WithMany("Orders")
                         .HasForeignKey("EmployeeId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Customer");
@@ -376,21 +413,6 @@ namespace TechStore.DAL.Migrations
                     b.Navigation("Employee");
                 });
 
-            modelBuilder.Entity("TechStore.Domain.Models.User", b =>
-                {
-                    b.HasOne("TechStore.Domain.Models.Customer", null)
-                        .WithOne("User")
-                        .HasForeignKey("TechStore.Domain.Models.User", "Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("TechStore.Domain.Models.Employee", null)
-                        .WithOne("User")
-                        .HasForeignKey("TechStore.Domain.Models.User", "Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("TechStore.Domain.Models.Category", b =>
                 {
                     b.Navigation("Products");
@@ -399,9 +421,6 @@ namespace TechStore.DAL.Migrations
             modelBuilder.Entity("TechStore.Domain.Models.Customer", b =>
                 {
                     b.Navigation("Orders");
-
-                    b.Navigation("User")
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("TechStore.Domain.Models.Employee", b =>
@@ -409,9 +428,6 @@ namespace TechStore.DAL.Migrations
                     b.Navigation("Orders");
 
                     b.Navigation("PromoCodes");
-
-                    b.Navigation("User")
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("TechStore.Domain.Models.Order", b =>

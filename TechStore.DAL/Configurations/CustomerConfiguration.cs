@@ -10,8 +10,17 @@ internal class CustomerConfiguration : IEntityTypeConfiguration<Customer>
     {
         builder.HasKey(x => x.Id);
         builder.Property(x => x.FirstName).IsRequired();
-        builder.Property(x => x.Birthday).IsRequired();
+        builder.Property(x => x.Birthday)
+            .HasColumnType("date");
 
         builder.HasIndex(x => new { x.FirstName, x.LastName, x.Phone });
+
+        builder.HasOne(x => x.User)
+            .WithOne();
+
+        builder.HasMany(x => x.Orders)
+            .WithOne(x => x.Customer)
+            .HasForeignKey(x => x.CustomerId)
+            .OnDelete(DeleteBehavior.NoAction);
     }
 }

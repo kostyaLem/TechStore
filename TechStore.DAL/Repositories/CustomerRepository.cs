@@ -28,6 +28,8 @@ internal class CustomerRepository : ICustomerRepository
 
     public async Task Create(CustomerDefenition customer, Credentials credentials)
     {
+        var now = DateTime.UtcNow;
+
         var newCustomer = new Domain.Models.Customer
         {
             FirstName = customer.FirstName,
@@ -40,7 +42,10 @@ internal class CustomerRepository : ICustomerRepository
             {
                 Login = credentials.Login,
                 PasswordHash = credentials.PasswordHash,
-                UpdatedOn = DateTime.Now
+                UpdatedOn = now,
+                Type = Domain.Models.UserType.Customer,
+                CreatedOn = now,
+                LastActivity = now
             }
         };
 

@@ -15,6 +15,6 @@ public partial class App : Application
     {
         base.OnStartup(e);
 
-        _container.GetWindow(BL.Models.UserType.Admin).ShowDialog();
+        _container.GetWindow(BL.Models.UserType.Customer).ShowDialog();
     }
 }
