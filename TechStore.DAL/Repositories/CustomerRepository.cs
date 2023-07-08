@@ -2,6 +2,7 @@
 using TechStore.DAL.Context;
 using TechStore.DAL.Mapping;
 using TechStore.DAL.Repositories.Interfaces;
+using TechStore.DAL.Repositories.Models;
 using TechStore.DAL.Repositories.Models.Customers;
 
 namespace TechStore.DAL.Repositories;
@@ -26,7 +27,7 @@ internal class CustomerRepository : ICustomerRepository
         return customers.Select(CustomerMapper.MapToBL).ToList();
     }
 
-    public async Task Create(CustomerDefenition customer, Credentials credentials)
+    public async Task Create(CustomerDefinition customer, Credentials credentials)
     {
         var now = DateTime.UtcNow;
 
@@ -53,7 +54,7 @@ internal class CustomerRepository : ICustomerRepository
         await _context.SaveChangesAsync();
     }
 
-    public async Task<RequestedCustomer> Update(int id, CustomerDefenition updated, Credentials credentials)
+    public async Task<RequestedCustomer> Update(int id, CustomerDefinition updated, Credentials credentials)
     {
         var customer = await _context.Customers
             .Include(x => x.User)

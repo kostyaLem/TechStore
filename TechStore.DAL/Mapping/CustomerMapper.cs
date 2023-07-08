@@ -3,7 +3,7 @@ using TechStore.Domain.Models;
 
 namespace TechStore.DAL.Mapping;
 
-public static partial class CustomerMapper
+public static class CustomerMapper
 {
     public static RequestedCustomer MapToBL(this Customer customer)
     {

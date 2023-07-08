@@ -22,5 +22,6 @@ public static class IocConfiguration
 
         serviceCollection.AddTransient<IAuthorizationRepository, AuthorizationRepository>();
         serviceCollection.AddTransient<ICustomerRepository, CustomerRepository>();
+        serviceCollection.AddTransient<IEmployeeRepository, EmployeeRepository>();
     }
 }

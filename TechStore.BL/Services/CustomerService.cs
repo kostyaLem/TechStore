@@ -18,7 +18,7 @@ internal class CustomerService : ICustomerService
 
     public async Task Create(CreateCustomerRequest createRequest)
     {
-        var mappedCustomer = new CustomerDefenition
+        var mappedCustomer = new CustomerDefinition
         {
             FirstName = createRequest.FirstName,
             LastName = createRequest.LastName,
@@ -58,7 +58,7 @@ internal class CustomerService : ICustomerService
     public async Task<Customer> Update(Customer customer, string password)
     {
         var updatedCustomer = await _customerRepository.Update(customer.Id,
-            new CustomerDefenition()
+            new CustomerDefinition()
             {
                 Email = customer.Email,
                 FirstName = customer.FirstName,

@@ -1,6 +1,6 @@
 ﻿namespace TechStore.DAL.Repositories.Models.Customers;
 
-public record CustomerDefenition
+public record CustomerDefinition
 {
     public string FirstName { get; init; }
     public string LastName { get; init; }
