@@ -13,7 +13,6 @@ public class Customer
     public DateTime Birthday { get; set; }
     public string Email { get; set; }
     public string Phone { get; set; }
-    public bool IsActive { get; set; }
     public int UserId { get; set; }
     public int? ImageId { get; set; }
 

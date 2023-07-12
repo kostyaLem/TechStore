@@ -14,6 +14,7 @@ public static class IocConfiguration
 
         services.AddTransient<IAuthorizationService, AuthorizationService>();
         services.AddTransient<ICustomerService, CustomerService>();
+        services.AddTransient<IEmployeeService, EmployeeService>();
 
         return services;
     }

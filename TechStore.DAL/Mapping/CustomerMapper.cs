@@ -25,7 +25,7 @@ public static class CustomerMapper
             Phone = customer.Phone,
             Birthday = customer.Birthday,
             UpdateOn = customer.User.UpdatedOn,
-            IsActive = customer.IsActive,
+            IsActive = customer.User.IsActive,
             Orders = orders
         };
 

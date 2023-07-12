@@ -37,8 +37,7 @@ internal class CustomerRepository : ICustomerRepository
             LastName = customer.LastName,
             Birthday = customer.Birthday,
             Email = customer.Email,
-            Phone = customer.PhoneNumber,
-            IsActive = true,
+            Phone = customer.PhoneNumber,            
             User = new Domain.Models.User()
             {
                 Login = credentials.Login,
@@ -46,7 +45,8 @@ internal class CustomerRepository : ICustomerRepository
                 UpdatedOn = now,
                 Type = Domain.Models.UserType.Customer,
                 CreatedOn = now,
-                LastActivity = now
+                LastActivity = now,
+                IsActive = true
             }
         };
 
@@ -65,10 +65,10 @@ internal class CustomerRepository : ICustomerRepository
         customer.LastName = updated.LastName;
         customer.Phone = updated.PhoneNumber;
         customer.Birthday = updated.Birthday;
-        customer.IsActive = updated.IsActive;
 
         customer.User.Login = credentials.Login;
         customer.User.UpdatedOn = DateTime.Now;
+        customer.User.IsActive = updated.IsActive;
 
         if (!string.IsNullOrWhiteSpace(credentials.PasswordHash))
             customer.User.PasswordHash = credentials.PasswordHash;
@@ -81,10 +81,11 @@ internal class CustomerRepository : ICustomerRepository
     public async Task SetActiveStatus(IReadOnlyList<int> customerIds, bool isActive)
     {
         var customers = await _context.Customers
+            .Include(x => x.User)
             .Where(x => customerIds.Contains(x.Id))
             .ToListAsync();
 
-        customers.ForEach(x => x.IsActive = isActive);
+        customers.ForEach(x => x.User.IsActive = isActive);
         await _context.SaveChangesAsync();
     }
 

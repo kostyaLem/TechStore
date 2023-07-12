@@ -14,7 +14,7 @@ using TechStore.UI.Views.EditViews;
 
 namespace TechStore.UI.ViewModels.Administration;
 
-public class CustomersViewModel : BaseItemsViewModel<Customer>
+public sealed class CustomersViewModel : BaseItemsViewModel<Customer>
 {
     private readonly ICustomerService _customerService;
     // Сервис для работы с диалоговыми окнами

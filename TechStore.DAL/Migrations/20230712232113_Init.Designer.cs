@@ -12,7 +12,7 @@ using TechStore.DAL.Context;
 namespace TechStore.DAL.Migrations
 {
     [DbContext(typeof(TechStoreContext))]
-    [Migration("20230707220608_Init")]
+    [Migration("20230712232113_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -65,9 +65,6 @@ namespace TechStore.DAL.Migrations
 
                     b.Property<int?>("ImageId")
                         .HasColumnType("int");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
 
                     b.Property<string>("LastName")
                         .IsRequired()
@@ -291,6 +288,9 @@ namespace TechStore.DAL.Migrations
 
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
 
                     b.Property<DateTime>("LastActivity")
                         .HasColumnType("datetime2");

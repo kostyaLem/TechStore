@@ -43,7 +43,8 @@ internal class EmployeeRepository : IEmployeeRepository
                 UpdatedOn = now,
                 Type = Domain.Models.UserType.Employee,
                 CreatedOn = now,
-                LastActivity = now
+                LastActivity = now,
+                IsActive = true
             }
         };
 
@@ -65,6 +66,7 @@ internal class EmployeeRepository : IEmployeeRepository
 
         employee.User.Login = credentials.Login;
         employee.User.UpdatedOn = DateTime.Now;
+        employee.User.IsActive = updated.IsActive;
 
         if (!string.IsNullOrWhiteSpace(credentials.PasswordHash))
             employee.User.PasswordHash = credentials.PasswordHash;
@@ -82,5 +84,25 @@ internal class EmployeeRepository : IEmployeeRepository
             .FirstAsync(x => x.Id == employeeId);
 
         return customer!.MapToBL();
+    }
+
+    public async Task Remove(IReadOnlyList<int> employeeIds)
+    {
+        var employees = await _context.Employees
+            .Where(x => employeeIds.Contains(x.Id))
+            .ToListAsync();
+
+        _context.RemoveRange(employees);
+        await _context.SaveChangesAsync();
+    }
+
+    public async Task SetActiveStatus(IReadOnlyList<int> employeeOds, bool isActive)
+    {
+        var employees = await _context.Employees
+    .       Where(x => employeeOds.Contains(x.Id))
+    .       ToListAsync();
+
+        employees.ForEach(x => x.User.IsActive = isActive);
+        await _context.SaveChangesAsync();
     }
 }
