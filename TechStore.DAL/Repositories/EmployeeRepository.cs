@@ -19,6 +19,7 @@ internal class EmployeeRepository : IEmployeeRepository
     public async Task<IReadOnlyList<RequestedEmployee>> GetEmployees()
     {
         var employees = await _context.Employees
+            .Include(x => x.User)
             .AsNoTracking()
             .ToListAsync();
 
@@ -99,8 +100,9 @@ internal class EmployeeRepository : IEmployeeRepository
     public async Task SetActiveStatus(IReadOnlyList<int> employeeOds, bool isActive)
     {
         var employees = await _context.Employees
-    .       Where(x => employeeOds.Contains(x.Id))
-    .       ToListAsync();
+            .Include(x => x.User)
+            .Where(x => employeeOds.Contains(x.Id))
+            .ToListAsync();
 
         employees.ForEach(x => x.User.IsActive = isActive);
         await _context.SaveChangesAsync();

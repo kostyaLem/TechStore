@@ -1,9 +1,11 @@
-﻿using DevExpress.Mvvm.Native;
+﻿using DevExpress.Mvvm;
+using DevExpress.Mvvm.Native;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows.Data;
+using System.Windows.Input;
 
 namespace TechStore.UI.ViewModels;
 
@@ -16,6 +18,13 @@ public abstract class BaseItemsViewModel<T> : BaseViewModel
     protected readonly ObservableCollection<T> _items;
     // Элементы коллекции, отображаемые во View
     public ICollectionView ItemsView { get; }
+
+    public ICommand LoadViewDataCommand { get; protected set; }
+    public ICommand CreateItemCommand { get; protected set; }
+    public ICommand EditItemCommand { get; protected set; }
+    public ICommand<object> RemoveItemCommand { get; protected set; }
+    public ICommand<object> ActivateItemCommand { get; protected set; }
+    public ICommand<object> DisableItemCommand { get; protected set; }
 
     public T SelectedItem
     {

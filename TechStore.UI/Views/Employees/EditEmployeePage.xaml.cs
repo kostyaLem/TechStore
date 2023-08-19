@@ -1,5 +1,5 @@
 ﻿using System.Windows.Controls;
-using TechStore.BL.Models.Customers;
+using TechStore.BL.Models.Employees;
 using TechStore.UI.ViewModels;
 
 namespace TechStore.UI.Views.EditViews;
@@ -8,7 +8,7 @@ namespace TechStore.UI.Views.EditViews;
 /// </summary>
 public partial class EditEmployeePage : UserControl
 {
-    public EditEmployeePage(EditViewModel<Customer> context)
+    public EditEmployeePage(EditViewModel<Employee> context)
     {
         InitializeComponent();
         DataContext = context;

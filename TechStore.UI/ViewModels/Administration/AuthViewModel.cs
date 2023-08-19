@@ -9,7 +9,7 @@ using MessageBox = HandyControl.Controls.MessageBox;
 
 namespace TechStore.UI.ViewModels.Administration;
 
-public class AuthViewModel : BaseViewModel
+public sealed class AuthViewModel : BaseViewModel
 {
     private readonly IAuthorizationService _authService;
 

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TechStore.UI.ViewModels
 {
-    public class MainViewModel
+    public sealed class MainViewModel
     {
 
     }

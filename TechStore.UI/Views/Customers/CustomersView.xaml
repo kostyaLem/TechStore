@@ -170,12 +170,12 @@
 
                 <hc:ButtonGroup Grid.Column="1" HorizontalAlignment="Center">
                     <Button
-                        Command="{Binding DisableCustomersCommand}"
+                        Command="{Binding DisableItemCommand}"
                         CommandParameter="{Binding ElementName=CustomersGrid, Path=SelectedItems}"
                         Content="Деактивировать"
                         IsEnabled="{Binding ElementName=CustomersGrid, Path=SelectedItems.Count, Converter={StaticResource NumericToBooleanConverter}}" />
                     <Button
-                        Command="{Binding ActivateCustomersCommand}"
+                        Command="{Binding ActivateItemCommand}"
                         CommandParameter="{Binding ElementName=CustomersGrid, Path=SelectedItems}"
                         Content="Активировать"
                         IsEnabled="{Binding ElementName=CustomersGrid, Path=SelectedItems.Count, Converter={StaticResource NumericToBooleanConverter}}" />
@@ -187,20 +187,20 @@
                     Orientation="Horizontal">
                     <Button
                         hc:BorderElement.CornerRadius="10,0,0,10"
-                        Command="{Binding RemoveCustomerCommand}"
+                        Command="{Binding RemoveItemCommand}"
                         CommandParameter="{Binding ElementName=CustomersGrid, Path=SelectedItems}"
                         Content="Удалить"
                         IsEnabled="{Binding ElementName=CustomersGrid, Path=SelectedItems.Count, Converter={StaticResource NumericToBooleanConverter}}"
                         Style="{StaticResource ButtonDanger}" />
                     <ToggleButton
                         hc:BorderElement.CornerRadius="0"
-                        Command="{Binding EditCustomerCommand}"
+                        Command="{Binding EditItemCommand}"
                         CommandParameter="{Binding ElementName=CustomersGrid, Path=SelectedItems}"
                         Content="Редактировать"
                         Style="{StaticResource ToggleButtonWarning}" />
                     <ToggleButton
                         hc:BorderElement.CornerRadius="0,10,10,0"
-                        Command="{Binding CreateCustomerCommand}"
+                        Command="{Binding CreateItemCommand}"
                         Content="Добавить"
                         Style="{StaticResource ToggleButtonSuccess}" />
                 </StackPanel>

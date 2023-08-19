@@ -8,7 +8,7 @@ using TechStore.UI.Views.Employees;
 
 namespace TechStore.UI;
 
-public class Container
+public sealed class Container
 {
     private readonly IServiceProvider _serviceProvider;
 

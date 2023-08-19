@@ -8,7 +8,7 @@ namespace TechStore.DAL;
 
 public static class IocConfiguration
 {
-    public static void AddRepositories(this IServiceCollection serviceCollection) 
+    public static void AddRepositories(this IServiceCollection serviceCollection)
     {
         serviceCollection.AddTransient<TechStoreContextFactory>();
         serviceCollection.AddTransient<TechStoreContext>(x =>
@@ -23,5 +23,6 @@ public static class IocConfiguration
         serviceCollection.AddTransient<IAuthorizationRepository, AuthorizationRepository>();
         serviceCollection.AddTransient<ICustomerRepository, CustomerRepository>();
         serviceCollection.AddTransient<IEmployeeRepository, EmployeeRepository>();
+        serviceCollection.AddTransient<IPromoRepository, PromoRepository>();
     }
 }

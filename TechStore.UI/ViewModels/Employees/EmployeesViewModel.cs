@@ -5,7 +5,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows.Input;
 using TechStore.BL.Mapping;
 using TechStore.BL.Models.Employees;
 using TechStore.BL.Services.Interfaces;
@@ -20,25 +19,18 @@ public sealed class EmployeesViewModel : BaseItemsViewModel<Employee>
     // Сервис для работы с диалоговыми окнами
     private readonly IWindowDialogService _dialogService;
 
-    public ICommand LoadViewDataCommand { get; }
-    public ICommand CreateEmployeeCommand { get; }
-    public ICommand EditEmployeeCommand { get; }
-    public ICommand<object> RemoveEmployeeCommand { get; }
-    public ICommand<object> ActivateEmployeeCommand { get; }
-    public ICommand<object> DisableEmployeeCommand { get; }
-
     public EmployeesViewModel(IEmployeeService employeeService, IWindowDialogService dialogService)
     {
         _employeeService = employeeService;
         _dialogService = dialogService;
 
         LoadViewDataCommand = new AsyncCommand(LoadEmployees);
-        CreateEmployeeCommand = new AsyncCommand(CreateEmployee, () => Container.IsAdmin);
-        EditEmployeeCommand = new AsyncCommand(EditEmployee, () => Container.IsAdmin && SelectedItem != null);
-        RemoveEmployeeCommand = new AsyncCommand<object>(RemoveEmployee, _ => Container.IsAdmin && SelectedItem != null);
+        CreateItemCommand = new AsyncCommand(CreateEmployee, () => Container.IsAdmin);
+        EditItemCommand = new AsyncCommand(EditEmployee, () => Container.IsAdmin && SelectedItem != null);
+        RemoveItemCommand = new AsyncCommand<object>(RemoveEmployee, _ => Container.IsAdmin && SelectedItem != null);
 
-        ActivateEmployeeCommand = new AsyncCommand<object>(ActivateEmployee, _ => Container.IsAdmin && SelectedItem != null);
-        DisableEmployeeCommand = new AsyncCommand<object>(DisableEmployee, _ => Container.IsAdmin && SelectedItem != null);
+        ActivateItemCommand = new AsyncCommand<object>(ActivateEmployee, _ => Container.IsAdmin && SelectedItem != null);
+        DisableItemCommand = new AsyncCommand<object>(DisableEmployee, _ => Container.IsAdmin && SelectedItem != null);
 
         ItemsView.Filter += CanFilterCustomer;
     }
@@ -81,7 +73,7 @@ public sealed class EmployeesViewModel : BaseItemsViewModel<Employee>
         {
             var vm = new EditViewModel<Employee>(x => x.IsActive = true);
 
-            var result = _dialogService.ShowDialog(typeof(EditCustomerPage), vm);
+            var result = _dialogService.ShowDialog(typeof(EditEmployeePage), vm);
 
             if (result == DialogResult.OK)
             {
@@ -99,7 +91,7 @@ public sealed class EmployeesViewModel : BaseItemsViewModel<Employee>
             var employee = await _employeeService.GetById(SelectedItem.Id);
             var vm = new EditViewModel<Employee>(employee);
 
-            var result = _dialogService.ShowDialog(typeof(EditCustomerPage), vm);
+            var result = _dialogService.ShowDialog(typeof(EditEmployeePage), vm);
 
             if (result == DialogResult.OK)
             {

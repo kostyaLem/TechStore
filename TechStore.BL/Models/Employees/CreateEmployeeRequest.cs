@@ -1,6 +1,6 @@
 ﻿namespace TechStore.BL.Models.Employees;
 
-public class CreateEmployeeRequest
+public sealed class CreateEmployeeRequest
 {
     public string Login { get; set; }
     public string Password { get; set; }

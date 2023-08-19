@@ -11,5 +11,3 @@ public class PromoCode
     public int CreatedByEmployeeId { get; set; }
     public virtual Employee Employee { get; set; }
 }
-
-

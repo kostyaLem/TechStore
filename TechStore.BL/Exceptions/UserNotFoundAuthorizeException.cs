@@ -1,6 +1,6 @@
 ﻿namespace TechStore.BL.Exceptions;
 
-public class UserNotFoundAuthorizeException : Exception
+public sealed class UserNotFoundAuthorizeException : Exception
 {
 
 }

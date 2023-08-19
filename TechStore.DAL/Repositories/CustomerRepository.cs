@@ -7,7 +7,7 @@ using TechStore.DAL.Repositories.Models.Customers;
 
 namespace TechStore.DAL.Repositories;
 
-internal class CustomerRepository : ICustomerRepository
+internal sealed class CustomerRepository : ICustomerRepository
 {
     private readonly TechStoreContext _context;
 

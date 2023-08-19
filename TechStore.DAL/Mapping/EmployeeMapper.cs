@@ -17,6 +17,7 @@ public static class EmployeeMapper
             Phone = employee.Phone,
             Birthday = employee.Birthday,
             UpdateOn = employee.User.UpdatedOn,
+            IsActive = employee.User.IsActive
         };
 
         return result;

@@ -9,7 +9,7 @@ namespace TechStore.UI.Converters;
 /// <summary>
 /// Класс для преобразования перечисления в строку для пользователя
 /// </summary>
-public class EnumToDescriptionConverter : MarkupExtension, IValueConverter
+public sealed class EnumToDescriptionConverter : MarkupExtension, IValueConverter
 {
     private string GetEnumDescription(Enum enumObj)
     {

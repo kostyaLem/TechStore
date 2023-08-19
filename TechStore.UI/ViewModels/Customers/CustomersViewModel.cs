@@ -5,7 +5,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows.Input;
 using TechStore.BL.Mapping;
 using TechStore.BL.Models.Customers;
 using TechStore.BL.Services.Interfaces;
@@ -20,25 +19,18 @@ public sealed class CustomersViewModel : BaseItemsViewModel<Customer>
     // Сервис для работы с диалоговыми окнами
     private readonly IWindowDialogService _dialogService;
 
-    public ICommand LoadViewDataCommand { get; }
-    public ICommand CreateCustomerCommand { get; }
-    public ICommand EditCustomerCommand { get; }
-    public ICommand<object> RemoveCustomerCommand { get; }
-    public ICommand<object> ActivateCustomersCommand { get; }
-    public ICommand<object> DisableCustomersCommand { get; }
-
     public CustomersViewModel(ICustomerService customerService, IWindowDialogService dialogService)
     {
         _customerService = customerService;
         _dialogService = dialogService;
 
         LoadViewDataCommand = new AsyncCommand(LoadCustomers);
-        CreateCustomerCommand = new AsyncCommand(CreateCustomer, () => Container.IsAdmin);
-        EditCustomerCommand = new AsyncCommand(EditCustomer, () => Container.IsAdmin && SelectedItem != null);
-        RemoveCustomerCommand = new AsyncCommand<object>(RemoveCustomer, _ => Container.IsAdmin && SelectedItem != null);
+        CreateItemCommand = new AsyncCommand(CreateCustomer, () => Container.IsAdmin);
+        EditItemCommand = new AsyncCommand(EditCustomer, () => Container.IsAdmin && SelectedItem != null);
+        RemoveItemCommand = new AsyncCommand<object>(RemoveCustomer, _ => Container.IsAdmin && SelectedItem != null);
 
-        ActivateCustomersCommand = new AsyncCommand<object>(ActivateCustomers, _ => Container.IsAdmin && SelectedItem != null);
-        DisableCustomersCommand = new AsyncCommand<object>(DisableCustomers, _ => Container.IsAdmin && SelectedItem != null);
+        ActivateItemCommand = new AsyncCommand<object>(ActivateCustomers, _ => Container.IsAdmin && SelectedItem != null);
+        DisableItemCommand = new AsyncCommand<object>(DisableCustomers, _ => Container.IsAdmin && SelectedItem != null);
 
         ItemsView.Filter += CanFilterCustomer;
     }

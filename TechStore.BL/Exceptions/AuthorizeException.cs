@@ -1,6 +1,6 @@
 ﻿namespace TechStore.BL.Exceptions;
 
-public class AuthorizeException : Exception
+public sealed class AuthorizeException : Exception
 {
 
 }

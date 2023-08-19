@@ -1,6 +1,6 @@
 ﻿namespace TechStore.BL.Models.Customers;
 
-public class CreateCustomerRequest
+public sealed class CreateCustomerRequest
 {
     public string Login { get; set; }
     public string Password { get; set; }

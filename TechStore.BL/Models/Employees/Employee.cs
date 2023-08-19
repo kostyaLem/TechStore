@@ -2,7 +2,7 @@
 
 namespace TechStore.BL.Models.Employees;
 
-public class Employee : BindableBase
+public sealed class Employee : BindableBase
 {
     public int Id { get; init; }
     public string Login { get; init; }
