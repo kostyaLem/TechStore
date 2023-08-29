@@ -9,7 +9,6 @@
     xmlns:models="clr-namespace:TechStore.BL.Models;assembly=TechStore.BL"
     x:Name="control"
     d:Background="White"
-    d:DataContext="{d:DesignInstance Type=models:Customer}"
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">

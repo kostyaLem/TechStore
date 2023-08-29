@@ -90,20 +90,11 @@
                             Binding="{Binding Discount}"
                             Header="Скидка %"
                             IsReadOnly="True" />
-                        <DataGridTemplateColumn
+                        <DataGridTextColumn
                             Width="*"
+                            Binding="{Binding CreatedBy}"
                             Header="ФИО сотрудника"
-                            IsReadOnly="True">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <TextBlock>
-                                        <Run Text="{Binding Employee.FirstName}" />
-                                        <Run Text="{Binding Employee.LastName}" />
-                                    </TextBlock>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-
+                            IsReadOnly="True" />
                         <DataGridCheckBoxColumn
                             Width="100"
                             Binding="{Binding IsActive}"

@@ -31,6 +31,6 @@ internal class AuthorizationRepository : IAuthorizationRepository
             throw new CredentionalExcetpion();
         }
 
-        return new(user.Login, user.Type);
+        return new(user.Id, user.Login, user.Type);
     }
 }

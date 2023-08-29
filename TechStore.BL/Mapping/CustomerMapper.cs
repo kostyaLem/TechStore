@@ -4,12 +4,12 @@ namespace TechStore.BL.Mapping;
 
 public static class CustomerMapper
 {
-    public static CreateCustomerRequest MapToRequest(this Customer customer, string passwordHash)
+    public static CreateCustomerRequest MapToRequest(this Customer customer, string password)
     {
         return new CreateCustomerRequest
         {
             Login = customer.Login,
-            Password = passwordHash,
+            Password = password,
             FirstName = customer.FirstName,
             LastName = customer.LastName,
             PhoneNumber = customer.Phone,

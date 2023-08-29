@@ -10,7 +10,7 @@ public static class PromoMapper
         {
             Name = promo.Name,
             Discount = promo.Discount,
-            CreatedByEmployeeId = employeeId
+            CreatedByUserId = employeeId
         };
     }
 }

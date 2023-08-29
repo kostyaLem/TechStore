@@ -41,13 +41,17 @@ internal sealed class PromoRepository : IPromoRepository
 
     public async Task Create(PromoDefinition promo)
     {
+        var employee = _context.Employees
+            .AsNoTracking()
+            .First(x => x.UserId == promo.CreatedByUserId);
+
         var newPromo = new PromoCode
         {
             Name = promo.Name,
             Discount = promo.Discount,
             CreatedOn = DateTime.UtcNow,
             Active = true,
-            CreatedByEmployeeId = promo.CreatedByEmployeeId,
+            CreatedByEmployeeId = employee.Id,
         };
 
         await _context.PromoCodes.AddAsync(newPromo);
@@ -57,6 +61,8 @@ internal sealed class PromoRepository : IPromoRepository
     public async Task<RequestedPromo> Update(int promoId, PromoDefinition updated)
     {
         var promo = await _context.PromoCodes
+            .Include(x => x.Employee)
+                .ThenInclude(x => x.User)
             .FirstAsync(x => x.Id == promoId);
 
         promo.Name = updated.Name;
@@ -81,6 +87,8 @@ internal sealed class PromoRepository : IPromoRepository
     public async Task<RequestedPromo> GetPromo(int promoId)
     {
         var promo = await _context.PromoCodes
+            .Include(x => x.Employee)
+                .ThenInclude(x => x.User)
             .AsNoTracking()
             .FirstAsync(x => x.Id == promoId);
 
@@ -93,7 +101,7 @@ internal sealed class PromoRepository : IPromoRepository
             .Where(x => promoIds.Contains(x.Id))
             .ToListAsync();
 
-        _context.RemoveRange(promoIds);
+        _context.RemoveRange(promos);
         await _context.SaveChangesAsync();
     }
 }

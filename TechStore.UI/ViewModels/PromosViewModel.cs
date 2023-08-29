@@ -16,6 +16,7 @@ namespace TechStore.UI.ViewModels;
 public sealed class PromosViewModel : BaseItemsViewModel<Promo>
 {
     private readonly IPromoService _promoService;
+
     // Сервис для работы с диалоговыми окнами
     private readonly IWindowDialogService _dialogService;
 
@@ -73,7 +74,7 @@ public sealed class PromosViewModel : BaseItemsViewModel<Promo>
 
             if (result == DialogResult.OK)
             {
-                var promo = vm.Item.MapToRequest((int)vm.Args);
+                var promo = vm.Item.MapToRequest(Container.CurrentUser.Id);
                 await _promoService.Create(promo);
                 await LoadItems();
             }

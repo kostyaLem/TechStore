@@ -1,4 +1,5 @@
-﻿using TechStore.BL.Exceptions;
+﻿using DevExpress.Mvvm.POCO;
+using TechStore.BL.Exceptions;
 using TechStore.BL.Models;
 using TechStore.DAL.Exceptions;
 using TechStore.DAL.Repositories.Interfaces;
@@ -24,7 +25,7 @@ internal class AuthorizationService : IAuthorizationService
         try
         {
             var user = await _authRepository.Login(login, passwordHash);
-            return new(user.Login, UserType.Employee);
+            return new(user.Id, user.Login, UserType.Employee);
         }
         catch (UserNotFoundException)
         {

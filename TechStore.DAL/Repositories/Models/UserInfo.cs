@@ -2,4 +2,4 @@
 
 namespace TechStore.DAL.Repositories.Models;
 
-public record UserInfo(string Login, UserType UserType);
+public record UserInfo(int Id, string Login, UserType UserType);

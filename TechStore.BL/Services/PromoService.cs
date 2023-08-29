@@ -20,7 +20,7 @@ internal sealed class PromoService : IPromoService
         {
             Name = createRequest.Name,
             Discount = createRequest.Discount,
-            CreatedByEmployeeId = createRequest.CreatedByEmployeeId,
+            CreatedByUserId = createRequest.CreatedByUserId,
         };
 
         await _promoRepository.Create(mappedPromo);
@@ -61,6 +61,7 @@ internal sealed class PromoService : IPromoService
     {
         return new Promo
         {
+            Id = requestedPromo.Id,
             Name = requestedPromo.Name,
             Discount = requestedPromo.Discount,
             CreatedOn = requestedPromo.CreatedOn,
