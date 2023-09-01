@@ -8,16 +8,18 @@ namespace TechStore.DAL.Repositories;
 
 internal class AuthorizationRepository : IAuthorizationRepository
 {
-    private readonly TechStoreContext _context;
+    private readonly TechStoreContextFactory _dbContextFactory;
 
-    public AuthorizationRepository(TechStoreContext context)
+    public AuthorizationRepository(TechStoreContextFactory dbContextFactory)
     {
-        _context = context;
+        _dbContextFactory = dbContextFactory;
     }
 
     public async Task<UserInfo> Login(string login, string passwordHash)
     {
-        var user = await _context.Users
+        using var context = _dbContextFactory.CreateDbContext();
+
+        var user = await context.Users
             .AsNoTracking()
             .FirstOrDefaultAsync(x => x.Login == login && x.PasswordHash == passwordHash);
 

@@ -9,16 +9,18 @@ namespace TechStore.DAL.Repositories;
 
 internal class EmployeeRepository : IEmployeeRepository
 {
-    private readonly TechStoreContext _context;
+    private readonly TechStoreContextFactory _dbContextFactory;
 
-    public EmployeeRepository(TechStoreContext context)
+    public EmployeeRepository(TechStoreContextFactory dbContextFactory)
     {
-        _context = context;
+        _dbContextFactory = dbContextFactory;
     }
 
     public async Task<IReadOnlyList<RequestedEmployee>> GetEmployees()
     {
-        var employees = await _context.Employees
+        using var context = _dbContextFactory.CreateDbContext();
+
+        var employees = await context.Employees
             .Include(x => x.User)
             .AsNoTracking()
             .ToListAsync();
@@ -28,6 +30,8 @@ internal class EmployeeRepository : IEmployeeRepository
 
     public async Task Create(EmployeeDefinition employee, Credentials credentials)
     {
+        using var context = _dbContextFactory.CreateDbContext();
+
         var now = DateTime.UtcNow;
 
         var newEmployee = new Domain.Models.Employee
@@ -49,13 +53,15 @@ internal class EmployeeRepository : IEmployeeRepository
             }
         };
 
-        await _context.Employees.AddAsync(newEmployee);
-        await _context.SaveChangesAsync();
+        await context.Employees.AddAsync(newEmployee);
+        await context.SaveChangesAsync();
     }
 
     public async Task<RequestedEmployee> Update(int id, EmployeeDefinition updated, Credentials credentials)
     {
-        var employee = await _context.Employees
+        using var context = _dbContextFactory.CreateDbContext();
+
+        var employee = await context.Employees
             .Include(x => x.User)
             .FirstAsync(x => x.Id == id);
 
@@ -72,14 +78,16 @@ internal class EmployeeRepository : IEmployeeRepository
         if (!string.IsNullOrWhiteSpace(credentials.PasswordHash))
             employee.User.PasswordHash = credentials.PasswordHash;
 
-        await _context.SaveChangesAsync();
+        await context.SaveChangesAsync();
 
         return employee.MapToBL();
     }
 
     public async Task<RequestedEmployee> GetEmployee(int employeeId)
     {
-        var customer = await _context.Employees
+        using var context = _dbContextFactory.CreateDbContext();
+
+        var customer = await context.Employees
             .Include(x => x.User)
             .AsNoTracking()
             .FirstAsync(x => x.Id == employeeId);
@@ -89,22 +97,26 @@ internal class EmployeeRepository : IEmployeeRepository
 
     public async Task Remove(IReadOnlyList<int> employeeIds)
     {
-        var employees = await _context.Employees
+        using var context = _dbContextFactory.CreateDbContext();
+
+        var employees = await context.Employees
             .Where(x => employeeIds.Contains(x.Id))
             .ToListAsync();
 
-        _context.RemoveRange(employees);
-        await _context.SaveChangesAsync();
+        context.RemoveRange(employees);
+        await context.SaveChangesAsync();
     }
 
     public async Task SetActiveStatus(IReadOnlyList<int> employeeOds, bool isActive)
     {
-        var employees = await _context.Employees
+        using var context = _dbContextFactory.CreateDbContext();
+
+        var employees = await context.Employees
             .Include(x => x.User)
             .Where(x => employeeOds.Contains(x.Id))
             .ToListAsync();
 
         employees.ForEach(x => x.User.IsActive = isActive);
-        await _context.SaveChangesAsync();
+        await context.SaveChangesAsync();
     }
 }

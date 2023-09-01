@@ -9,16 +9,18 @@ namespace TechStore.DAL.Repositories;
 
 internal sealed class CustomerRepository : ICustomerRepository
 {
-    private readonly TechStoreContext _context;
+    private readonly TechStoreContextFactory _dbContextFactory;
 
-    public CustomerRepository(TechStoreContext context)
+    public CustomerRepository(TechStoreContextFactory dbContextFactory)
     {
-        _context = context;
+        _dbContextFactory = dbContextFactory;
     }
 
     public async Task<IReadOnlyList<RequestedCustomer>> GetCustomers()
     {
-        var customers = await _context.Customers
+        using var context = _dbContextFactory.CreateDbContext();
+
+        var customers = await context.Customers
             .Include(x => x.Orders)
             .Include(x => x.User)
             .AsNoTracking()
@@ -29,6 +31,8 @@ internal sealed class CustomerRepository : ICustomerRepository
 
     public async Task Create(CustomerDefinition customer, Credentials credentials)
     {
+        using var context = _dbContextFactory.CreateDbContext();
+
         var now = DateTime.UtcNow;
 
         var newCustomer = new Domain.Models.Customer
@@ -50,13 +54,15 @@ internal sealed class CustomerRepository : ICustomerRepository
             }
         };
 
-        await _context.Customers.AddAsync(newCustomer);
-        await _context.SaveChangesAsync();
+        await context.Customers.AddAsync(newCustomer);
+        await context.SaveChangesAsync();
     }
 
     public async Task<RequestedCustomer> Update(int id, CustomerDefinition updated, Credentials credentials)
     {
-        var customer = await _context.Customers
+        using var context = _dbContextFactory.CreateDbContext();
+
+        var customer = await context.Customers
             .Include(x => x.User)
             .FirstAsync(x => x.Id == id);
 
@@ -73,35 +79,41 @@ internal sealed class CustomerRepository : ICustomerRepository
         if (!string.IsNullOrWhiteSpace(credentials.PasswordHash))
             customer.User.PasswordHash = credentials.PasswordHash;
 
-        await _context.SaveChangesAsync();
+        await context.SaveChangesAsync();
 
         return customer.MapToBL();
     }
 
     public async Task SetActiveStatus(IReadOnlyList<int> customerIds, bool isActive)
     {
-        var customers = await _context.Customers
+        using var context = _dbContextFactory.CreateDbContext(); 
+        
+        var customers = await context.Customers
             .Include(x => x.User)
             .Where(x => customerIds.Contains(x.Id))
             .ToListAsync();
 
         customers.ForEach(x => x.User.IsActive = isActive);
-        await _context.SaveChangesAsync();
+        await context.SaveChangesAsync();
     }
 
     public async Task Remove(IReadOnlyList<int> customerIds)
     {
-        var customers = await _context.Customers
+        using var context = _dbContextFactory.CreateDbContext();
+
+        var customers = await context.Customers
             .Where(x => customerIds.Contains(x.Id))
             .ToListAsync();
 
-        _context.RemoveRange(customers);
-        await _context.SaveChangesAsync();
+        context.RemoveRange(customers);
+        await context.SaveChangesAsync();
     }
 
     public async Task<RequestedCustomer> GetCustomer(int customerId)
     {
-        var customer = await _context.Customers
+        using var context = _dbContextFactory.CreateDbContext();
+
+        var customer = await context.Customers
             .Include(x => x.User)
             .AsNoTracking()
             .FirstAsync(x => x.Id == customerId);
