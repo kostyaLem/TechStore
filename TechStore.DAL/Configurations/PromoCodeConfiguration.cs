@@ -12,6 +12,9 @@ internal class PromoCodeConfiguration : IEntityTypeConfiguration<PromoCode>
         builder.Property(x => x.Name)
             .IsRequired();
 
+        builder.HasIndex(x => x.Name)
+            .IsUnique();
+
         builder.HasOne<Employee>(x => x.Employee)
             .WithMany(x => x.PromoCodes)
             .HasForeignKey(x => x.CreatedByEmployeeId);

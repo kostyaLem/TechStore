@@ -22,7 +22,7 @@ internal sealed class PromoRepository : IPromoRepository
 
         var promos = await context.PromoCodes
             .Include(x => x.Employee)
-            .ThenInclude(x => x.User)
+                .ThenInclude(x => x.User)
             .AsNoTracking()
             .ToListAsync();
 
@@ -35,7 +35,7 @@ internal sealed class PromoRepository : IPromoRepository
 
         var promos = await context.PromoCodes
             .Include(x => x.Employee)
-            .ThenInclude(x => x.User)
+                .ThenInclude(x => x.User)
             .Where(x => x.Active)
             .AsNoTracking()
             .ToListAsync();

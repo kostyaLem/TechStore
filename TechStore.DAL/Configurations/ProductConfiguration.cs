@@ -12,6 +12,9 @@ internal class ProductConfiguration : IEntityTypeConfiguration<Product>
         builder.Property(x => x.Title)
             .IsRequired();
 
+        builder.HasIndex(x => x.Title)
+            .IsUnique();
+
         builder.HasOne<Category>(x => x.Category)
             .WithMany(x => x.Products)
             .HasForeignKey(x => x.CategoryId);
