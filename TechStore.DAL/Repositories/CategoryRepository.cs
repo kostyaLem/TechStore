@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TechStore.DAL.Context;
 using TechStore.DAL.Mapping;
+using TechStore.DAL.Repositories.Interfaces;
 using TechStore.DAL.Repositories.Models.Categories;
 using TechStore.Domain.Models;
 

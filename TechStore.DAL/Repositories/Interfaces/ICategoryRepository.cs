@@ -1,6 +1,7 @@
 ﻿using TechStore.DAL.Repositories.Models.Categories;
 
-namespace TechStore.DAL.Repositories;
+namespace TechStore.DAL.Repositories.Interfaces;
+
 internal interface ICategoryRepository
 {
     Task Create(CategoryDefinition category);
