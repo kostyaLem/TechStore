@@ -3,6 +3,9 @@ using TechStore.UI.ViewModels;
 
 namespace TechStore.UI.Views.Promos;
 
+/// <summary>
+/// Логика взаимодействия для PromosView.xaml
+/// </summary>
 public partial class PromosView : GlowWindow
 {
     public PromosView(PromosViewModel dataContext)

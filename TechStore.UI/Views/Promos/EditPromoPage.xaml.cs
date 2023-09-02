@@ -3,6 +3,7 @@ using TechStore.BL.Models.Promos;
 using TechStore.UI.ViewModels;
 
 namespace TechStore.UI.Views.Promos;
+
 /// <summary>
 /// Логика взаимодействия для EditPromoPage.xaml
 /// </summary>

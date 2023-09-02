@@ -2,7 +2,7 @@
 
 namespace TechStore.BL.Services.Interfaces;
 
-internal interface ICategoryService
+public interface ICategoryService
 {
     Task Create(CreateCategoryRequest createRequest);
     Task<Category> GetById(int id);

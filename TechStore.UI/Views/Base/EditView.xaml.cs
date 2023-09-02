@@ -4,6 +4,9 @@ using TechStore.UI.Services;
 
 namespace TechStore.UI.Views.EditViews;
 
+/// <summary>
+/// Логика взаимодействия для EditView.xaml
+/// </summary>
 public partial class EditView : Window, IDialogWindow
 {
     private bool _isAccept;

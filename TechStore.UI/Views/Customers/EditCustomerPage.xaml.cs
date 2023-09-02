@@ -3,8 +3,9 @@ using TechStore.BL.Models.Customers;
 using TechStore.UI.ViewModels;
 
 namespace TechStore.UI.Views.EditViews;
+
 /// <summary>
-/// Логика взаимодействия для EditCustomerView.xaml
+/// Логика взаимодействия для EditCustomerPage.xaml
 /// </summary>
 public partial class EditCustomerPage : UserControl
 {

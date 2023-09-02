@@ -1,8 +1,11 @@
 ﻿using HandyControl.Controls;
-using TechStore.UI.ViewModels.Administration;
+using TechStore.UI.ViewModels.Customers;
 
 namespace TechStore.UI.Views.Administration;
 
+/// <summary>
+/// Логика взаимодействия для CustomersView.xaml
+/// </summary>
 public partial class CustomersView : GlowWindow
 {
     public CustomersView(CustomersViewModel customersViewModel)

@@ -6,7 +6,7 @@
     xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
     xmlns:hc="https://handyorg.github.io/handycontrol"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:vm="clr-namespace:TechStore.UI.ViewModels.Administration"
+    xmlns:vm="clr-namespace:TechStore.UI.ViewModels.Customers"
     Title="Клиенты"
     Width="900"
     Height="450"
@@ -124,30 +124,6 @@
                     </DataGrid.Columns>
                 </DataGrid>
 
-                <!--<hc:Drawer
-                    Name="EditPart"
-                    Dock="Right"
-                    ShowMode="Cover">
-                    <Border
-                        Width="300"
-                        Background="{DynamicResource RegionBrush}"
-                        BorderThickness="0,1,0,0">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition />
-                            </Grid.RowDefinitions>
-                            <TextBox Margin="10,0,0,0" Text="{Binding SelectedCustomer.FirstName}" />
-                            <Button
-                                Grid.Row="0"
-                                HorizontalAlignment="Right"
-                                hc:IconElement.Geometry="{StaticResource DeleteFillCircleGeometry}"
-                                Command="hc:ControlCommands.Close"
-                                Foreground="{DynamicResource PrimaryTextBrush}"
-                                Style="{StaticResource ButtonIcon}" />
-                        </Grid>
-                    </Border>
-                </hc:Drawer>-->
             </hc:SimplePanel>
 
             <Grid

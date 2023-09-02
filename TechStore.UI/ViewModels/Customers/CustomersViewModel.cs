@@ -11,7 +11,7 @@ using TechStore.BL.Services.Interfaces;
 using TechStore.UI.Services;
 using TechStore.UI.Views.EditViews;
 
-namespace TechStore.UI.ViewModels.Administration;
+namespace TechStore.UI.ViewModels.Customers;
 
 public sealed class CustomersViewModel : BaseItemsViewModel<Customer>
 {

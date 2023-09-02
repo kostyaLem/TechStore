@@ -51,6 +51,7 @@ internal sealed class CategoryService : ICategoryService
     {
         return new Category
         {
+            Id = requestedCategory.Id,
             Name = requestedCategory.Name
         };
     }
