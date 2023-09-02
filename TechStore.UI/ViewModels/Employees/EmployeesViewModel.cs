@@ -1,4 +1,5 @@
 ﻿using DevExpress.Mvvm;
+using HandyControl.Controls;
 using HandyControl.Tools.Extension;
 using System;
 using System.Collections;
@@ -6,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TechStore.BL.Mapping;
+using TechStore.BL.Models;
 using TechStore.BL.Models.Employees;
 using TechStore.BL.Services.Interfaces;
 using TechStore.UI.Services;
@@ -107,6 +109,12 @@ public sealed class EmployeesViewModel : BaseItemsViewModel<Employee>
             .Cast<Employee>()
             .Select(x => x.Id)
             .ToList();
+
+        if (items.Contains(Container.CurrentUser.Id))
+        {
+            MessageBox.Warning($"Невозможно удалить текущего пользователя {Container.CurrentUser.Login}");
+            return;
+        }
 
         await Execute(async () =>
         {

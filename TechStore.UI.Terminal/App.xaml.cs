@@ -14,7 +14,7 @@ public partial class App : Application
     protected override void OnStartup(StartupEventArgs e)
     {
         base.OnStartup(e);
-
+        Container.CurrentUser = new(1, "qwe", BL.Models.UserType.Admin);
         _container.GetWindow(BL.Models.UserType.Customer).ShowDialog();
     }
 }
