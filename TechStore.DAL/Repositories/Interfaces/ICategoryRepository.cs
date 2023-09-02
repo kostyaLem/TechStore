@@ -2,7 +2,7 @@
 
 namespace TechStore.DAL.Repositories.Interfaces;
 
-internal interface ICategoryRepository
+public interface ICategoryRepository
 {
     Task Create(CategoryDefinition category);
     Task<IReadOnlyList<RequestedCategory>> GetCategories();

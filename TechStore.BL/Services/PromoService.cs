@@ -57,6 +57,11 @@ internal sealed class PromoService : IPromoService
         await _promoRepository.ChangeActiveStatus(promoIds, isActive);
     }
 
+    public async Task Remove(IReadOnlyList<int> promoIds)
+    {
+        await _promoRepository.Remove(promoIds);
+    }
+
     private static Promo MapToUI(RequestedPromo requestedPromo)
     {
         return new Promo
@@ -68,10 +73,5 @@ internal sealed class PromoService : IPromoService
             IsActive = requestedPromo.IsActive,
             CreatedBy = $"{requestedPromo.Employee.FirstName} {requestedPromo.Employee.LastName}"
         };
-    }
-
-    public async Task Remove(IReadOnlyList<int> promoIds)
-    {
-        await _promoRepository.Remove(promoIds);
     }
 }

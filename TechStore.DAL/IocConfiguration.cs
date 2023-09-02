@@ -11,14 +11,6 @@ public static class IocConfiguration
     public static void AddRepositories(this IServiceCollection serviceCollection)
     {
         serviceCollection.AddTransient<TechStoreContextFactory>();
-        serviceCollection.AddTransient<TechStoreContext>(x =>
-        {
-            var factory = x.GetRequiredService<TechStoreContextFactory>();
-            var context = factory.CreateDbContext();
-            context.Database.Migrate();
-
-            return context;
-        });
 
         serviceCollection.AddTransient<IAuthorizationRepository, AuthorizationRepository>();
         serviceCollection.AddTransient<ICustomerRepository, CustomerRepository>();
