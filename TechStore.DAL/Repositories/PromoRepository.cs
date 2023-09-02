@@ -78,7 +78,6 @@ internal sealed class PromoRepository : IPromoRepository
         promo.Active = updated.IsActive;
 
         await context.SaveChangesAsync();
-
         return PromoMapper.MapToBl(promo);
     }
 
