@@ -21,6 +21,7 @@ internal sealed class CategoryRepository : ICategoryRepository
         using var context = _dbContextFactory.CreateDbContext();
 
         var categories = await context.Categories
+            .Include(x => x.Products)
             .AsNoTracking()
             .ToListAsync();
 
@@ -45,6 +46,7 @@ internal sealed class CategoryRepository : ICategoryRepository
         using var context = _dbContextFactory.CreateDbContext();
 
         var category = await context.Categories
+            .Include(x => x.Products)
             .FirstAsync(c => c.Id == categoryId);
 
         category.Name = updated.Name;

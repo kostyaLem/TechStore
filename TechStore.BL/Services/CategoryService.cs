@@ -52,7 +52,8 @@ internal sealed class CategoryService : ICategoryService
         return new Category
         {
             Id = requestedCategory.Id,
-            Name = requestedCategory.Name
+            Name = requestedCategory.Name,
+            Products = requestedCategory.Products
         };
     }
 }

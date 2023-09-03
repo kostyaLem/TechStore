@@ -55,44 +55,6 @@
                 Style="{StaticResource SearchBarExtend}"
                 Text="{Binding SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
-            <hc:SimplePanel Grid.Row="1">
-                <DataGrid
-                    x:Name="CustomersGrid"
-                    Grid.Row="1"
-                    hc:DataGridAttach.ShowRowNumber="True"
-                    AutoGenerateColumns="False"
-                    CanUserResizeColumns="False"
-                    ItemsSource="{Binding ItemsView, Mode=OneWay}"
-                    RowHeaderWidth="60"
-                    SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}">
-                    <DataGrid.Resources>
-                        <Style TargetType="TextBlock">
-                            <Setter Property="HorizontalAlignment" Value="Right" />
-                        </Style>
-                    </DataGrid.Resources>
-
-                    <DataGrid.RowHeaderTemplate>
-                        <DataTemplate>
-                            <CheckBox IsChecked="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=DataGridRow}}" />
-                        </DataTemplate>
-                    </DataGrid.RowHeaderTemplate>
-
-                    <DataGrid.Columns>
-                        <DataGridTextColumn
-                            Width="*"
-                            Binding="{Binding Name}"
-                            Header="Логин"
-                            IsReadOnly="True" />
-                        <DataGridTextColumn
-                            Width="150"
-                            Binding="{Binding Products.Count}"
-                            Header="Кол-во товаров"
-                            IsReadOnly="True" />
-                    </DataGrid.Columns>
-                </DataGrid>
-
-            </hc:SimplePanel>
-
             <Grid
                 Grid.Row="2"
                 Height="35"
@@ -135,6 +97,92 @@
                         Style="{StaticResource ToggleButtonSuccess}" />
                 </StackPanel>
             </Grid>
+
+            <Grid Grid.Row="1" Margin="0,5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition MinWidth="400" />
+                    <ColumnDefinition Width="20" />
+                    <ColumnDefinition MinWidth="300" />
+                </Grid.ColumnDefinitions>
+
+                <GridSplitter
+                    Grid.Column="1"
+                    Width="2"
+                    Height="80"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+                    Background="LightGray"
+                    ShowsPreview="False" />
+
+                <DataGrid
+                    x:Name="CustomersGrid"
+                    Grid.Row="1"
+                    hc:DataGridAttach.ShowRowNumber="True"
+                    AutoGenerateColumns="False"
+                    CanUserResizeColumns="False"
+                    ItemsSource="{Binding ItemsView, Mode=OneWay}"
+                    RowHeaderWidth="60"
+                    SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}">
+                    <DataGrid.Resources>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="HorizontalAlignment" Value="Right" />
+                        </Style>
+                    </DataGrid.Resources>
+
+                    <DataGrid.RowHeaderTemplate>
+                        <DataTemplate>
+                            <CheckBox IsChecked="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=DataGridRow}}" />
+                        </DataTemplate>
+                    </DataGrid.RowHeaderTemplate>
+
+                    <DataGrid.Columns>
+                        <DataGridTextColumn
+                            Width="*"
+                            Binding="{Binding Name}"
+                            Header="Категория"
+                            IsReadOnly="True" />
+                        <DataGridTextColumn
+                            Width="150"
+                            Binding="{Binding Products.Count}"
+                            Header="Кол-во товаров"
+                            IsReadOnly="True" />
+                    </DataGrid.Columns>
+                </DataGrid>
+
+                <DockPanel Grid.Column="2" Margin="0,13.2,0,0">
+                    <hc:SearchBar
+                        Margin="5,0"
+                        VerticalAlignment="Top"
+                        hc:InfoElement.Placeholder="Товары в категории"
+                        hc:InfoElement.TitlePlacement="Left"
+                        DockPanel.Dock="Top"
+                        Style="{StaticResource SearchBarExtend}"
+                        Text="{Binding ProductSearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+                    <DataGrid
+                        hc:DataGridAttach.ShowRowNumber="True"
+                        AutoGenerateColumns="False"
+                        CanUserResizeColumns="False"
+                        HeadersVisibility="None"
+                        ItemsSource="{Binding SelectedItem.Products, Mode=OneWay}"
+                        RowHeaderWidth="60">
+                        <DataGrid.Resources>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Right" />
+                            </Style>
+                        </DataGrid.Resources>
+
+                        <DataGrid.Columns>
+                            <DataGridTextColumn
+                                Width="*"
+                                Binding="{Binding}"
+                                Header="Логин"
+                                IsReadOnly="True" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </DockPanel>
+            </Grid>
+
         </Grid>
     </Grid>
 </hc:GlowWindow>

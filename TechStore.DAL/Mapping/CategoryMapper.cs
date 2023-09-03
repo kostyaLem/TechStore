@@ -10,7 +10,8 @@ public static class CategoryMapper
         var result = new RequestedCategory
         {
             Id = category.Id,
-            Name = category.Name
+            Name = category.Name,
+            Products = category.Products.Select(x => x.Title).ToList(),
         };
 
         return result;
