@@ -105,7 +105,6 @@
                     hc:InfoElement.Placeholder="Пароль"
                     BorderThickness="0,0,1,1"
                     FontSize="12"
-                    ShowClearButton="True"
                     ShowEyeButton="True" />
             </StackPanel>
 

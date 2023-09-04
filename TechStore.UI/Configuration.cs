@@ -5,6 +5,7 @@ using TechStore.UI.ViewModels.Administration;
 using TechStore.UI.ViewModels.Categories;
 using TechStore.UI.ViewModels.Customers;
 using TechStore.UI.ViewModels.Employees;
+using TechStore.UI.Views;
 using TechStore.UI.Views.Administration;
 using TechStore.UI.Views.Categories;
 using TechStore.UI.Views.Employees;
@@ -18,6 +19,9 @@ internal static class Configuration
     {
         services.AddTransient<AuthView>();
         services.AddTransient<AuthViewModel>();
+
+        services.AddTransient<MainView>();
+        services.AddTransient<MainViewModel>();
 
         services.AddTransient<CustomersView>();
         services.AddTransient<CustomersViewModel>();
