@@ -4,7 +4,6 @@ public class Product
 {
     public Product()
     {
-        Images = new HashSet<StoredImage>();
         OrderProducts = new HashSet<OrderProduct>();
     }
 
@@ -13,9 +12,10 @@ public class Product
     public DateTime CreatedOn { get; set; }
     public string Description { get; set; }
     public decimal Price { get; set; }
-    public int CategoryId { get; set; }
+    public int? CategoryId { get; set; }
+    public byte[]? Image { get; set; }
+    public bool IsActive { get; set; }
 
     public virtual Category Category { get; set; }
-    public virtual ICollection<StoredImage> Images { get; set; }
     public virtual ICollection<OrderProduct> OrderProducts { get; set; }
 }

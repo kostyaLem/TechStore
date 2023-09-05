@@ -14,7 +14,6 @@ internal class TechStoreContext : DbContext
     public DbSet<User> Users { get; set; }
     public DbSet<PromoCode> PromoCodes { get; set; }
     public DbSet<Category> Categories { get; set; }
-    public DbSet<StoredImage> StoredImages { get; set; }
 
     public TechStoreContext()
     {

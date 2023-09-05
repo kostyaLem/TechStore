@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using TechStore.DAL.Context;
 using TechStore.DAL.Repositories;
 using TechStore.DAL.Repositories.Interfaces;
@@ -17,5 +16,6 @@ public static class IocConfiguration
         serviceCollection.AddTransient<IEmployeeRepository, EmployeeRepository>();
         serviceCollection.AddTransient<IPromoRepository, PromoRepository>();
         serviceCollection.AddTransient<ICategoryRepository, CategoryRepository>();
+        serviceCollection.AddTransient<IProductRepository, ProductRepository>();
     }
 }
