@@ -22,6 +22,7 @@ internal class ProductRepository : IProductRepository
 
         var products = await context.Products
             .Include(x => x.OrderProducts)
+            .Include(x => x.Category)
             .AsNoTracking()
             .ToListAsync();
 
@@ -76,5 +77,17 @@ internal class ProductRepository : IProductRepository
             .FirstAsync(x => x.Id == productId);
 
         return ProductMapper.MapToBl(product);
+    }
+
+    public async Task ChangeActiveStatus(IReadOnlyList<int> productIds, bool isActive)
+    {
+        using var context = _dbContextFactory.CreateDbContext();
+
+        var promos = await context.Products
+            .Where(x => productIds.Contains(x.Id))
+            .ToListAsync();
+
+        promos.ForEach(x => x.IsActive = isActive);
+        await context.SaveChangesAsync();
     }
 }

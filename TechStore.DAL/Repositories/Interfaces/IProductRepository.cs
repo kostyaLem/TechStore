@@ -2,8 +2,9 @@
 
 namespace TechStore.DAL.Repositories.Interfaces;
 
-internal interface IProductRepository
+public interface IProductRepository
 {
+    Task ChangeActiveStatus(IReadOnlyList<int> productIds, bool isActive);
     Task Create(ProductDefinition product);
     Task<RequestedProduct> GetProduct(int productId);
     Task<IReadOnlyList<RequestedProduct>> GetProducts();

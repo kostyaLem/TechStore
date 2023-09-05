@@ -17,6 +17,7 @@ public static class IocConfiguration
         services.AddTransient<IEmployeeService, EmployeeService>();
         services.AddTransient<IPromoService, PromoService>();
         services.AddTransient<ICategoryService, CategoryService>();
+        services.AddTransient<IProductService, ProductService>();
 
         return services;
     }

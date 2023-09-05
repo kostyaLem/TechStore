@@ -1,9 +1,16 @@
 ﻿using DevExpress.Mvvm;
+using TechStore.BL.Models.Categories;
 
 namespace TechStore.BL.Models.Products;
 
 public class Product : BindableBase
 {
-    public string Name { get; init; }
-    public double Price { get; init; }
+    public int Id { get; init; }
+    public string Title{ get; init; }
+    public string Description { get; init; }
+    public decimal Price { get; init; }
+    public int SalesCount { get; init; }
+    public Category Category { get; init; }
+    public byte[]? Image { get; init; }
+    public bool IsActive { get; init; }
 }

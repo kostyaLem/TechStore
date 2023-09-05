@@ -3,9 +3,9 @@
 public class ProductDefinition
 {
     public string Title { get; init; }
-    public string Description { get; internal set; }
+    public string Description { get; init; }
     public decimal Price { get; init; }
     public byte[]? Image { get; init; }
-    public int? CategoryId { get; internal set; }
+    public int? CategoryId { get; init; }
     public bool IsActive { get; init; }
 }

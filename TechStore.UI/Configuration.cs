@@ -5,10 +5,12 @@ using TechStore.UI.ViewModels.Administration;
 using TechStore.UI.ViewModels.Categories;
 using TechStore.UI.ViewModels.Customers;
 using TechStore.UI.ViewModels.Employees;
+using TechStore.UI.ViewModels.Products;
 using TechStore.UI.Views;
 using TechStore.UI.Views.Administration;
 using TechStore.UI.Views.Categories;
 using TechStore.UI.Views.Employees;
+using TechStore.UI.Views.Products;
 using TechStore.UI.Views.Promos;
 
 namespace TechStore.UI;
@@ -34,6 +36,9 @@ internal static class Configuration
 
         services.AddTransient<CategoriesView>();
         services.AddTransient<CategoriesViewModel>();
+
+        services.AddTransient<ProductsView>();
+        services.AddTransient<ProductViewModel>();
 
         return services;
     }

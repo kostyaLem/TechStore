@@ -36,7 +36,7 @@ internal sealed class PromoRepository : IPromoRepository
         var promos = await context.PromoCodes
             .Include(x => x.Employee)
                 .ThenInclude(x => x.User)
-            .Where(x => x.Active)
+            .Where(x => x.IsActive)
             .AsNoTracking()
             .ToListAsync();
 
@@ -56,7 +56,7 @@ internal sealed class PromoRepository : IPromoRepository
             Name = promo.Name,
             Discount = promo.Discount,
             CreatedOn = DateTime.UtcNow,
-            Active = true,
+            IsActive = true,
             CreatedByEmployeeId = employee.Id,
         };
 
@@ -75,7 +75,7 @@ internal sealed class PromoRepository : IPromoRepository
 
         promo.Name = updated.Name;
         promo.Discount = updated.Discount;
-        promo.Active = updated.IsActive;
+        promo.IsActive = updated.IsActive;
 
         await context.SaveChangesAsync();
         return PromoMapper.MapToBl(promo);
@@ -89,7 +89,7 @@ internal sealed class PromoRepository : IPromoRepository
             .Where(x => promoIds.Contains(x.Id))
             .ToListAsync();
 
-        promos.ForEach(x => x.Active = isActive);
+        promos.ForEach(x => x.IsActive = isActive);
         await context.SaveChangesAsync();
     }
 

@@ -7,7 +7,7 @@ public class PromoCode
     public double Discount { get; set; }
     public DateTime CreatedOn { get; set; }
 
-    public bool Active { get; set; }
+    public bool IsActive { get; set; }
     public int CreatedByEmployeeId { get; set; }
     public virtual Employee Employee { get; set; }
 }

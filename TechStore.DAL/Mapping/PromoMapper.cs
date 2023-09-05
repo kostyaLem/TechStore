@@ -13,7 +13,7 @@ public static class PromoMapper
             Name = promoCode.Name,
             Discount = promoCode.Discount,
             CreatedOn = promoCode.CreatedOn,
-            IsActive = promoCode.Active,
+            IsActive = promoCode.IsActive,
             Employee = EmployeeMapper.MapToBL(promoCode.Employee)
         };
 

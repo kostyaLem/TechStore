@@ -13,10 +13,4 @@ public partial class ProductCard : UserControl
         InitializeComponent();
         DataContext = dataContext;
     }
-
-    public ProductCard()
-    {
-        InitializeComponent();
-        DataContext = new ProductViewModel();
-    }
 }
