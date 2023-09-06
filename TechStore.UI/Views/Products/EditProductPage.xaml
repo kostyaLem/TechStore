@@ -9,7 +9,7 @@
     xmlns:vm="clr-namespace:TechStore.UI.ViewModels.Products;assembly=TechStore.UI"
     x:Name="window"
     Width="550"
-    Height="480"
+    Height="520"
     d:Background="White"
     d:DataContext="{d:DesignInstance vm:EditProductViewModel}"
     mc:Ignorable="d">
@@ -34,6 +34,8 @@
             <Label Content="Описание" />
             <TextBox
                 Height="60"
+                Padding="5"
+                VerticalContentAlignment="Top"
                 Text="{Binding Description}"
                 TextWrapping="Wrap" />
         </StackPanel>
@@ -47,17 +49,20 @@
 
             <StackPanel Grid.Column="0">
 
-                <Label Content="Цена" />
+                <Label Content="Цена, р." />
                 <hc:NumericUpDown
                     DecimalPlaces="2"
-                    Minimum="0.1"
+                    Minimum="1"
                     Value="{Binding Price}" />
 
                 <Label Content="Категория" />
                 <hc:ComboBox
+                    hc:InfoElement.Placeholder="Выберите категорию"
+                    hc:InfoElement.ShowClearButton="True"
                     DataContext="{Binding Path=DataContext, ElementName=window}"
                     ItemsSource="{Binding Categories}"
-                    SelectedItem="{Binding SelectedCategory}" />
+                    SelectedItem="{Binding SelectedCategory}"
+                    Style="{StaticResource ComboBoxExtend}" />
 
                 <Label Content="Активирован" />
                 <UniformGrid Margin="0,5,0,0">
@@ -69,7 +74,7 @@
             <StackPanel Grid.Column="2">
 
                 <Label HorizontalAlignment="Center" Content="Превью товара" />
-                <products:ProductCard Width="180" Height="260" />
+                <products:ProductCard Width="200" Height="280" />
 
             </StackPanel>
 

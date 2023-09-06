@@ -47,7 +47,7 @@
 
             <hc:SearchBar
                 Grid.Row="0"
-                hc:InfoElement.Placeholder="Название / Процент % / Дата создания / ФИО сотрудника"
+                hc:InfoElement.Placeholder="Название / Цена / Дата создания / Кол-во продаж"
                 hc:InfoElement.TitlePlacement="Left"
                 Style="{StaticResource SearchBarExtend}"
                 Text="{Binding SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
@@ -91,7 +91,7 @@
                             Header="Дата создания"
                             IsReadOnly="True" />
                         <DataGridTextColumn
-                            Width="100"
+                            Width="115"
                             Binding="{Binding SalesCount}"
                             Header="Кол-во продаж"
                             IsReadOnly="True" />
