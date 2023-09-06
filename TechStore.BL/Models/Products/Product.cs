@@ -11,6 +11,7 @@ public class Product : BindableBase
     public decimal Price { get; init; }
     public int SalesCount { get; init; }
     public Category Category { get; init; }
+    public DateTime CreatedOn { get; init; }
     public byte[]? Image { get; init; }
     public bool IsActive { get; init; }
 }

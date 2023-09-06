@@ -74,6 +74,7 @@ internal sealed class ProductService : IProductService
             Price= requestedProduct.Price,
             SalesCount = requestedProduct.SalesCount,
             IsActive = requestedProduct.IsActive,
+            CreatedOn = requestedProduct.CreatedOn,
             Category = new Models.Categories.Category
             {
                 Id = requestedProduct.Category.Id,
