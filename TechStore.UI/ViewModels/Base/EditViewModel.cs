@@ -3,9 +3,9 @@ using TechStore.UI.Services;
 
 namespace TechStore.UI.ViewModels;
 
-public sealed class EditViewModel<T> : BaseViewModel where T : class, new()
+public class EditViewModel<T> : BaseViewModel where T : class, new()
 {
-    private string _viewModelName = ViewPrefixService.Get<T>();
+    protected string _viewModelName = ViewPrefixService.Get<T>();
 
     public dynamic? Args { get; set; }
 

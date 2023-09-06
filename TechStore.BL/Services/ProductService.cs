@@ -49,6 +49,7 @@ internal sealed class ProductService : IProductService
             {
                 Title = product.Title,
                 Image = product.Image,
+                SmallImage = product.SmallImage,
                 Description = product.Description,
                 IsActive = product.IsActive,
                 Price = product.Price,
@@ -71,6 +72,7 @@ internal sealed class ProductService : IProductService
             Title = requestedProduct.Title,
             Description = requestedProduct.Description,
             Image = requestedProduct.Image,
+            SmallImage = requestedProduct.SmallImage,
             Price= requestedProduct.Price,
             SalesCount = requestedProduct.SalesCount,
             IsActive = requestedProduct.IsActive,

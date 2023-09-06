@@ -41,6 +41,7 @@ internal class ProductRepository : IProductRepository
             CreatedOn = DateTime.UtcNow,
             IsActive = product.IsActive,
             Image = product.Image ?? null,
+            SmallImage = product.SmallImage ?? null,
             CategoryId = product.CategoryId
         };
 
@@ -59,6 +60,7 @@ internal class ProductRepository : IProductRepository
         product.Description = updated.Description;
         product.Price = updated.Price;
         product.CategoryId = updated.CategoryId;
+        product.SmallImage = updated.SmallImage;
         product.Image = updated.Image;
         product.IsActive = updated.IsActive;
 

@@ -18,7 +18,7 @@ public sealed class WindowDialogService : IWindowDialogService
     public DialogResult ShowDialog(Type controlType, BaseViewModel dataContext)
     {
         // Создать представление (View)
-        var control = (ContentControl)Activator.CreateInstance(controlType, dataContext);
+        var control = (ContentControl)Activator.CreateInstance(controlType, dataContext)!;
 
         // Заполнить заголовок и внутреннее содержимое окна с имзенениями
         var editView = new EditView(dataContext.Title, control);
@@ -31,18 +31,4 @@ public sealed class WindowDialogService : IWindowDialogService
 
         return DialogResult.Cancel;
     }
-}
-
-/// <summary>
-/// Результаты диалогового окна
-/// </summary>
-public enum DialogResult
-{
-    OK,
-    Cancel
-}
-
-public interface IDialogWindow
-{
-    public DialogResult DialogResult { get; }
 }

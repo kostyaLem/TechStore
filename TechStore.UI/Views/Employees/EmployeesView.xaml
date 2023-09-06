@@ -11,6 +11,7 @@
     Width="800"
     Height="450"
     d:DataContext="{d:DesignInstance Type=vm:EmployeesViewModel}"
+    WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
 
     <hc:Interaction.Triggers>

@@ -16,7 +16,6 @@ namespace TechStore.UI.ViewModels;
 public sealed class PromosViewModel : BaseItemsViewModel<Promo>
 {
     private readonly IPromoService _promoService;
-
     // Сервис для работы с диалоговыми окнами
     private readonly IWindowDialogService _dialogService;
 
@@ -26,12 +25,12 @@ public sealed class PromosViewModel : BaseItemsViewModel<Promo>
         _dialogService = dialogService;
 
         LoadViewDataCommand = new AsyncCommand(LoadItems);
-        CreateItemCommand = new AsyncCommand(CreatePromo, () => Container.IsAdmin);
-        EditItemCommand = new AsyncCommand(EditPromo, () => Container.IsAdmin && SelectedItem != null);
-        RemoveItemCommand = new AsyncCommand<object>(RemovePromo, _ => Container.IsAdmin && SelectedItem != null);
+        CreateItemCommand = new AsyncCommand(CreateItem, () => Container.IsAdmin);
+        EditItemCommand = new AsyncCommand(EditItem, () => Container.IsAdmin && SelectedItem != null);
+        RemoveItemCommand = new AsyncCommand<object>(RemoveItem, _ => Container.IsAdmin && SelectedItem != null);
 
-        ActivateItemCommand = new AsyncCommand<object>(ActivatePromo, _ => Container.IsAdmin && SelectedItem != null);
-        DisableItemCommand = new AsyncCommand<object>(DisablePromo, _ => Container.IsAdmin && SelectedItem != null);
+        ActivateItemCommand = new AsyncCommand<object>(ActivateItems, _ => Container.IsAdmin && SelectedItem != null);
+        DisableItemCommand = new AsyncCommand<object>(DisableItems, _ => Container.IsAdmin && SelectedItem != null);
 
         ItemsView.Filter += CanFilterItem;
     }
@@ -64,7 +63,7 @@ public sealed class PromosViewModel : BaseItemsViewModel<Promo>
         return true;
     }
 
-    private async Task CreatePromo()
+    private async Task CreateItem()
     {
         await Execute(async () =>
         {
@@ -81,7 +80,7 @@ public sealed class PromosViewModel : BaseItemsViewModel<Promo>
         });
     }
 
-    private async Task EditPromo()
+    private async Task EditItem()
     {
         await Execute(async () =>
         {
@@ -98,7 +97,7 @@ public sealed class PromosViewModel : BaseItemsViewModel<Promo>
         });
     }
 
-    private async Task RemovePromo(object obj)
+    private async Task RemoveItem(object obj)
     {
         var items = (obj as IEnumerable)!
             .Cast<Promo>()
@@ -112,7 +111,7 @@ public sealed class PromosViewModel : BaseItemsViewModel<Promo>
         });
     }
 
-    private async Task ActivatePromo(object obj)
+    private async Task ActivateItems(object obj)
     {
         var items = (obj as IEnumerable)!.Cast<Promo>();
 
@@ -123,7 +122,7 @@ public sealed class PromosViewModel : BaseItemsViewModel<Promo>
         });
     }
 
-    private async Task DisablePromo(object obj)
+    private async Task DisableItems(object obj)
     {
         var items = (obj as IEnumerable)!.Cast<Promo>();
 

@@ -13,5 +13,10 @@ public class Product : BindableBase
     public Category Category { get; init; }
     public DateTime CreatedOn { get; init; }
     public byte[]? Image { get; init; }
-    public bool IsActive { get; init; }
+    public byte[]? SmallImage { get; init; }
+    public bool IsActive
+    {
+        get => GetValue<bool>(nameof(IsActive));
+        set => SetValue(value, nameof(IsActive));
+    }
 }

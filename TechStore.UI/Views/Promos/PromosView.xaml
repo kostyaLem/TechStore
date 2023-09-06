@@ -10,6 +10,7 @@
     Title="Промокоды"
     Width="800"
     Height="450"
+    WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
 
     <hc:Interaction.Triggers>

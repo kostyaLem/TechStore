@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using TechStore.BL.Models.Customers;
 using TechStore.BL.Models.Employees;
+using TechStore.BL.Models.Products;
 using TechStore.BL.Models.Promos;
 
 namespace TechStore.UI.Services;
@@ -16,7 +17,8 @@ internal static class ViewPrefixService
         {
             { typeof(Customer), "клиента" },
             { typeof(Employee), "работника" },
-            { typeof(Promo), "промокода" }
+            { typeof(Promo), "промокода" },
+            { typeof(Product), "товара" }
         };
     }
 

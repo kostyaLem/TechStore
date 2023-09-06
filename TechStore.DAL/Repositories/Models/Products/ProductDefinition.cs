@@ -6,6 +6,7 @@ public class ProductDefinition
     public string Description { get; init; }
     public decimal Price { get; init; }
     public byte[]? Image { get; init; }
+    public byte[]? SmallImage { get; init; }
     public int? CategoryId { get; init; }
     public bool IsActive { get; init; }
 }

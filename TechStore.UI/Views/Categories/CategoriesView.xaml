@@ -13,6 +13,7 @@
     MinWidth="700"
     MinHeight="380"
     d:DataContext="{d:DesignInstance Type=vm:CategoriesViewModel}"
+    WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
 
     <hc:Interaction.Triggers>
@@ -176,7 +177,6 @@
                             <DataGridTextColumn
                                 Width="*"
                                 Binding="{Binding}"
-                                Header="Логин"
                                 IsReadOnly="True" />
                         </DataGrid.Columns>
                     </DataGrid>

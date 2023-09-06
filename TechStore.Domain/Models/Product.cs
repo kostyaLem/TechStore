@@ -14,6 +14,7 @@ public class Product
     public decimal Price { get; set; }
     public int? CategoryId { get; set; }
     public byte[]? Image { get; set; }
+    public byte[]? SmallImage { get; set; }
     public bool IsActive { get; set; }
 
     public virtual Category Category { get; set; }
