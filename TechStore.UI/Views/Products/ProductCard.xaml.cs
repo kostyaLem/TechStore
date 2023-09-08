@@ -1,5 +1,5 @@
 ﻿using System.Windows.Controls;
-using TechStore.UI.ViewModels.Products;
+using TechStore.BL.Models.Products;
 
 namespace TechStore.UI.Views.Products;
 
@@ -8,7 +8,7 @@ namespace TechStore.UI.Views.Products;
 /// </summary>
 public partial class ProductCard : UserControl
 {
-    public ProductCard(ProductViewModel dataContext)
+    public ProductCard(Product dataContext)
     {
         InitializeComponent();
         DataContext = dataContext;

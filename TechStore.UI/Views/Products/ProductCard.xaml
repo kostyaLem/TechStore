@@ -5,10 +5,10 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:hc="https://handyorg.github.io/handycontrol"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:products="clr-namespace:TechStore.UI.ViewModels.Products"
+    xmlns:models="clr-namespace:TechStore.BL.Models.Products;assembly=TechStore.BL"
     Width="200"
     Height="280"
-    d:DataContext="{d:DesignInstance products:ProductViewModel}"
+    d:DataContext="{d:DesignInstance models:Product}"
     BorderThickness="0"
     mc:Ignorable="d">
 
@@ -32,9 +32,8 @@
                     HorizontalAlignment="Left"
                     d:Text="IPhone 12 128GB"
                     FontSize="16"
-                    FontStretch="ExtraExpanded"
-                    Style="{DynamicResource TextBlockLargeBold}"
-                    Text="{Binding Product.Name}"
+                    Style="{StaticResource TextBlockLargeBold}"
+                    Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}"
                     TextTrimming="CharacterEllipsis"
                     TextWrapping="NoWrap" />
                 <!--  Card Secondary content  -->
@@ -44,7 +43,7 @@
                     d:Text="123000"
                     FontSize="14"
                     Style="{DynamicResource TextBlockDefault}"
-                    Text="{Binding Product.Price, StringFormat='{}{0:n} р.'}"
+                    Text="{Binding Price, StringFormat='{}{0:n2} р.'}"
                     TextTrimming="CharacterEllipsis"
                     TextWrapping="NoWrap" />
             </StackPanel>

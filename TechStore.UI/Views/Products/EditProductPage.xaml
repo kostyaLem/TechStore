@@ -29,7 +29,7 @@
         <StackPanel DockPanel.Dock="Top">
 
             <Label Content="Название товара" />
-            <TextBox Text="{Binding Title}" />
+            <TextBox Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}" />
 
             <Label Content="Описание" />
             <TextBox
@@ -74,7 +74,10 @@
             <StackPanel Grid.Column="2">
 
                 <Label HorizontalAlignment="Center" Content="Превью товара" />
-                <products:ProductCard Width="200" Height="280" />
+                <products:ProductCard
+                    Width="200"
+                    Height="280"
+                    DataContext="{Binding}" />
 
             </StackPanel>
 
