@@ -9,7 +9,7 @@
     xmlns:vm="clr-namespace:TechStore.UI.ViewModels.Products;assembly=TechStore.UI"
     x:Name="window"
     Width="550"
-    Height="520"
+    Height="530"
     d:Background="White"
     d:DataContext="{d:DesignInstance vm:EditProductViewModel}"
     mc:Ignorable="d">
@@ -69,6 +69,31 @@
                     <RadioButton Content="Да" IsChecked="{Binding IsActive}" />
                     <RadioButton Content="Нет" IsChecked="{Binding IsActive, Converter={StaticResource Boolean2BooleanReConverter}}" />
                 </UniformGrid>
+
+                <Label Content="Изображение продукта" />
+                <hc:ElementGroup HorizontalAlignment="Center" DockPanel.Dock="Right">
+                    <Button
+                        Padding="3"
+                        hc:IconElement.Geometry="{StaticResource ConfigGeometry}"
+                        Style="{StaticResource ButtonInfo}" />
+                    <Button
+                        Padding="5"
+                        hc:IconElement.Geometry="{StaticResource DeleteGeometry}"
+                        Style="{StaticResource ButtonDanger}" />
+                </hc:ElementGroup>
+
+                <Label Content="Миниатюра" />
+                <hc:ElementGroup HorizontalAlignment="Center">
+                    <Button
+                        Padding="3"
+                        hc:IconElement.Geometry="{StaticResource ConfigGeometry}"
+                        Style="{StaticResource ButtonInfo}" />
+                    <Button
+                        Padding="5"
+                        hc:IconElement.Geometry="{StaticResource DeleteGeometry}"
+                        Style="{StaticResource ButtonDanger}" />
+                </hc:ElementGroup>
+
             </StackPanel>
 
             <StackPanel Grid.Column="2">
