@@ -73,9 +73,7 @@ public sealed class CustomersViewModel : BaseItemsViewModel<Customer>
         {
             var vm = new EditViewModel<Customer>(x => x.IsActive = true);
 
-            var result = _dialogService.ShowDialog(typeof(EditCustomerPage), vm);
-
-            if (result == DialogResult.OK)
+            if (_dialogService.ShowDialog(typeof(EditCustomerPage), vm))
             {
                 var customer = vm.Item.MapToRequest((string)vm.Args);
                 await _customerService.Create(customer);
@@ -91,9 +89,7 @@ public sealed class CustomersViewModel : BaseItemsViewModel<Customer>
             var customer = await _customerService.GetById(SelectedItem.Id);
             var vm = new EditViewModel<Customer>(customer);
 
-            var result = _dialogService.ShowDialog(typeof(EditCustomerPage), vm);
-
-            if (result == DialogResult.OK)
+            if (_dialogService.ShowDialog(typeof(EditCustomerPage), vm))
             {
                 var updated = await _customerService.Update(customer, (string)vm.Args);
                 await ReplaceItem(x => x.Id == customer.Id, updated);

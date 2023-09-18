@@ -69,9 +69,7 @@ public sealed class PromosViewModel : BaseItemsViewModel<Promo>
         {
             var vm = new EditViewModel<Promo>(x => x.IsActive = true);
 
-            var result = _dialogService.ShowDialog(typeof(EditPromoPage), vm);
-
-            if (result == DialogResult.OK)
+            if (_dialogService.ShowDialog(typeof(EditPromoPage), vm))
             {
                 var promo = vm.Item.MapToRequest(Container.CurrentUser.Id);
                 await _promoService.Create(promo);
@@ -87,9 +85,7 @@ public sealed class PromosViewModel : BaseItemsViewModel<Promo>
             var promo = await _promoService.GetById(SelectedItem.Id);
             var vm = new EditViewModel<Promo>(promo);
 
-            var result = _dialogService.ShowDialog(typeof(EditPromoPage), vm);
-
-            if (result == DialogResult.OK)
+            if (_dialogService.ShowDialog(typeof(EditPromoPage), vm))
             {
                 var updated = await _promoService.Update(promo);
                 await ReplaceItem(x => x.Id == promo.Id, updated);

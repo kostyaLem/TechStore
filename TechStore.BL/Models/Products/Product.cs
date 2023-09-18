@@ -22,10 +22,18 @@ public class Product : BindableBase
         set => SetValue(value, nameof(Price));
     }
     public int SalesCount { get; init; }
-    public Category Category { get; init; }
+    public Category Category { get; set; }
     public DateTime CreatedOn { get; init; }
-    public byte[]? Image { get; init; }
-    public byte[]? SmallImage { get; init; }
+    public byte[]? Image
+    {
+        get => GetValue<byte[]?>(nameof(Image));
+        set => SetValue(value, nameof(Image));
+    }
+    public byte[]? SmallImage
+    {
+        get => GetValue<byte[]?>(nameof(SmallImage));
+        set => SetValue(value, nameof(SmallImage));
+    }
     public bool IsActive
     {
         get => GetValue<bool>(nameof(IsActive));

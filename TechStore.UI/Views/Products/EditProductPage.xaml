@@ -71,26 +71,33 @@
                 </UniformGrid>
 
                 <Label Content="Изображение продукта" />
-                <hc:ElementGroup HorizontalAlignment="Center" DockPanel.Dock="Right">
+                <hc:ElementGroup
+                    HorizontalAlignment="Center"
+                    DataContext="{Binding Path=DataContext, ElementName=window}"
+                    DockPanel.Dock="Right">
                     <Button
                         Padding="3"
                         hc:IconElement.Geometry="{StaticResource ConfigGeometry}"
+                        Command="{Binding SelectLargeImageCommand}"
                         Style="{StaticResource ButtonInfo}" />
                     <Button
                         Padding="5"
                         hc:IconElement.Geometry="{StaticResource DeleteGeometry}"
+                        Command="{Binding RemoveLargeImageCommand}"
                         Style="{StaticResource ButtonDanger}" />
                 </hc:ElementGroup>
 
                 <Label Content="Миниатюра" />
-                <hc:ElementGroup HorizontalAlignment="Center">
+                <hc:ElementGroup HorizontalAlignment="Center" DataContext="{Binding Path=DataContext, ElementName=window}">
                     <Button
                         Padding="3"
                         hc:IconElement.Geometry="{StaticResource ConfigGeometry}"
+                        Command="{Binding SelectSmallImageCommand}"
                         Style="{StaticResource ButtonInfo}" />
                     <Button
                         Padding="5"
                         hc:IconElement.Geometry="{StaticResource DeleteGeometry}"
+                        Command="{Binding RemoveSmallImageCommand}"
                         Style="{StaticResource ButtonDanger}" />
                 </hc:ElementGroup>
 

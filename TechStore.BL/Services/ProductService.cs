@@ -22,6 +22,7 @@ internal sealed class ProductService : IProductService
             Description = createRequest.Description,
             Price = createRequest.Price,
             Image = createRequest.Image,
+            SmallImage = createRequest.SmallImage,
             CategoryId = createRequest.CategoryId,
             IsActive = createRequest.IsActive
         };

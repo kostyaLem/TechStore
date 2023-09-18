@@ -24,8 +24,11 @@ public static class ProductMapper
         {
             Id = product.Id,
             Title = product.Title,
+            Description = product.Description,
             Price = product.Price,
             CreatedOn = product.CreatedOn,
+            Image = product.Image,
+            SmallImage = product.SmallImage,
             SalesCount = product.OrderProducts.Count,
             Category = category,
             IsActive = product.IsActive

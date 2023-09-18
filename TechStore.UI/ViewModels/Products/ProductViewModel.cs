@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TechStore.BL.Mapping;
 using TechStore.BL.Models.Products;
 using TechStore.BL.Services.Interfaces;
 using TechStore.UI.Services;
@@ -28,7 +29,7 @@ public class ProductViewModel : BaseItemsViewModel<Product>
 
         LoadViewDataCommand = new AsyncCommand(LoadItems);
         CreateItemCommand = new AsyncCommand(CreateItem, () => Container.IsAdmin);
-        //EditItemCommand = new AsyncCommand(EditItem, () => Container.IsAdmin && SelectedItem != null);
+        EditItemCommand = new AsyncCommand(EditItem, () => Container.IsAdmin && SelectedItem != null);
         //RemoveItemCommand = new AsyncCommand<object>(RemoveItem, _ => Container.IsAdmin && SelectedItem != null);
 
         ActivateItemCommand = new AsyncCommand<object>(ActivateItems, _ => Container.IsAdmin && SelectedItem != null);
@@ -72,15 +73,28 @@ public class ProductViewModel : BaseItemsViewModel<Product>
     {
         await Execute(async () =>
         {
-            var vm = new EditProductViewModel(await _categoryService.GetCategories());
+            var vm = new EditProductViewModel(await _categoryService.GetCategories(), _dialogService);
 
-            var result = _dialogService.ShowDialog(typeof(EditProductPage), vm);
-
-            if (result == DialogResult.OK)
+            if (_dialogService.ShowDialog(typeof(EditProductPage), vm))
             {
-                //var promo = vm.Item.MapToRequest();
-                //await _productService.Create(promo);
+                var product = vm.Item.MapToRequest();
+                await _productService.Create(product);
                 await LoadItems();
+            }
+        });
+    }
+
+    private async Task EditItem()
+    {
+        await Execute(async () =>
+        {
+            var product = await _productService.GetById(SelectedItem.Id);
+            var vm = new EditProductViewModel(product, await _categoryService.GetCategories(), _dialogService);
+
+            if (_dialogService.ShowDialog(typeof(EditProductPage), vm))
+            {
+                var updated = await _productService.Update(product);
+                await ReplaceItem(x => x.Id == product.Id, updated);
             }
         });
     }

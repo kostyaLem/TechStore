@@ -54,6 +54,7 @@ internal class ProductRepository : IProductRepository
         using var context = _dbContextFactory.CreateDbContext();
 
         var product = await context.Products
+            .Include(x => x.Category)
             .FirstAsync(c => c.Id == productId);
 
         product.Title = updated.Title;

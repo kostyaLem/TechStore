@@ -63,9 +63,7 @@ public class CategoriesViewModel : BaseItemsViewModel<Category>
         {
             var vm = new EditViewModel<Category>();
 
-            var result = _dialogService.ShowDialog(typeof(EditCategoryPage), vm);
-
-            if (result == DialogResult.OK)
+            if (_dialogService.ShowDialog(typeof(EditCategoryPage), vm))
             {
                 var customer = vm.Item.MapToRequest();
                 await _categoryService.Create(customer);
@@ -81,9 +79,7 @@ public class CategoriesViewModel : BaseItemsViewModel<Category>
             var customer = await _categoryService.GetById(SelectedItem.Id);
             var vm = new EditViewModel<Category>(customer);
 
-            var result = _dialogService.ShowDialog(typeof(EditCategoryPage), vm);
-
-            if (result == DialogResult.OK)
+            if (_dialogService.ShowDialog(typeof(EditCategoryPage), vm))
             {
                 var updated = await _categoryService.Update(customer);
                 await ReplaceItem(x => x.Id == customer.Id, updated);
