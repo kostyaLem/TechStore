@@ -18,6 +18,8 @@ public sealed class Container
 
     public Container()
     {
+        HandyControl.Themes.ThemeManager.Current.ApplicationTheme = HandyControl.Themes.ApplicationTheme.Dark;
+
         _serviceProvider = CreateServiceCollection();
     }
 

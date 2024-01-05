@@ -7,9 +7,11 @@
     xmlns:hc="https://handyorg.github.io/handycontrol"
     xmlns:local="clr-namespace:TechStore.UI.Views.Promos"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="clr-namespace:TechStore.UI.ViewModels"
     Title="Промокоды"
     Width="800"
     Height="450"
+    d:DataContext="{d:DesignInstance vm:MainViewModel}"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
 
@@ -48,7 +50,7 @@
 
             <hc:SearchBar
                 Grid.Row="0"
-                hc:InfoElement.Placeholder="Название / Процент % / Дата создания / ФИО сотрудника"
+                hc:InfoElement.Placeholder="Название / Скидка, % / Дата создания / ФИО сотрудника"
                 hc:InfoElement.TitlePlacement="Left"
                 Style="{StaticResource SearchBarExtend}"
                 Text="{Binding SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
@@ -89,7 +91,7 @@
                         <DataGridTextColumn
                             Width="*"
                             Binding="{Binding Discount}"
-                            Header="Скидка %"
+                            Header="Скидка, %"
                             IsReadOnly="True" />
                         <DataGridTextColumn
                             Width="*"

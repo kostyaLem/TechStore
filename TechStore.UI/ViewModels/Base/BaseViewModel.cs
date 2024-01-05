@@ -44,4 +44,22 @@ public abstract class BaseViewModel : ViewModelBase
             IsUploading = false;
         }
     }
+
+    // Повторный вызов переданной функции с задержкой
+    public async Task RepeatExecute(Func<Task> action, TimeSpan interval)
+    {
+        IsUploading = true;
+        await Task.Delay(1000);
+
+        _ = Task.Run(async () =>
+        {
+            while (true)
+            {
+                action?.Invoke();
+                await Task.Delay(interval);
+            }
+        });
+
+        IsUploading = false;
+    }
 }

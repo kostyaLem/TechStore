@@ -17,5 +17,6 @@ public static class IocConfiguration
         serviceCollection.AddTransient<IPromoRepository, PromoRepository>();
         serviceCollection.AddTransient<ICategoryRepository, CategoryRepository>();
         serviceCollection.AddTransient<IProductRepository, ProductRepository>();
+        serviceCollection.AddTransient<IStatisticRepository, StatisticRepository>();
     }
 }
