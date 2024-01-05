@@ -20,6 +20,7 @@ internal sealed class PromoService : IPromoService
         {
             Name = createRequest.Name,
             Discount = createRequest.Discount,
+            CategoriesIds = createRequest.CategoriesIds,
             CreatedByUserId = createRequest.CreatedByUserId,
         };
 
@@ -39,7 +40,7 @@ internal sealed class PromoService : IPromoService
         return promos.Select(MapToUI).ToList();
     }
 
-    public async Task<Promo> Update(Promo promo)
+    public async Task<Promo> Update(Promo promo, IReadOnlyList<int> categoriesIds)
     {
         var updated = await _promoRepository.Update(promo.Id,
             new PromoDefinition
@@ -47,6 +48,7 @@ internal sealed class PromoService : IPromoService
                 Name = promo.Name,
                 Discount = promo.Discount,
                 IsActive = promo.IsActive,
+                CategoriesIds = categoriesIds
             });
 
         return MapToUI(updated);
@@ -71,6 +73,7 @@ internal sealed class PromoService : IPromoService
             Discount = requestedPromo.Discount,
             CreatedOn = requestedPromo.CreatedOn,
             IsActive = requestedPromo.IsActive,
+            Categories = requestedPromo.Categories.Select(x => new Models.Categories.Category { Id = x.Id, Name = x.Name }).ToList(),
             CreatedBy = $"{requestedPromo.Employee.FirstName} {requestedPromo.Employee.LastName}"
         };
     }

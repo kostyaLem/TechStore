@@ -14,6 +14,7 @@ public static class PromoMapper
             Discount = promoCode.Discount,
             CreatedOn = promoCode.CreatedOn,
             IsActive = promoCode.IsActive,
+            Categories = promoCode.Categories.Select(CategoryMapper.MapToBl).ToList(),
             Employee = EmployeeMapper.MapToBL(promoCode.Employee)
         };
 

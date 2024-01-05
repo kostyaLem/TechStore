@@ -10,7 +10,7 @@
     Icon="{Binding IconImage}"
     ResizeMode="NoResize"
     SizeToContent="WidthAndHeight"
-    WindowStartupLocation="CenterOwner"
+    WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
     <hc:Window.Resources>
         <ResourceDictionary>

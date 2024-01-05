@@ -1,4 +1,5 @@
-﻿using TechStore.DAL.Repositories.Models.Employees;
+﻿using TechStore.DAL.Repositories.Models.Categories;
+using TechStore.DAL.Repositories.Models.Employees;
 
 namespace TechStore.DAL.Repositories.Models.Promos;
 
@@ -10,4 +11,5 @@ public class RequestedPromo
     public DateTime CreatedOn { get; init; }
     public bool IsActive { get; init; }
     public RequestedEmployee Employee { get; init; }
+    public IReadOnlyList<RequestedCategory> Categories { get; init; }
 }

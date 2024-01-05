@@ -74,7 +74,7 @@ public sealed class PromosViewModel : BaseItemsViewModel<Promo>
 
             if (_dialogService.ShowDialog(typeof(EditPromoPage), vm))
             {
-                var promo = vm.Item.MapToRequest(Container.CurrentUser.Id);
+                var promo = vm.Item.MapToRequest(Container.CurrentUser.Id, vm.SelectedCategories.Select(x => x.Id).ToList());
                 await _promoService.Create(promo);
                 await LoadItems();
             }
@@ -90,7 +90,7 @@ public sealed class PromosViewModel : BaseItemsViewModel<Promo>
 
             if (_dialogService.ShowDialog(typeof(EditPromoPage), vm))
             {
-                var updated = await _promoService.Update(promo);
+                var updated = await _promoService.Update(promo, vm.SelectedCategories.Select(x => x.Id).ToList());
                 await ReplaceItem(x => x.Id == promo.Id, updated);
             }
         });
