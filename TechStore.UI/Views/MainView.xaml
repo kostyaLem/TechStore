@@ -85,6 +85,7 @@
                     <Setter Property="CornerRadius" Value="20" />
                     <Setter Property="Padding" Value="0,10,0,10" />
                     <Setter Property="Margin" Value="10,0" />
+                    <Setter Property="BorderThickness" Value="4,0,0,4" />
                 </Style>
 
                 <Style x:Key="CounterTextBlockStyle" TargetType="TextBlock">
@@ -98,7 +99,7 @@
                 </Style>
             </StackPanel.Resources>
 
-            <Border>
+            <Border BorderBrush="{StaticResource InfoBrush}">
                 <DockPanel>
                     <TextBlock DockPanel.Dock="Bottom" Text="Заказы" />
                     <TextBlock
@@ -107,7 +108,7 @@
                         Text="{Binding OrdersCount}" />
                 </DockPanel>
             </Border>
-            <Border>
+            <Border BorderBrush="{StaticResource WarningBrush}">
                 <DockPanel>
                     <TextBlock DockPanel.Dock="Bottom" Text="Товары" />
                     <TextBlock
@@ -116,7 +117,7 @@
                         Text="{Binding ProductsCount}" />
                 </DockPanel>
             </Border>
-            <Border>
+            <Border BorderBrush="{StaticResource DangerBrush}">
                 <DockPanel>
                     <TextBlock DockPanel.Dock="Bottom" Text="Клиенты" />
                     <TextBlock
@@ -125,7 +126,7 @@
                         Text="{Binding CustomersCount}" />
                 </DockPanel>
             </Border>
-            <Border>
+            <Border BorderBrush="{StaticResource AccentBrush}">
                 <DockPanel>
                     <TextBlock DockPanel.Dock="Bottom" Text="Категории" />
                     <TextBlock
@@ -134,7 +135,7 @@
                         Text="{Binding CategoriesCount}" />
                 </DockPanel>
             </Border>
-            <Border>
+            <Border BorderBrush="{StaticResource PrimaryBrush}">
                 <DockPanel>
                     <TextBlock DockPanel.Dock="Bottom" Text="Промокоды" />
                     <TextBlock
@@ -143,7 +144,7 @@
                         Text="{Binding PromosCount}" />
                 </DockPanel>
             </Border>
-            <Border>
+            <Border BorderBrush="{StaticResource SuccessBrush}">
                 <DockPanel>
                     <TextBlock DockPanel.Dock="Bottom" Text="Сотрудники" />
                     <TextBlock

@@ -37,7 +37,7 @@ namespace TechStore.UI.ViewModels
 
         private async Task UpdateCounters()
         {
-            await RepeatExecute(async () =>
+            _ = RepeatExecute(async () =>
             {
                 var statistic = await _statisticService.CountStatistic();
                 Statistic = statistic;
