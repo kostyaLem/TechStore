@@ -6,6 +6,7 @@ using TechStore.UI.ViewModels.Categories;
 using TechStore.UI.ViewModels.Customers;
 using TechStore.UI.ViewModels.Employees;
 using TechStore.UI.ViewModels.Products;
+using TechStore.UI.ViewModels.Promos;
 using TechStore.UI.Views;
 using TechStore.UI.Views.Administration;
 using TechStore.UI.Views.Categories;

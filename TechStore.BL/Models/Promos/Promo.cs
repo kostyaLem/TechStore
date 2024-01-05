@@ -1,4 +1,5 @@
 ﻿using DevExpress.Mvvm;
+using TechStore.BL.Models.Categories;
 
 namespace TechStore.BL.Models.Promos;
 
@@ -9,6 +10,7 @@ public sealed class Promo : BindableBase
     public double Discount { get; set; }
     public DateTime CreatedOn { get; set; }
     public string CreatedBy { get; set; }
+    public IReadOnlyList<Category> Categories { get; set; }
     public bool IsActive
     {
         get => GetValue<bool>(nameof(IsActive));

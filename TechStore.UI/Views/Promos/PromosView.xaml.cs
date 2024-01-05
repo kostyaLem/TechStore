@@ -1,5 +1,5 @@
 ﻿using HandyControl.Controls;
-using TechStore.UI.ViewModels;
+using TechStore.UI.ViewModels.Promos;
 
 namespace TechStore.UI.Views.Promos;
 

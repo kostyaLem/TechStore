@@ -4,7 +4,7 @@ using System.Windows;
 using TechStore.BL;
 using TechStore.BL.Models;
 using TechStore.UI.Views;
-using TechStore.UI.Views.Products;
+using TechStore.UI.Views.Promos;
 
 namespace TechStore.UI;
 
@@ -37,7 +37,7 @@ public sealed class Container
         => userType switch
         {
             UserType.Admin or UserType.Employee =>
-             _serviceProvider.GetRequiredService<ProductsView>(),
+             _serviceProvider.GetRequiredService<PromosView>(),
             UserType.Customer =>
              _serviceProvider.GetRequiredService<MainView>(),
             _ => throw new ArgumentException("Тип пользователя не поддерживается.")

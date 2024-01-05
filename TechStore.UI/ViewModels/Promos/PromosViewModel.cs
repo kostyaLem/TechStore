@@ -11,17 +11,20 @@ using TechStore.BL.Services.Interfaces;
 using TechStore.UI.Services;
 using TechStore.UI.Views.Promos;
 
-namespace TechStore.UI.ViewModels;
+namespace TechStore.UI.ViewModels.Promos;
 
 public sealed class PromosViewModel : BaseItemsViewModel<Promo>
 {
     private readonly IPromoService _promoService;
+    private readonly ICategoryService _categoryService;
+
     // Сервис для работы с диалоговыми окнами
     private readonly IWindowDialogService _dialogService;
 
-    public PromosViewModel(IPromoService promoService, IWindowDialogService dialogService)
+    public PromosViewModel(IPromoService promoService, ICategoryService categoryService, IWindowDialogService dialogService)
     {
         _promoService = promoService;
+        _categoryService = categoryService;
         _dialogService = dialogService;
 
         LoadViewDataCommand = new AsyncCommand(LoadItems);
@@ -67,7 +70,7 @@ public sealed class PromosViewModel : BaseItemsViewModel<Promo>
     {
         await Execute(async () =>
         {
-            var vm = new EditViewModel<Promo>(x => x.IsActive = true);
+            var vm = new EditPromoViewModel(await _categoryService.GetCategories());
 
             if (_dialogService.ShowDialog(typeof(EditPromoPage), vm))
             {
@@ -83,7 +86,7 @@ public sealed class PromosViewModel : BaseItemsViewModel<Promo>
         await Execute(async () =>
         {
             var promo = await _promoService.GetById(SelectedItem.Id);
-            var vm = new EditViewModel<Promo>(promo);
+            var vm = new EditPromoViewModel(promo, await _categoryService.GetCategories());
 
             if (_dialogService.ShowDialog(typeof(EditPromoPage), vm))
             {

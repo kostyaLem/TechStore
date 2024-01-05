@@ -64,7 +64,7 @@
                     SelectedItem="{Binding SelectedCategory}"
                     Style="{StaticResource ComboBoxExtend}" />
 
-                <Label Content="Активирован" />
+                <Label Content="Активен" />
                 <UniformGrid Margin="0,5,0,0">
                     <RadioButton Content="Да" IsChecked="{Binding IsActive}" />
                     <RadioButton Content="Нет" IsChecked="{Binding IsActive, Converter={StaticResource Boolean2BooleanReConverter}}" />

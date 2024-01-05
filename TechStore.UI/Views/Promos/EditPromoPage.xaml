@@ -4,21 +4,19 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:hc="https://handyorg.github.io/handycontrol"
-    xmlns:local="clr-namespace:TechStore.UI.Views.Promos"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="clr-namespace:TechStore.BL.Models.Products;assembly=TechStore.BL"
+    xmlns:vm="clr-namespace:TechStore.UI.ViewModels.Promos"
     Width="500"
-    Height="250"
+    Height="450"
     d:Background="White"
+    d:DataContext="{d:DesignInstance vm:EditPromoViewModel}"
     mc:Ignorable="d">
     <UserControl.Resources>
         <ResourceDictionary Source="/TechStore.UI;component/Resources/Dictionaries/CommonStyleDictionary.xaml" />
     </UserControl.Resources>
 
-    <Grid
-        Margin="15,10"
-        d:DataContext="{d:DesignInstance models:Product}"
-        DataContext="{Binding Item}">
+    <Grid Margin="15,10">
         <Grid.Resources>
             <Style TargetType="Label">
                 <Setter Property="HorizontalAlignment" Value="Left" />
@@ -26,11 +24,12 @@
             </Style>
         </Grid.Resources>
 
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition />
-        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
 
-        <StackPanel Grid.Column="0">
+        <StackPanel Grid.Row="0" DataContext="{Binding Item}">
 
             <Label Content="Название" />
             <TextBox Text="{Binding Name}" />
@@ -42,7 +41,7 @@
                 Minimum="0.1"
                 Value="{Binding Discount}" />
 
-            <Label Content="Активирован" />
+            <Label Content="Активен" />
             <UniformGrid Margin="0,5,0,0">
                 <RadioButton Content="Да" IsChecked="{Binding IsActive}" />
                 <RadioButton Content="Нет" IsChecked="{Binding IsActive, Converter={StaticResource Boolean2BooleanReConverter}}" />
@@ -50,6 +49,41 @@
 
         </StackPanel>
 
+        <DockPanel Grid.Row="1" LastChildFill="True">
+            <Label Content="Категории товаров" DockPanel.Dock="Top" />
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="50" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <ListBox
+                    Grid.Column="0"
+                    ItemsSource="{Binding Categories}"
+                    SelectedItem="{Binding CategoryToAdd}" />
+
+                <ListBox
+                    Grid.Column="2"
+                    ItemsSource="{Binding SelectedCategories}"
+                    SelectedItem="{Binding CategoryToRemove}" />
+
+                <StackPanel
+                    Grid.Column="1"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
+                    <Button
+                        Width="30"
+                        Height="30"
+                        Command="{Binding AddCategoryCommand}" />
+                    <Button
+                        Width="30"
+                        Height="30"
+                        Margin="0,10,0,0"
+                        Command="{Binding RemoveCategoryCommand}" />
+                </StackPanel>
+            </Grid>
+        </DockPanel>
     </Grid>
 
 </UserControl>
