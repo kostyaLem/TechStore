@@ -10,6 +10,7 @@
 	  <None Remove="Resources\Images\CategoriesImage.png" />
 	  <None Remove="Resources\Images\CustomersImage.png" />
 	  <None Remove="Resources\Images\EmployeesImage.png" />
+	  <None Remove="Resources\Images\IconImage.ico" />
 	  <None Remove="Resources\Images\ProductsImage.png" />
 	  <None Remove="Resources\Images\PromosImage.png" />
 	</ItemGroup>
@@ -33,6 +34,7 @@
 		<Resource Include="Resources\Images\CategoriesImage.png" />
 		<Resource Include="Resources\Images\CustomersImage.png" />
 		<Resource Include="Resources\Images\EmployeesImage.png" />
+		<Resource Include="Resources\Images\IconImage.ico" />
 		<Resource Include="Resources\Images\Logo.png" />
 		<Resource Include="Resources\Images\ProductsImage.png" />
 		<Resource Include="Resources\Images\PromosImage.png" />

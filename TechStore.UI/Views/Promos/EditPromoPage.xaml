@@ -18,7 +18,7 @@
 
     <Grid Margin="15,10">
         <Grid.Resources>
-            <Style TargetType="Label">
+            <Style TargetType="TextBlock">
                 <Setter Property="HorizontalAlignment" Value="Left" />
                 <Setter Property="Margin" Value="3,10,3,2" />
             </Style>
@@ -31,17 +31,17 @@
 
         <StackPanel Grid.Row="0" DataContext="{Binding Item}">
 
-            <Label Content="Название" />
+            <TextBlock Text="Название" />
             <TextBox Text="{Binding Name}" />
 
-            <Label Content="Скидка, %" />
+            <TextBlock Text="Скидка, %" />
             <hc:NumericUpDown
                 DecimalPlaces="2"
                 Maximum="100"
                 Minimum="0.1"
                 Value="{Binding Discount}" />
 
-            <Label Content="Активен" />
+            <TextBlock Text="Активен" />
             <UniformGrid Margin="0,5,0,0">
                 <RadioButton Content="Да" IsChecked="{Binding IsActive}" />
                 <RadioButton Content="Нет" IsChecked="{Binding IsActive, Converter={StaticResource Boolean2BooleanReConverter}}" />
@@ -50,7 +50,7 @@
         </StackPanel>
 
         <DockPanel Grid.Row="1" LastChildFill="True">
-            <Label Content="Категории товаров" DockPanel.Dock="Top" />
+            <TextBlock DockPanel.Dock="Top" Text="Категории товаров" />
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />

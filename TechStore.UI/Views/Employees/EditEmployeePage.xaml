@@ -21,7 +21,7 @@
         d:DataContext="{d:DesignInstance models:Employee}"
         DataContext="{Binding Item}">
         <Grid.Resources>
-            <Style TargetType="Label">
+            <Style TargetType="TextBlock">
                 <Setter Property="HorizontalAlignment" Value="Left" />
                 <Setter Property="Margin" Value="3,10,3,2" />
             </Style>
@@ -35,16 +35,16 @@
 
         <StackPanel Grid.Column="2">
 
-            <Label Content="Имя пользователя" />
+            <TextBlock Text="Имя пользователя" />
             <TextBox Text="{Binding Login}" />
 
-            <Label Content="Пароль" />
+            <TextBlock Text="Пароль" />
             <hc:PasswordBox
                 IsSafeEnabled="False"
                 ShowEyeButton="True"
                 UnsafePassword="{Binding ElementName=control, Path=DataContext.Args}" />
 
-            <Label Content="Активен" />
+            <TextBlock Text="Активен" />
             <UniformGrid Margin="0,5,0,0">
                 <RadioButton Content="Да" IsChecked="{Binding IsActive}" />
                 <RadioButton Content="Нет" IsChecked="{Binding IsActive, Converter={StaticResource Boolean2BooleanReConverter}}" />
@@ -53,19 +53,19 @@
 
         <StackPanel Grid.Column="0">
 
-            <Label Content="Фамилия" />
+            <TextBlock Text="Фамилия" />
             <TextBox Text="{Binding LastName}" />
 
-            <Label Content="Имя" />
+            <TextBlock Text="Имя" />
             <TextBox Text="{Binding FirstName}" />
 
-            <Label Content="Номер телефона" />
+            <TextBlock Text="Номер телефона" />
             <TextBox Text="{Binding Phone}" />
 
-            <Label Content="Email" />
+            <TextBlock Text="Email" />
             <TextBox Text="{Binding Email}" />
 
-            <Label Content="Дата рождения" />
+            <TextBlock Text="Дата рождения" />
             <hc:DatePicker SelectedDate="{Binding Birthday, StringFormat=dd/MM/yyyy}" />
 
         </StackPanel>

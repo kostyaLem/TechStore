@@ -16,7 +16,7 @@
         Margin="15,10"
         DataContext="{Binding Item}">
         <Grid.Resources>
-            <Style TargetType="Label">
+            <Style TargetType="TextBlock">
                 <Setter Property="HorizontalAlignment" Value="Left" />
                 <Setter Property="Margin" Value="3,10,3,2" />
             </Style>
@@ -30,7 +30,7 @@
 
         <StackPanel Grid.Column="0">
 
-            <Label Content="Название категории" />
+            <TextBlock Text="Название категории" />
             <TextBox Text="{Binding Name}" />
 
         </StackPanel>

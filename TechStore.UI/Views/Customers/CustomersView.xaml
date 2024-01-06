@@ -13,6 +13,7 @@
     MinWidth="700"
     MinHeight="380"
     d:DataContext="{d:DesignInstance Type=vm:CustomersViewModel}"
+    Icon="{StaticResource IconImage}"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
 

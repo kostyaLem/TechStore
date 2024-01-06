@@ -6,6 +6,8 @@
             <BitmapImage x:Key="EmployeesImage" UriSource="..\Images\EmployeesImage.png" />
             <BitmapImage x:Key="ProductsImage" UriSource="..\Images\ProductsImage.png" />
             <BitmapImage x:Key="PromosImage" UriSource="..\Images\PromosImage.png" />
+
+            <BitmapImage x:Key="IconImage" UriSource="..\Images\IconImage.ico" />
         </ResourceDictionary>
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

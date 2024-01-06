@@ -12,6 +12,7 @@
     Width="800"
     Height="450"
     d:DataContext="{d:DesignInstance vm:MainViewModel}"
+    Icon="{StaticResource IconImage}"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
 

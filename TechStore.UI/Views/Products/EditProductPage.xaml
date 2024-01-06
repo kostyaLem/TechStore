@@ -20,7 +20,7 @@
 
     <DockPanel Margin="15,10" DataContext="{Binding Item}">
         <DockPanel.Resources>
-            <Style TargetType="Label">
+            <Style TargetType="TextBlock">
                 <Setter Property="HorizontalAlignment" Value="Left" />
                 <Setter Property="Margin" Value="3,10,3,2" />
             </Style>
@@ -28,10 +28,10 @@
 
         <StackPanel DockPanel.Dock="Top">
 
-            <Label Content="Название товара" />
+            <TextBlock Text="Название товара" />
             <TextBox Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}" />
 
-            <Label Content="Описание" />
+            <TextBlock Text="Описание" />
             <TextBox
                 Height="60"
                 Padding="5"
@@ -49,13 +49,13 @@
 
             <StackPanel Grid.Column="0">
 
-                <Label Content="Цена, р." />
+                <TextBlock Text="Цена, р." />
                 <hc:NumericUpDown
                     DecimalPlaces="2"
                     Minimum="1"
                     Value="{Binding Price}" />
 
-                <Label Content="Категория" />
+                <TextBlock Text="Категория" />
                 <hc:ComboBox
                     hc:InfoElement.Placeholder="Выберите категорию"
                     hc:InfoElement.ShowClearButton="True"
@@ -64,13 +64,13 @@
                     SelectedItem="{Binding SelectedCategory}"
                     Style="{StaticResource ComboBoxExtend}" />
 
-                <Label Content="Активен" />
+                <TextBlock Text="Активен" />
                 <UniformGrid Margin="0,5,0,0">
                     <RadioButton Content="Да" IsChecked="{Binding IsActive}" />
                     <RadioButton Content="Нет" IsChecked="{Binding IsActive, Converter={StaticResource Boolean2BooleanReConverter}}" />
                 </UniformGrid>
 
-                <Label Content="Изображение продукта" />
+                <TextBlock Text="Изображение продукта" />
                 <hc:ElementGroup
                     HorizontalAlignment="Center"
                     DataContext="{Binding Path=DataContext, ElementName=window}"
@@ -87,7 +87,7 @@
                         Style="{StaticResource ButtonDanger}" />
                 </hc:ElementGroup>
 
-                <Label Content="Миниатюра" />
+                <TextBlock Text="Миниатюра" />
                 <hc:ElementGroup HorizontalAlignment="Center" DataContext="{Binding Path=DataContext, ElementName=window}">
                     <Button
                         Padding="3"
@@ -105,7 +105,7 @@
 
             <StackPanel Grid.Column="2">
 
-                <Label HorizontalAlignment="Center" Content="Превью товара" />
+                <TextBlock HorizontalAlignment="Center" Text="Превью товара" />
                 <products:ProductCard
                     Width="200"
                     Height="280"
