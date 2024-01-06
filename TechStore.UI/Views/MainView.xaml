@@ -226,6 +226,7 @@
                                 <StackPanel Margin="10">
                                     <TextBlock
                                         HorizontalAlignment="Left"
+                                        FontSize="13"
                                         FontWeight="Bold"
                                         Text="{Binding Title}"
                                         TextTrimming="CharacterEllipsis"
@@ -233,6 +234,7 @@
                                     <TextBlock
                                         Margin="0,6,0,0"
                                         HorizontalAlignment="Left"
+                                        FontSize="11"
                                         Style="{DynamicResource TextBlockDefault}"
                                         Text="{Binding Description}"
                                         TextTrimming="CharacterEllipsis"
