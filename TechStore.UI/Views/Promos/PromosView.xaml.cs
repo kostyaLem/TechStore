@@ -6,7 +6,7 @@ namespace TechStore.UI.Views.Promos;
 /// <summary>
 /// Логика взаимодействия для PromosView.xaml
 /// </summary>
-public partial class PromosView : GlowWindow
+public partial class PromosView : Window
 {
     public PromosView(PromosViewModel dataContext)
     {

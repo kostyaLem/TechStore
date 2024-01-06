@@ -6,7 +6,7 @@ namespace TechStore.UI.Views.Categories;
 /// <summary>
 /// Логика взаимодействия для CategoriesView.xaml
 /// </summary>
-public partial class CategoriesView : GlowWindow
+public partial class CategoriesView : Window
 {
     public CategoriesView(CategoriesViewModel dataContext)
     {

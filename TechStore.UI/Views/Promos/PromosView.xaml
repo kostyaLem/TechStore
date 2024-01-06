@@ -1,4 +1,4 @@
-﻿<hc:GlowWindow
+﻿<hc:Window
     x:Class="TechStore.UI.Views.Promos.PromosView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -21,7 +21,7 @@
         </hc:EventTrigger>
     </hc:Interaction.Triggers>
 
-    <hc:GlowWindow.Resources>
+    <hc:Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/TechStore.UI;component/Resources/Dictionaries/CommonStyleDictionary.xaml" />
@@ -29,7 +29,7 @@
             <BooleanToVisibilityConverter x:Key="BoolToVisability" />
             <dxmvvm:NumericToBooleanConverter x:Key="NumericToBooleanConverter" />
         </ResourceDictionary>
-    </hc:GlowWindow.Resources>
+    </hc:Window.Resources>
 
     <Grid>
         <Border
@@ -165,4 +165,4 @@
             </Grid>
         </Grid>
     </Grid>
-</hc:GlowWindow>
+</hc:Window>

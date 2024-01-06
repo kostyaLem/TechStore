@@ -6,7 +6,7 @@ namespace TechStore.UI.Views.Employees;
 /// <summary>
 /// Логика взаимодействия для EmployeesView.xaml
 /// </summary>
-public partial class EmployeesView : GlowWindow
+public partial class EmployeesView : Window
 {
     public EmployeesView(EmployeesViewModel employeeViewModel)
     {

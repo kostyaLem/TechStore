@@ -6,7 +6,7 @@ namespace TechStore.UI.Views.Products;
 /// <summary>
 /// Логика взаимодействия для Products.xaml
 /// </summary>
-public partial class ProductsView : GlowWindow
+public partial class ProductsView : Window
 {
     public ProductsView(ProductViewModel dataContext)
     {

@@ -1,20 +1,22 @@
 ﻿using DevExpress.Mvvm;
 using HandyControl.Tools;
+using HandyControl.Tools.Extension;
+using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Threading;
-using System.Threading.Tasks;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
-using System.Windows.Threading;
 using TechStore.BL.Models;
-using TechStore.BL.Models.Products;
 using TechStore.BL.Services.Interfaces;
 using TechStore.UI.Enums;
+using TechStore.UI.Models;
 
 namespace TechStore.UI.ViewModels
 {
-    public sealed class MainViewModel : BaseItemsViewModel<Product>
+    public sealed class MainViewModel : BaseItemsViewModel<ViewItem>
     {
+        private readonly TimeSpan RepeatInterval = TimeSpan.FromSeconds(5);
+
         private readonly IStatisticService _statisticService;
 
         public Statistic Statistic
@@ -23,30 +25,43 @@ namespace TechStore.UI.ViewModels
             set => SetValue(value, nameof(Statistic));
         }
 
-        public ICommand ChangeThemeCommand { get; private set; }
+        public ICommand ChangeThemeCommand { get; }
+        public ICommand OpenViewCommand { get; }
 
-        public MainViewModel(IStatisticService statisticService)
+        public MainViewModel(IEnumerable<ViewItem> viewItems, IStatisticService statisticService)
         {
             Statistic = new Statistic();
 
+            _items.AddRange(viewItems);
             _statisticService = statisticService;
 
-            LoadViewDataCommand = new AsyncCommand(UpdateCounters);
-            ChangeThemeCommand = new DelegateCommand<object>(ChangeTheme);
+            LoadViewDataCommand = new DelegateCommand(UpdateCounters);
+            OpenViewCommand = new DelegateCommand<ViewItem>(OpenView);
+            ChangeThemeCommand = new DelegateCommand<ThemeStyleMode>(ChangeTheme);
         }
 
-        private async Task UpdateCounters()
+        private void UpdateCounters()
         {
             _ = RepeatExecute(async () =>
             {
                 var statistic = await _statisticService.CountStatistic();
                 Statistic = statistic;
-            }, TimeSpan.FromSeconds(5));
+            }, RepeatInterval);
         }
 
-        private void ChangeTheme(object obj)
+        private void OpenView(ViewItem viewItem)
         {
-            var selectedTheme = (ThemeStyleMode)obj == ThemeStyleMode.Light
+            IsUploading = true;
+
+            var view = Container.ServiceProvider.GetRequiredService(viewItem.ViewType) as Window;
+            view!.ShowDialog();
+
+            IsUploading = false;
+        }
+
+        private void ChangeTheme(ThemeStyleMode style)
+        {
+            var selectedTheme = style == ThemeStyleMode.Light
                 ? HandyControl.Themes.ApplicationTheme.Light
                 : HandyControl.Themes.ApplicationTheme.Dark;
 

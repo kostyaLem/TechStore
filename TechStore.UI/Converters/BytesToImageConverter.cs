@@ -7,6 +7,9 @@ using System.Windows.Media.Imaging;
 
 namespace TechStore.UI.Converters;
 
+/// <summary>
+/// Класс для преобразования массива байтов в картинку
+/// </summary>
 public sealed class BytesToImageConverter : MarkupExtension, IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)

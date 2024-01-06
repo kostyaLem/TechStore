@@ -16,6 +16,7 @@ namespace TechStore.UI.ViewModels;
 public abstract class BaseItemsViewModel<T> : BaseViewModel
 {
     protected readonly ObservableCollection<T> _items;
+
     // Элементы коллекции, отображаемые во View
     public ICollectionView ItemsView { get; }
 
