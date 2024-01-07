@@ -25,6 +25,7 @@ public sealed class EmployeesViewModel : BaseItemsViewModel<Employee>
         _employeeService = employeeService;
         _dialogService = dialogService;
 
+        Title = ViewTitleService.Get(this);
         LoadViewDataCommand = new AsyncCommand(LoadEmployees);
         CreateItemCommand = new AsyncCommand(CreateEmployee, () => Container.IsAdmin);
         EditItemCommand = new AsyncCommand(EditEmployee, () => Container.IsAdmin && SelectedItem != null);

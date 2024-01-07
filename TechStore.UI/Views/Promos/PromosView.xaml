@@ -8,7 +8,7 @@
     xmlns:local="clr-namespace:TechStore.UI.Views.Promos"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="clr-namespace:TechStore.UI.ViewModels"
-    Title="Промокоды"
+    Title="{Binding Title}"
     Width="800"
     Height="450"
     d:DataContext="{d:DesignInstance vm:MainViewModel}"

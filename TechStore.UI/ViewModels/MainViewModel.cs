@@ -10,6 +10,7 @@ using TechStore.BL.Models;
 using TechStore.BL.Services.Interfaces;
 using TechStore.UI.Enums;
 using TechStore.UI.Models;
+using TechStore.UI.Services;
 
 namespace TechStore.UI.ViewModels
 {
@@ -35,6 +36,7 @@ namespace TechStore.UI.ViewModels
             _items.AddRange(viewItems);
             _statisticService = statisticService;
 
+            Title = ViewTitleService.Get(this);
             LoadViewDataCommand = new DelegateCommand(UpdateCounters);
             OpenViewCommand = new DelegateCommand<ViewItem>(OpenView);
             ChangeThemeCommand = new DelegateCommand<ThemeStyleMode>(ChangeTheme);

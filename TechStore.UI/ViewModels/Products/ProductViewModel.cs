@@ -27,6 +27,7 @@ public class ProductViewModel : BaseItemsViewModel<Product>
         _categoryService = categoryService;
         _dialogService = dialogService;
 
+        Title = ViewTitleService.Get(this);
         LoadViewDataCommand = new AsyncCommand(LoadItems);
         CreateItemCommand = new AsyncCommand(CreateItem, () => Container.IsAdmin);
         EditItemCommand = new AsyncCommand(EditItem, () => Container.IsAdmin && SelectedItem != null);

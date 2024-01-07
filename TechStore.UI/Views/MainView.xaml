@@ -9,7 +9,7 @@
     xmlns:local="clr-namespace:TechStore.UI"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="clr-namespace:TechStore.UI.ViewModels"
-    Title="Терминал"
+    Title="{Binding Title}"
     Width="1050"
     Height="400"
     MinWidth="900"

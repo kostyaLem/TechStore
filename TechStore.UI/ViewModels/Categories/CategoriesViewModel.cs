@@ -24,6 +24,7 @@ public class CategoriesViewModel : BaseItemsViewModel<Category>
         _categoryService = categoryService;
         _dialogService = dialogService;
 
+        Title = ViewTitleService.Get(this);
         LoadViewDataCommand = new AsyncCommand(LoadCategories);
         CreateItemCommand = new AsyncCommand(CreateCategory, () => Container.IsAdmin);
         EditItemCommand = new AsyncCommand(EditCategory, () => Container.IsAdmin && SelectedItem != null);

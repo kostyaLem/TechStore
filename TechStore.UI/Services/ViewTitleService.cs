@@ -27,6 +27,16 @@ internal static class ViewTitleService
         };
     }
 
+    public static string Get(this BaseViewModel baseViewModel)
+    {
+        if (_titles.TryGetValue(baseViewModel.GetType(), out var prefix))
+        {
+            return prefix;
+        }
+
+        return string.Empty;
+    }
+
     public static string Get<T>()
     {
         if (_titles.TryGetValue(typeof(T), out var prefix))
