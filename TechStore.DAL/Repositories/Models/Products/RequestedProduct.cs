@@ -15,3 +15,10 @@ public class RequestedProduct
     public int SalesCount { get; init; }
     public bool IsActive { get; init; }
 }
+
+public class RequestedOrderProduct
+{
+    public int OrderProductId { get; init; }
+    public double Discount { get; init; }
+    public RequestedProduct Product { get; init; }
+}

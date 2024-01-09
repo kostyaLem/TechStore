@@ -1,4 +1,5 @@
-﻿using TechStore.DAL.Repositories.Models.Customers;
+﻿using TechStore.DAL.Repositories.Models;
+using TechStore.DAL.Repositories.Models.Customers;
 using TechStore.Domain.Models;
 
 namespace TechStore.DAL.Mapping;
@@ -7,13 +8,9 @@ public static class CustomerMapper
 {
     public static RequestedCustomer MapToBL(this Customer customer)
     {
-        var orders = customer.Orders.Select(x =>
-        {
-            return new OrderDetails
-            {
-                OrderId = x.Id
-            };
-        }).ToList();
+        var orders = customer.Orders
+            .Select(x => new OrderDetails { OrderId = x.Id })
+            .ToList();
 
         var result = new RequestedCustomer
         {

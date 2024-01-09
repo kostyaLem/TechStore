@@ -11,7 +11,6 @@ public class Order
     public int CustomerId { get; set; }
     public int EmployeeId { get; set; }
     public DateTime CreatedOn { get; set; }
-    public DateTime UpdatedOn { get; set; }
     public DateTime? ClosedOn { get; set; }
 
     public virtual Customer Customer { get; set; }

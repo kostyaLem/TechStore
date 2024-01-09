@@ -4,7 +4,6 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:converters="clr-namespace:TechStore.UI.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:enumStyle="clr-namespace:TechStore.UI.Enums"
     xmlns:hc="https://handyorg.github.io/handycontrol"
     xmlns:local="clr-namespace:TechStore.UI"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -45,11 +44,11 @@
 
                     <MenuItem
                         Command="{Binding ChangeThemeCommand}"
-                        CommandParameter="{x:Static enumStyle:ThemeStyleMode.Light}"
+                        CommandParameter="{x:Static hc:ApplicationTheme.Light}"
                         Header="Светлая" />
                     <MenuItem
                         Command="{Binding ChangeThemeCommand}"
-                        CommandParameter="{x:Static enumStyle:ThemeStyleMode.Dark}"
+                        CommandParameter="{x:Static hc:ApplicationTheme.Dark}"
                         Header="Тёмная">
                         <MenuItem.Icon>
                             <Border Background="Black" CornerRadius="7" />
