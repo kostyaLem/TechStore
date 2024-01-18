@@ -1,8 +1,4 @@
-﻿using TechStore.DAL.Repositories.Models.Categories;
-using TechStore.DAL.Repositories.Models.Customers;
-using TechStore.DAL.Repositories.Models.Employees;
-
-namespace TechStore.DAL.Repositories.Models.Products;
+﻿namespace TechStore.DAL.Repositories.Models.Products;
 
 public class ProductDefinition
 {
@@ -11,7 +7,7 @@ public class ProductDefinition
     public decimal Price { get; init; }
     public byte[]? Image { get; init; }
     public byte[]? SmallImage { get; init; }
+    public int CategoryId { get; init; }
     public bool IsActive { get; init; }
 
-    public CategoryDefinition Category { get; init; }
 }
